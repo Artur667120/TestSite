@@ -1,709 +1,166 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Поштовий клієнт</title>
-  <style>
-    /* Основний стиль */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    
-    body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      color: #333;
-    }
-    
-    /* Шапка */
-    header {
-      background: white;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #667eea;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .theme-btn {
-      background: #f0f0f0;
-      border: 1px solid #ddd;
-      padding: 8px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    
-    .theme-btn.active {
-      background: #667eea;
-      color: white;
-    }
-    
-    /* Основний контейнер */
-    .container {
-      display: flex;
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 0 20px;
-      gap: 20px;
-    }
-    
-    /* Бічна панель */
-    .sidebar {
-      width: 250px;
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .compose-btn {
-      background: #667eea;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-    
-    .menu-item {
-      padding: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      border-radius: 8px;
-      margin-bottom: 5px;
-    }
-    
-    .menu-item:hover {
-      background: #f5f5f5;
-    }
-    
-    .menu-item.active {
-      background: #667eea;
-      color: white;
-    }
-    
-    .badge {
-      background: #ff6b6b;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 12px;
-    }
-    
-    /* Основний вміст */
-    .content {
-      flex: 1;
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .content-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .new-badge {
-      background: #667eea;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 15px;
-      font-size: 14px;
-    }
-    
-    /* Кнопки дій */
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    
-    .action-btn {
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      padding: 8px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .action-btn:hover {
-      background: #e0e0e0;
-    }
-    
-    .action-btn.delete {
-      background: #ff6b6b;
-      color: white;
-      border-color: #ff6b6b;
-    }
-    
-    /* Список листів */
-    .email-item {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-    }
-    
-    .email-item:hover {
-      background: #f9f9f9;
-    }
-    
-    .email-checkbox {
-      margin-right: 10px;
-    }
-    
-    .star {
-      color: gold;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    
-    .sender-avatar {
-      width: 40px;
-      height: 40px;
-      background: #667eea;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      margin-right: 15px;
-    }
-    
-    .email-content {
-      flex: 1;
-    }
-    
-    .email-subject {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    
-    .email-preview {
-      color: #666;
-      font-size: 14px;
-    }
-    
-    .email-date {
-      color: #999;
-      font-size: 14px;
-    }
-    
-    /* Модальне вікно */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    
-    .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 600px;
-    }
-    
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-    }
-    
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    
-    .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    
-    .btn-primary {
-      background: #667eea;
-      color: white;
-    }
-    
-    .btn-secondary {
-      background: #f5f5f5;
-      color: #333;
-    }
-    
-    /* Сповіщення */
-    .notification {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #4CAF50;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 6px;
-      display: none;
-      z-index: 1001;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Листи - Персональний сайт</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
+    <header>
+        <div class="header-top">
+            <h1><i class="fas fa-envelope"></i> Мої Листи</h1>
+            <div class="header-controls">
+                <!-- Вибір мови -->
+                <div class="language-selector dropdown">
+                    <button class="dropdown-btn">
+                        <span class="current-lang">🇺🇦 Українська</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="lang-option" data-lang="uk">🇺🇦 Українська</div>
+                        <div class="lang-option" data-lang="en">🇺🇸 English</div>
+                        <div class="lang-option" data-lang="pl">🇵🇱 Polski</div>
+                        <div class="lang-option" data-lang="de">🇩🇪 Deutsch</div>
+                    </div>
+                </div>
 
-  <!-- Шапка -->
-  <header>
-    <div class="logo">
-      <span>📧 Пошта</span>
-    </div>
-    <div class="header-controls">
-      <button class="theme-btn active" onclick="setTheme('light')">Світла</button>
-      <button class="theme-btn" onclick="setTheme('dark')">Темна</button>
-      <button class="theme-btn" onclick="setTheme('oled')">OLED</button>
-    </div>
-  </header>
+                <!-- Вибір теми -->
+                <div class="theme-selector dropdown">
+                    <button class="dropdown-btn">
+                        <i class="fas fa-palette"></i>
+                        <span class="current-theme">Тема</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="theme-option" data-theme="light">
+                            <i class="fas fa-sun"></i> Світла
+                        </div>
+                        <div class="theme-option" data-theme="dark">
+                            <i class="fas fa-moon"></i> Темна
+                        </div>
+                        <div class="theme-option" data-theme="blue">
+                            <i class="fas fa-droplet" style="color: #1e90ff;"></i> Синя
+                        </div>
+                        <div class="theme-option" data-theme="green">
+                            <i class="fas fa-leaf" style="color: #27ae60;"></i> Зелена
+                        </div>
+                    </div>
+                </div>
 
-  <!-- Основний контент -->
-  <div class="container">
-    
-    <!-- Бічна панель -->
-    <div class="sidebar">
-      <button class="compose-btn" onclick="openComposeModal()">✏️ Написати лист</button>
-      
-      <div class="menu-item active" onclick="setActiveSection('inbox')">
-        <span>📥 Вхідні</span>
-        <div class="badge" id="inboxBadge">12</div>
-      </div>
-      
-      <div class="menu-item" onclick="setActiveSection('sent')">
-        <span>📤 Надіслані</span>
-        <div class="badge" id="sentBadge">45</div>
-      </div>
-      
-      <div class="menu-item" onclick="setActiveSection('drafts')">
-        <span>📝 Чернетки</span>
-        <div class="badge" id="draftsBadge">3</div>
-      </div>
-      
-      <div class="menu-item" onclick="setActiveSection('trash')">
-        <span>🗑️ Видалені</span>
-      </div>
-    </div>
-    
-    <!-- Основний вміст -->
-    <div class="content">
-      <div class="content-header">
-        <h1 id="sectionTitle">📥 Вхідні <span class="new-badge" id="newBadge">12 нових</span></h1>
-      </div>
-      
-      <!-- Кнопки дій -->
-      <div class="action-buttons">
-        <button class="action-btn" onclick="refreshEmails()">
-          🔄 Оновити
-        </button>
-        <button class="action-btn" onclick="selectAllEmails()">
-          ☐ Вибрати всі
-        </button>
-        <button class="action-btn delete" onclick="deleteSelectedEmails()">
-          🗑️ Видалити
-        </button>
-        <button class="action-btn" onclick="markAsRead()">
-          👁️ Прочитані
-        </button>
-        <button class="action-btn" onclick="markAsUnread()">
-          👁️‍🗨️ Непрочитані
-        </button>
-      </div>
-      
-      <!-- Список листів -->
-      <div id="emailsList">
-        <!-- Листи будуть додані тут -->
-      </div>
-    </div>
-  </div>
+                <!-- Режим читання -->
+                <button id="readModeToggle" class="icon-btn" title="Режим читання">
+                    <i class="fas fa-book-reader"></i>
+                </button>
 
-  <!-- Модальне вікно для написання листа -->
-  <div class="modal" id="composeModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>✏️ Новий лист</h2>
-        <button class="close-btn" onclick="closeComposeModal()">×</button>
-      </div>
-      
-      <div class="form-group">
-        <label>Кому:</label>
-        <input type="email" id="toInput" placeholder="email@example.com">
-      </div>
-      
-      <div class="form-group">
-        <label>Тема:</label>
-        <input type="text" id="subjectInput" placeholder="Введіть тему листа">
-      </div>
-      
-      <div class="form-group">
-        <label>Повідомлення:</label>
-        <textarea id="messageInput" rows="10" placeholder="Введіть текст листа..."></textarea>
-      </div>
-      
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="saveDraft()">💾 Зберегти чернетку</button>
-        <button class="btn btn-primary" onclick="sendEmail()">📤 Надіслати</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Сповіщення -->
-  <div class="notification" id="notification">
-    <span id="notificationText">Операція виконана!</span>
-  </div>
-
-  <script>
-    // ================ ПРОСТА РЕАЛІЗАЦІЯ ================
-    
-    // Дані листів
-    let emails = [
-      {
-        id: 1,
-        sender: "Університет",
-        avatar: "У",
-        subject: "Запрошення на конференцію",
-        preview: "Шановні студенти та викладачі! Запрошуємо взяти участь...",
-        date: "10:30",
-        unread: true,
-        starred: true,
-        tag: "study"
-      },
-      {
-        id: 2,
-        sender: "Олена Кравець",
-        avatar: "О",
-        subject: "Зустріч завтра о 14:00",
-        preview: "Привіт! Не забудь про нашу зустріч у Zoom завтра...",
-        date: "09:45",
-        unread: false,
-        starred: false,
-        tag: "work"
-      },
-      {
-        id: 3,
-        sender: "Максим Шевчук",
-        avatar: "М",
-        subject: "Фото з походу в Карпати",
-        preview: "Привіт, кидаю пару крутих фоток з нашої подорожі...",
-        date: "18:30",
-        unread: true,
-        starred: true,
-        tag: "personal"
-      }
-    ];
-    
-    let selectedEmails = [];
-    let currentSection = 'inbox';
-    
-    // Функція для завантаження сторінки
-    window.onload = function() {
-      renderEmails();
-      showNotification('Поштовий клієнт завантажено!', 'success');
-    };
-    
-    // ================ ФУНКЦІЇ ДЛЯ КНОПОК ================
-    
-    // Темні теми
-    function setTheme(theme) {
-      // Змінюємо активну кнопку теми
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      event.target.classList.add('active');
-      
-      // Застосовуємо тему
-      if (theme === 'dark') {
-        document.body.style.background = '#1a1a1a';
-        document.body.style.color = 'white';
-      } else if (theme === 'oled') {
-        document.body.style.background = '#000000';
-        document.body.style.color = 'white';
-      } else {
-        document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        document.body.style.color = '#333';
-      }
-      
-      showNotification('Тема змінена на ' + theme, 'success');
-    }
-    
-    // Розділи
-    function setActiveSection(section) {
-      currentSection = section;
-      
-      // Оновлюємо активний пункт меню
-      document.querySelectorAll('.menu-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      event.target.classList.add('active');
-      
-      // Оновлюємо заголовок
-      const titles = {
-        'inbox': '📥 Вхідні',
-        'sent': '📤 Надіслані', 
-        'drafts': '📝 Чернетки',
-        'trash': '🗑️ Видалені'
-      };
-      document.getElementById('sectionTitle').innerHTML = titles[section] + ' <span class="new-badge" id="newBadge">12 нових</span>';
-      
-      renderEmails();
-      showNotification('Перейшли до ' + titles[section], 'success');
-    }
-    
-    // Відкриття модального вікна
-    function openComposeModal() {
-      document.getElementById('composeModal').style.display = 'flex';
-      document.getElementById('toInput').focus();
-      showNotification('Відкрито форму для написання листа', 'info');
-    }
-    
-    // Закриття модального вікна
-    function closeComposeModal() {
-      document.getElementById('composeModal').style.display = 'none';
-      document.getElementById('toInput').value = '';
-      document.getElementById('subjectInput').value = '';
-      document.getElementById('messageInput').value = '';
-      showNotification('Форма закрита', 'info');
-    }
-    
-    // Надіслання листа
-    function sendEmail() {
-      const to = document.getElementById('toInput').value;
-      const subject = document.getElementById('subjectInput').value;
-      const message = document.getElementById('messageInput').value;
-      
-      if (!to || !subject || !message) {
-        showNotification('Заповніть всі поля!', 'error');
-        return;
-      }
-      
-      // Додаємо новий лист
-      emails.unshift({
-        id: emails.length + 1,
-        sender: "Ви",
-        avatar: "В",
-        subject: subject,
-        preview: message.substring(0, 50) + '...',
-        date: 'Зараз',
-        unread: false,
-        starred: false,
-        tag: "work"
-      });
-      
-      closeComposeModal();
-      renderEmails();
-      showNotification('Лист успішно надіслано до ' + to, 'success');
-    }
-    
-    // Збереження чернетки
-    function saveDraft() {
-      showNotification('Чернетку збережено', 'success');
-      closeComposeModal();
-    }
-    
-    // Оновлення листів
-    function refreshEmails() {
-      showNotification('Оновлено список листів', 'success');
-      const btn = event.target;
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '🔄 Оновлюється...';
-      
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-        renderEmails();
-      }, 1000);
-    }
-    
-    // Вибрати всі листи
-    function selectAllEmails() {
-      const checkboxes = document.querySelectorAll('.email-checkbox');
-      const allSelected = checkboxes.length > 0 && checkboxes[0].checked;
-      
-      checkboxes.forEach(checkbox => {
-        checkbox.checked = !allSelected;
-      });
-      
-      const count = !allSelected ? checkboxes.length : 0;
-      showNotification(!allSelected ? 'Вибрані всі листи (' + count + ')' : 'Виділення знято', 'success');
-    }
-    
-    // Видалити вибрані листи
-    function deleteSelectedEmails() {
-      const checkboxes = document.querySelectorAll('.email-checkbox:checked');
-      if (checkboxes.length === 0) {
-        showNotification('Виберіть листи для видалення', 'error');
-        return;
-      }
-      
-      if (confirm('Видалити ' + checkboxes.length + ' листів?')) {
-        // Видаляємо листи (просто приховуємо для демонстрації)
-        checkboxes.forEach(checkbox => {
-          const emailItem = checkbox.closest('.email-item');
-          emailItem.style.display = 'none';
-        });
-        
-        showNotification('Видалено ' + checkboxes.length + ' листів', 'success');
-      }
-    }
-    
-    // Відмітити прочитаними
-    function markAsRead() {
-      const checkboxes = document.querySelectorAll('.email-checkbox:checked');
-      if (checkboxes.length === 0) {
-        showNotification('Виберіть листи', 'error');
-        return;
-      }
-      
-      checkboxes.forEach(checkbox => {
-        const emailItem = checkbox.closest('.email-item');
-        emailItem.style.opacity = '0.7';
-      });
-      
-      showNotification('Відмічено прочитаними: ' + checkboxes.length + ' листів', 'success');
-    }
-    
-    // Відмітити непрочитаними
-    function markAsUnread() {
-      const checkboxes = document.querySelectorAll('.email-checkbox:checked');
-      if (checkboxes.length === 0) {
-        showNotification('Виберіть листи', 'error');
-        return;
-      }
-      
-      checkboxes.forEach(checkbox => {
-        const emailItem = checkbox.closest('.email-item');
-        emailItem.style.opacity = '1';
-      });
-      
-      showNotification('Відмічено непрочитаними: ' + checkboxes.length + ' листів', 'success');
-    }
-    
-    // ================ ДОПОМІЖНІ ФУНКЦІЇ ================
-    
-    // Показати сповіщення
-    function showNotification(message, type) {
-      const notification = document.getElementById('notification');
-      const text = document.getElementById('notificationText');
-      
-      text.textContent = message;
-      notification.style.display = 'block';
-      notification.style.background = type === 'error' ? '#ff6b6b' : 
-                                    type === 'success' ? '#4CAF50' : '#2196F3';
-      
-      // Ховаємо через 3 секунди
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 3000);
-    }
-    
-    // Відобразити листи
-    function renderEmails() {
-      const emailsList = document.getElementById('emailsList');
-      
-      if (emails.length === 0) {
-        emailsList.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Немає листів</div>';
-        return;
-      }
-      
-      emailsList.innerHTML = emails.map(email => `
-        <div class="email-item">
-          <input type="checkbox" class="email-checkbox">
-          <span class="star" onclick="toggleStar(this)">${email.starred ? '★' : '☆'}</span>
-          <div class="sender-avatar">${email.avatar}</div>
-          <div class="email-content">
-            <div class="email-subject">${email.sender}: ${email.subject}</div>
-            <div class="email-preview">${email.preview}</div>
-          </div>
-          <div class="email-date">${email.date}</div>
+                <!-- Додати лист -->
+                <button id="addLetterBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Додати лист
+                </button>
+            </div>
         </div>
-      `).join('');
-    }
-    
-    // Перемикання зірочки
-    function toggleStar(element) {
-      if (element.textContent === '☆') {
-        element.textContent = '★';
-        element.style.color = 'gold';
-        showNotification('Додано до обраних', 'success');
-      } else {
-        element.textContent = '☆';
-        element.style.color = '#ccc';
-        showNotification('Видалено з обраних', 'info');
-      }
-    }
-  </script>
+
+        <!-- Пошук та фільтри -->
+        <div class="search-filters">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Пошук листів...">
+            </div>
+            
+            <div class="filters">
+                <select id="dateFilter" class="filter-select">
+                    <option value="all">Усі дати</option>
+                    <option value="today">Сьогодні</option>
+                    <option value="week">Цього тижня</option>
+                    <option value="month">Цього місяця</option>
+                </select>
+                
+                <select id="tagFilter" class="filter-select">
+                    <option value="all">Усі теги</option>
+                    <option value="important">Важливе</option>
+                    <option value="personal">Особисте</option>
+                    <option value="work">Робота</option>
+                </select>
+                
+                <button id="clearFilters" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Очистити
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Список листів -->
+        <div class="letters-container" id="lettersContainer">
+            <!-- Листи генеруються через JS -->
+        </div>
+
+        <!-- Пустий стан -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="fas fa-envelope-open-text"></i>
+            <h3>Немає листів</h3>
+            <p>Додайте свій перший лист</p>
+        </div>
+    </main>
+
+    <!-- Модальне вікно підтвердження видалення -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Підтвердження видалення</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p id="deleteMessage">Ви впевнені, що хочете видалити <span id="itemCount">2</span> лист(и)?</p>
+                <p class="modal-warning">Цю дію неможливо скасувати!</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary close-modal">Скасувати</button>
+                    <button id="confirmDelete" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Видалити
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно редагування листа -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="editModalTitle">Додати лист</h3>
+                <button class="close-edit-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="letterForm">
+                    <div class="form-group">
+                        <label for="letterTitle">Заголовок</label>
+                        <input type="text" id="letterTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="letterContent">Зміст</label>
+                        <textarea id="letterContent" rows="6" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="letterTags">Теги (через кому)</label>
+                        <input type="text" id="letterTags" placeholder="робота, важливе, особисте">
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary close-edit-modal">Скасувати</button>
+                        <button type="submit" class="btn btn-primary">Зберегти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
