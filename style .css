@@ -651,3 +651,53 @@ body.read-mode-active .read-more {
         margin: 10px;
     }
 }
+/* Фікс для кривого дизайну */
+* {
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+}
+
+/* Приховуємо сміттєвий текст Windows */
+[content*="Активація Windows"],
+[content*="Перейдіть до розділу"],
+[src*="windows"],
+[href*="microsoft"] {
+    display: none !important;
+}
+
+/* Фікс для прапорів */
+.language-selector button::before {
+    content: "🇺🇦" !important;
+}
+
+.language-selector button[data-lang="en"]::before {
+    content: "🇺🇸" !important;
+}
+
+.language-selector button[data-lang="pl"]::before {
+    content: "🇵🇱" !important;
+}
+
+.language-selector button[data-lang="de"]::before {
+    content: "🇩🇪" !important;
+}
+
+/* Примусове виправлення макету */
+.header-controls,
+.search-filters {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+/* Видаляємо сміттєві елементи */
+body *:empty,
+div:contains("Активація"),
+div:contains("Windows"),
+div:contains("Перейдіть") {
+    display: none !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
