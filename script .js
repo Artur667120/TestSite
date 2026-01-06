@@ -1,746 +1,696 @@
-// Мови перекладу
+// Мови та переклади
 const translations = {
-  uk: {
-    // Заголовки
-    title: "Поштова система Inbox Pro",
-    tagline: "Персональна поштова система",
-    inboxTitle: "Вхідні",
-    
-    // Меню
-    compose: "Написати листа",
-    inbox: "Вхідні",
-    sent: "Надіслані",
-    drafts: "Чернетки",
-    spam: "Спам",
-    categories: "Категорії",
-    work: "Робота",
-    study: "Навчання",
-    personal: "Особисті",
-    travel: "Подорожі",
-    
-    // Кнопки
-    refresh: "Оновити",
-    selectAll: "Вибрати всі",
-    delete: "Видалити",
-    markRead: "Відмітити прочитаним",
-    sendEmail: "Надіслати",
-    saveDraft: "Зберегти чернетку",
-    
-    // Модальне вікно
-    newEmail: "Новий лист",
-    to: "Кому:",
-    subject: "Тема:",
-    message: "Повідомлення:",
-    
-    // Пошук
-    searchPlaceholder: "Пошук в пошті...",
-    
-    // Інше
-    user: "Користувач",
-    email: "user@inboxpro.com",
-    language: "Українська",
-    
-    // Повідомлення
-    emailSent: "Лист успішно надіслано!",
-    emailDeleted: "Лист(и) успішно видалено!",
-    emailSaved: "Лист збережено в чернетках!",
-    markedRead: "Лист(и) відмічено прочитаними!",
-    selectEmail: "Виберіть листи для видалення",
-    emailStarred: "Лист додано до обраних!",
-    emailUnstarred: "Лист видалено з обраних!"
-  },
-  
-  en: {
-    title: "Inbox Pro Mail System",
-    tagline: "Personal mail system",
-    inboxTitle: "Inbox",
-    
-    compose: "Compose",
-    inbox: "Inbox",
-    sent: "Sent",
-    drafts: "Drafts",
-    spam: "Spam",
-    categories: "Categories",
-    work: "Work",
-    study: "Study",
-    personal: "Personal",
-    travel: "Travel",
-    
-    refresh: "Refresh",
-    selectAll: "Select all",
-    delete: "Delete",
-    markRead: "Mark as read",
-    sendEmail: "Send",
-    saveDraft: "Save draft",
-    
-    newEmail: "New email",
-    to: "To:",
-    subject: "Subject:",
-    message: "Message:",
-    
-    searchPlaceholder: "Search in mail...",
-    
-    user: "User",
-    email: "user@inboxpro.com",
-    language: "English",
-    
-    emailSent: "Email sent successfully!",
-    emailDeleted: "Email(s) deleted successfully!",
-    emailSaved: "Email saved to drafts!",
-    markedRead: "Email(s) marked as read!",
-    selectEmail: "Select emails to delete",
-    emailStarred: "Email added to favorites!",
-    emailUnstarred: "Email removed from favorites!"
-  },
-  
-  de: {
-    title: "Inbox Pro Mail System",
-    tagline: "Persönliches Mail-System",
-    inboxTitle: "Posteingang",
-    
-    compose: "Verfassen",
-    inbox: "Posteingang",
-    sent: "Gesendet",
-    drafts: "Entwürfe",
-    spam: "Spam",
-    categories: "Kategorien",
-    work: "Arbeit",
-    study: "Studium",
-    personal: "Persönlich",
-    travel: "Reisen",
-    
-    refresh: "Aktualisieren",
-    selectAll: "Alle auswählen",
-    delete: "Löschen",
-    markRead: "Als gelesen markieren",
-    sendEmail: "Senden",
-    saveDraft: "Entwurf speichern",
-    
-    newEmail: "Neue E-Mail",
-    to: "An:",
-    subject: "Betreff:",
-    message: "Nachricht:",
-    
-    searchPlaceholder: "In Mails suchen...",
-    
-    user: "Benutzer",
-    email: "user@inboxpro.com",
-    language: "Deutsch",
-    
-    emailSent: "E-Mail erfolgreich gesendet!",
-    emailDeleted: "E-Mail(s) erfolgreich gelöscht!",
-    emailSaved: "E-Mail als Entwurf gespeichert!",
-    markedRead: "E-Mail(s) als gelesen markiert!",
-    selectEmail: "Wählen Sie E-Mails zum Löschen aus",
-    emailStarred: "E-Mail zu Favoriten hinzugefügt!",
-    emailUnstarred: "E-Mail aus Favoriten entfernt!"
-  },
-  
-  ru: {
-    title: "Почтовая система Inbox Pro",
-    tagline: "Персональная почтовая система",
-    inboxTitle: "Входящие",
-    
-    compose: "Написать письмо",
-    inbox: "Входящие",
-    sent: "Отправленные",
-    drafts: "Черновики",
-    spam: "Спам",
-    categories: "Категории",
-    work: "Работа",
-    study: "Учёба",
-    personal: "Личное",
-    travel: "Путешествия",
-    
-    refresh: "Обновить",
-    selectAll: "Выбрать все",
-    delete: "Удалить",
-    markRead: "Отметить прочитанным",
-    sendEmail: "Отправить",
-    saveDraft: "Сохранить черновик",
-    
-    newEmail: "Новое письмо",
-    to: "Кому:",
-    subject: "Тема:",
-    message: "Сообщение:",
-    
-    searchPlaceholder: "Поиск в почте...",
-    
-    user: "Пользователь",
-    email: "user@inboxpro.com",
-    language: "Русский",
-    
-    emailSent: "Письмо успешно отправлено!",
-    emailDeleted: "Письмо(а) успешно удалены!",
-    emailSaved: "Письмо сохранено в черновиках!",
-    markedRead: "Письмо(а) отмечены прочитанными!",
-    selectEmail: "Выберите письма для удаления",
-    emailStarred: "Письмо добавлено в избранное!",
-    emailUnstarred: "Письмо удалено из избранного!"
-  }
+    uk: {
+        title: "Мої Листи",
+        addLetter: "Додати лист",
+        searchPlaceholder: "Пошук листів...",
+        allDates: "Усі дати",
+        today: "Сьогодні",
+        thisWeek: "Цього тижня",
+        thisMonth: "Цього місяця",
+        allTags: "Усі теги",
+        important: "Важливе",
+        personal: "Особисте",
+        work: "Робота",
+        clearFilters: "Очистити",
+        deleteConfirm: "Підтвердження видалення",
+        deleteMessage: "Ви впевнені, що хочете видалити",
+        letters: "лист(и)",
+        warning: "Цю дію неможливо скасувати!",
+        cancel: "Скасувати",
+        delete: "Видалити",
+        editLetter: "Редагувати лист",
+        addLetterModal: "Додати лист",
+        titleLabel: "Заголовок",
+        contentLabel: "Зміст",
+        tagsLabel: "Теги (через кому)",
+        tagsPlaceholder: "робота, важливе, особисте",
+        save: "Зберегти",
+        readMode: "Режим читання",
+        theme: "Тема",
+        lightTheme: "Світла",
+        darkTheme: "Темна",
+        blueTheme: "Синя",
+        greenTheme: "Зелена",
+        exportPDF: "Експорт PDF",
+        exportTXT: "Експорт TXT",
+        expand: "Розгорнути",
+        collapse: "Згорнути",
+        noLetters: "Немає листів",
+        addFirstLetter: "Додайте свій перший лист"
+    },
+    en: {
+        title: "My Letters",
+        addLetter: "Add Letter",
+        searchPlaceholder: "Search letters...",
+        allDates: "All dates",
+        today: "Today",
+        thisWeek: "This week",
+        thisMonth: "This month",
+        allTags: "All tags",
+        important: "Important",
+        personal: "Personal",
+        work: "Work",
+        clearFilters: "Clear",
+        deleteConfirm: "Delete Confirmation",
+        deleteMessage: "Are you sure you want to delete",
+        letters: "letter(s)",
+        warning: "This action cannot be undone!",
+        cancel: "Cancel",
+        delete: "Delete",
+        editLetter: "Edit Letter",
+        addLetterModal: "Add Letter",
+        titleLabel: "Title",
+        contentLabel: "Content",
+        tagsLabel: "Tags (comma separated)",
+        tagsPlaceholder: "work, important, personal",
+        save: "Save",
+        readMode: "Reading Mode",
+        theme: "Theme",
+        lightTheme: "Light",
+        darkTheme: "Dark",
+        blueTheme: "Blue",
+        greenTheme: "Green",
+        exportPDF: "Export PDF",
+        exportTXT: "Export TXT",
+        expand: "Expand",
+        collapse: "Collapse",
+        noLetters: "No letters",
+        addFirstLetter: "Add your first letter"
+    },
+    pl: {
+        title: "Moje Listy",
+        addLetter: "Dodaj list",
+        searchPlaceholder: "Szukaj listów...",
+        allDates: "Wszystkie daty",
+        today: "Dziś",
+        thisWeek: "W tym tygodniu",
+        thisMonth: "W tym miesiącu",
+        allTags: "Wszystkie tagi",
+        important: "Ważne",
+        personal: "Osobiste",
+        work: "Praca",
+        clearFilters: "Wyczyść",
+        deleteConfirm: "Potwierdzenie usunięcia",
+        deleteMessage: "Czy na pewno chcesz usunąć",
+        letters: "list(y)",
+        warning: "Tej czynności nie można cofnąć!",
+        cancel: "Anuluj",
+        delete: "Usuń",
+        editLetter: "Edytuj list",
+        addLetterModal: "Dodaj list",
+        titleLabel: "Tytuł",
+        contentLabel: "Treść",
+        tagsLabel: "Tagi (oddzielone przecinkami)",
+        tagsPlaceholder: "praca, ważne, osobiste",
+        save: "Zapisz",
+        readMode: "Tryb czytania",
+        theme: "Motyw",
+        lightTheme: "Jasny",
+        darkTheme: "Ciemny",
+        blueTheme: "Niebieski",
+        greenTheme: "Zielony",
+        exportPDF: "Eksportuj PDF",
+        exportTXT: "Eksportuj TXT",
+        expand: "Rozwiń",
+        collapse: "Zwiń",
+        noLetters: "Brak listów",
+        addFirstLetter: "Dodaj swój pierwszy list"
+    },
+    de: {
+        title: "Meine Briefe",
+        addLetter: "Brief hinzufügen",
+        searchPlaceholder: "Briefe suchen...",
+        allDates: "Alle Daten",
+        today: "Heute",
+        thisWeek: "Diese Woche",
+        thisMonth: "Diesen Monat",
+        allTags: "Alle Tags",
+        important: "Wichtig",
+        personal: "Persönlich",
+        work: "Arbeit",
+        clearFilters: "Löschen",
+        deleteConfirm: "Löschbestätigung",
+        deleteMessage: "Sind Sie sicher, dass Sie löschen möchten",
+        letters: "Brief(e)",
+        warning: "Diese Aktion kann nicht rückgängig gemacht werden!",
+        cancel: "Abbrechen",
+        delete: "Löschen",
+        editLetter: "Brief bearbeiten",
+        addLetterModal: "Brief hinzufügen",
+        titleLabel: "Titel",
+        contentLabel: "Inhalt",
+        tagsLabel: "Tags (kommagetrennt)",
+        tagsPlaceholder: "Arbeit, wichtig, persönlich",
+        save: "Speichern",
+        readMode: "Lesemodus",
+        theme: "Thema",
+        lightTheme: "Hell",
+        darkTheme: "Dunkel",
+        blueTheme: "Blau",
+        greenTheme: "Grün",
+        exportPDF: "PDF exportieren",
+        exportTXT: "TXT exportieren",
+        expand: "Erweitern",
+        collapse: "Zusammenklappen",
+        noLetters: "Keine Briefe",
+        addFirstLetter: "Fügen Sie Ihren ersten Brief hinzu"
+    }
 };
 
-// Початкові дані
-let currentLanguage = 'uk';
-let emails = [];
-let selectedEmails = new Set();
-let isSelectAll = false;
-
-// Демо дані email
-const demoEmails = [
-  {
-    id: 1,
-    from: "Український Національний Університет",
-    avatar: "УН",
-    subject: "Запрошення на конференцію 'Цифрові технології'",
-    preview: "Шановні студенти та викладачі! Запрошуємо взяти участь у щорічній конференції з веб-розробки та дизайну...",
-    date: "Вчора, 14:15",
-    unread: true,
-    starred: false,
-    tag: "study"
-  },
-  {
-    id: 2,
-    from: "Олена Кравець",
-    avatar: "ОК",
-    subject: "Зустріч завтра о 14:00",
-    preview: "Привіт! Не забудь про нашу зустріч у Zoom завтра. Готуй презентацію щодо нового проекту...",
-    date: "15 бер, 09:45",
-    unread: false,
-    starred: true,
-    tag: "work"
-  },
-  {
-    id: 3,
-    from: "Максим Шевчук",
-    avatar: "МШ",
-    subject: "Фото з походу в Карпати",
-    preview: "Привіт, кидаю пару крутих фоток з нашої останньої подорожі до Карпат. Погода була ідеальною...",
-    date: "14 бер, 18:30",
-    unread: true,
-    starred: false,
-    tag: "personal"
-  },
-  {
-    id: 4,
-    from: "Дмитро Пономаренко",
-    avatar: "ДП",
-    subject: "Футбол у суботу",
-    preview: "Хлопці, граємо 7 на 7 о 17:00 на стадіоні. Будь обов'язково, твої навички потрібні...",
-    date: "8 бер, 11:20",
-    unread: true,
-    starred: true,
-    tag: "personal"
-  },
-  {
-    id: 5,
-    from: "Тамара Прокопенко",
-    avatar: "ТП",
-    subject: "Привіт з Італії!",
-    preview: "Привіт з Риму! Погода чудова, архітектура вражає. Згадав наші розмови про веб-дизайн стародавніх...",
-    date: "5 бер, 22:15",
-    unread: false,
-    starred: true,
-    tag: "travel"
-  },
-  {
-    id: 6,
-    from: "Богдан Коваль",
-    avatar: "БК",
-    subject: "Re: Співпраця над новим проектом",
-    preview: "Дякую за пропозицію! Мені дуже сподобалася ідея. Запропонував свої доповнення в прикріпленому...",
-    date: "3 бер, 16:40",
-    unread: false,
-    starred: false,
-    tag: "work"
-  }
+// Стан додатку
+let letters = JSON.parse(localStorage.getItem('letters')) || [
+    {
+        id: 1,
+        title: "Перший лист",
+        content: "Це приклад першого листа. Тут може бути ваш текст.",
+        date: new Date().toISOString(),
+        tags: ["приклад", "перший"]
+    },
+    {
+        id: 2,
+        title: "Важливе повідомлення",
+        content: "Це важливий лист з довгим текстом, який демонструє можливість розгортання та згортання контенту. Можна додати багато тексту тут.",
+        date: new Date(Date.now() - 86400000).toISOString(),
+        tags: ["важливе", "робота"]
+    }
 ];
 
+let currentLanguage = localStorage.getItem('language') || 'uk';
+let currentTheme = localStorage.getItem('theme') || 'light';
+let isReadMode = localStorage.getItem('readMode') === 'true';
+let lettersToDelete = [];
+let editingLetterId = null;
+
 // Ініціалізація
-document.addEventListener('DOMContentLoaded', function() {
-  initApp();
+document.addEventListener('DOMContentLoaded', () => {
+    initApp();
 });
 
 function initApp() {
-  // Завантажуємо демо дані
-  emails = [...demoEmails];
-  
-  // Завантажуємо збережену мову
-  const savedLanguage = localStorage.getItem('mailLanguage');
-  if (savedLanguage && translations[savedLanguage]) {
-    currentLanguage = savedLanguage;
-  }
-  
-  // Встановлюємо мову
-  setLanguage(currentLanguage);
-  
-  // Рендеримо листи
-  renderEmails();
-  
-  // Додаємо обробники подій
-  addEventListeners();
+    loadLanguage();
+    loadTheme();
+    loadReadMode();
+    renderLetters();
+    setupEventListeners();
 }
 
-// Встановлення мови
+// Завантаження мови
+function loadLanguage() {
+    const lang = localStorage.getItem('language') || 'uk';
+    setLanguage(lang);
+}
+
 function setLanguage(lang) {
-  currentLanguage = lang;
-  localStorage.setItem('mailLanguage', lang);
-  
-  const t = translations[lang];
-  
-  // Оновлюємо всі тексти
-  document.title = t.title;
-  document.querySelector('.tagline').textContent = t.tagline;
-  document.getElementById('current-language').textContent = t.language;
-  document.getElementById('compose-text').textContent = t.compose;
-  document.getElementById('menu-inbox').textContent = t.inbox;
-  document.getElementById('menu-sent').textContent = t.sent;
-  document.getElementById('menu-drafts').textContent = t.drafts;
-  document.getElementById('menu-spam').textContent = t.spam;
-  document.getElementById('categories-title').textContent = t.categories;
-  document.getElementById('category-work').textContent = t.work;
-  document.getElementById('category-study').textContent = t.study;
-  document.getElementById('category-personal').textContent = t.personal;
-  document.getElementById('category-travel').textContent = t.travel;
-  document.getElementById('inbox-title').textContent = t.inboxTitle;
-  document.getElementById('refresh-text').textContent = t.refresh;
-  document.getElementById('select-all-text').textContent = t.selectAll;
-  document.getElementById('delete-text').textContent = t.delete;
-  document.getElementById('mark-read-text').textContent = t.markRead;
-  document.getElementById('compose-modal-title').textContent = t.newEmail;
-  document.getElementById('to-label').textContent = t.to;
-  document.getElementById('subject-label').textContent = t.subject;
-  document.getElementById('message-label').textContent = t.message;
-  document.getElementById('send-email-text').textContent = t.sendEmail;
-  document.getElementById('save-draft-text').textContent = t.saveDraft;
-  document.getElementById('search-input').placeholder = t.searchPlaceholder;
-  document.getElementById('user-name').textContent = t.user;
-  document.getElementById('user-email').textContent = t.email;
-  
-  // Оновлюємо активну мову в випадаючому списку
-  document.querySelectorAll('.language-option').forEach(option => {
-    option.classList.remove('active');
-    const langCode = option.getAttribute('data-lang');
-    if (langCode === lang) {
-      option.classList.add('active');
+    currentLanguage = lang;
+    localStorage.setItem('language', lang);
+    document.documentElement.lang = lang;
+    
+    const translation = translations[lang];
+    document.querySelector('title').textContent = translation.title;
+    document.querySelector('h1').innerHTML = `<i class="fas fa-envelope"></i> ${translation.title}`;
+    
+    // Оновлення всіх текстов елементів
+    updateTextElements(translation);
+    
+    // Оновлення випадаючих списків
+    updateDropdowns(translation);
+}
+
+function updateTextElements(t) {
+    // Основні елементи
+    document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+    document.querySelector('#addLetterBtn').innerHTML = `<i class="fas fa-plus"></i> ${t.addLetter}`;
+    document.querySelector('.current-lang').textContent = getLanguageName(currentLanguage);
+    document.querySelector('.current-theme').textContent = t.theme;
+    
+    // Фільтри
+    document.getElementById('dateFilter').innerHTML = `
+        <option value="all">${t.allDates}</option>
+        <option value="today">${t.today}</option>
+        <option value="week">${t.thisWeek}</option>
+        <option value="month">${t.thisMonth}</option>
+    `;
+    
+    document.getElementById('tagFilter').innerHTML = `
+        <option value="all">${t.allTags}</option>
+        <option value="important">${t.important}</option>
+        <option value="personal">${t.personal}</option>
+        <option value="work">${t.work}</option>
+    `;
+    
+    document.querySelector('#clearFilters').innerHTML = `<i class="fas fa-times"></i> ${t.clearFilters}`;
+    
+    // Модальні вікна
+    document.getElementById('modalTitle').textContent = t.deleteConfirm;
+    document.getElementById('editModalTitle').textContent = t.addLetterModal;
+    
+    // Форма
+    document.querySelector('label[for="letterTitle"]').textContent = t.titleLabel;
+    document.querySelector('label[for="letterContent"]').textContent = t.contentLabel;
+    document.querySelector('label[for="letterTags"]').textContent = t.tagsLabel;
+    document.getElementById('letterTags').placeholder = t.tagsPlaceholder;
+    
+    // Кнопки форми
+    const formButtons = document.querySelectorAll('#letterForm .btn');
+    formButtons[0].textContent = t.cancel;
+    formButtons[1].textContent = t.save;
+    
+    // Кнопки модального вікна видалення
+    const deleteButtons = document.querySelectorAll('#deleteModal .btn');
+    deleteButtons[0].textContent = t.cancel;
+    deleteButtons[1].innerHTML = `<i class="fas fa-trash"></i> ${t.delete}`;
+    
+    // Оновити заголовок редагування якщо потрібно
+    if (editingLetterId) {
+        document.getElementById('editModalTitle').textContent = t.editLetter;
     }
-  });
-  
-  // Оновлюємо аватар
-  document.getElementById('user-avatar').textContent = t.user.charAt(0);
+    
+    // Оновити листи
+    renderLetters();
 }
 
-// Рендеринг листів
-function renderEmails(filteredEmails = null) {
-  const emailsToRender = filteredEmails || emails;
-  const emailsList = document.getElementById('emails-list');
-  
-  if (emailsToRender.length === 0) {
-    emailsList.innerHTML = `
-      <div class="empty-state">
-        <i class="fas fa-inbox"></i>
-        <h3>${translations[currentLanguage].inboxTitle} порожній</h3>
-        <p>Тут будуть відображатися ваші листи</p>
-      </div>
-    `;
-    return;
-  }
-  
-  emailsList.innerHTML = '';
-  
-  emailsToRender.forEach(email => {
-    const emailElement = document.createElement('div');
-    emailElement.className = `email ${email.unread ? 'unread' : ''} ${selectedEmails.has(email.id) ? 'selected' : ''}`;
-    emailElement.dataset.id = email.id;
-    
-    const tagClass = `tag tag-${email.tag}`;
-    const tagText = translations[currentLanguage][email.tag] || email.tag;
-    
-    emailElement.innerHTML = `
-      <input type="checkbox" class="email-checkbox" ${selectedEmails.has(email.id) ? 'checked' : ''}>
-      <i class="fas fa-star star ${email.starred ? 'active' : ''}"></i>
-      <div class="sender">
-        <div class="sender-avatar">${email.avatar}</div>
-        ${email.from}
-      </div>
-      <div class="email-content">
-        <div class="email-title">
-          ${email.subject}
-          <span class="${tagClass}">${tagText}</span>
-        </div>
-        <div class="email-preview">${email.preview}</div>
-      </div>
-      <div class="email-date">${email.date}</div>
-    `;
-    
-    emailsList.appendChild(emailElement);
-  });
-  
-  // Оновлюємо стан кнопки видалення
-  updateDeleteButton();
+function getLanguageName(lang) {
+    const names = {
+        uk: '🇺🇦 Українська',
+        en: '🇺🇸 English',
+        pl: '🇵🇱 Polski',
+        de: '🇩🇪 Deutsch'
+    };
+    return names[lang] || names.uk;
 }
 
-// Додавання обробників подій
-function addEventListeners() {
-  // Перемикач мови
-  document.querySelectorAll('.language-option').forEach(option => {
-    option.addEventListener('click', function() {
-      const lang = this.getAttribute('data-lang');
-      setLanguage(lang);
+function updateDropdowns(t) {
+    const themeOptions = document.querySelectorAll('.theme-option');
+    themeOptions[0].innerHTML = `<i class="fas fa-sun"></i> ${t.lightTheme}`;
+    themeOptions[1].innerHTML = `<i class="fas fa-moon"></i> ${t.darkTheme}`;
+    themeOptions[2].innerHTML = `<i class="fas fa-droplet" style="color: #1e90ff;"></i> ${t.blueTheme}`;
+    themeOptions[3].innerHTML = `<i class="fas fa-leaf" style="color: #27ae60;"></i> ${t.greenTheme}`;
+}
+
+// Завантаження теми
+function loadTheme() {
+    const theme = localStorage.getItem('theme') || 'light';
+    setTheme(theme);
+}
+
+function setTheme(theme) {
+    currentTheme = theme;
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    // Оновити активну опцію теми
+    document.querySelectorAll('.theme-option').forEach(option => {
+        option.classList.toggle('active', option.dataset.theme === theme);
     });
-  });
-  
-  // Відкриття модального вікна написання листа
-  document.getElementById('compose-btn').addEventListener('click', function() {
-    document.getElementById('compose-modal').style.display = 'flex';
-    document.getElementById('to-input').focus();
-  });
-  
-  // Закриття модального вікна
-  document.getElementById('close-compose').addEventListener('click', function() {
-    document.getElementById('compose-modal').style.display = 'none';
-    clearComposeForm();
-  });
-  
-  // Відправлення листа
-  document.getElementById('send-email-btn').addEventListener('click', function() {
-    sendEmail();
-  });
-  
-  // Збереження чернетки
-  document.getElementById('save-draft-btn').addEventListener('click', function() {
-    saveDraft();
-  });
-  
-  // Оновлення пошти
-  document.getElementById('refresh-btn').addEventListener('click', function() {
-    refreshEmails();
-  });
-  
-  // Вибрати всі листи
-  document.getElementById('select-all-btn').addEventListener('click', function() {
-    toggleSelectAll();
-  });
-  
-  // Видалити вибрані листи
-  document.getElementById('delete-btn').addEventListener('click', function() {
-    deleteSelectedEmails();
-  });
-  
-  // Відмітити прочитаними
-  document.getElementById('mark-read-btn').addEventListener('click', function() {
-    markAsRead();
-  });
-  
-  // Пошук
-  document.getElementById('search-input').addEventListener('input', function(e) {
-    searchEmails(e.target.value);
-  });
-  
-  // Закриття модального вікна при кліку на оверлей
-  document.getElementById('compose-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      this.style.display = 'none';
-      clearComposeForm();
-    }
-  });
-  
-  // Обробка подій на листах (делегування)
-  document.getElementById('emails-list').addEventListener('click', function(e) {
-    const emailElement = e.target.closest('.email');
-    if (!emailElement) return;
-    
-    const emailId = parseInt(emailElement.dataset.id);
-    const email = emails.find(e => e.id === emailId);
-    
-    if (!email) return;
-    
-    // Клік на чекбокс
-    if (e.target.classList.contains('email-checkbox')) {
-      toggleEmailSelection(emailId, e.target.checked);
-      e.stopPropagation();
-      return;
-    }
-    
-    // Клік на зірочку
-    if (e.target.classList.contains('star')) {
-      toggleStar(emailId);
-      e.stopPropagation();
-      return;
-    }
-    
-    // Клік на лист (відкриття)
-    openEmail(email);
-  });
-  
-  // Обробка натискання клавіш
-  document.addEventListener('keydown', function(e) {
-    // ESC закриває модальне вікно
-    if (e.key === 'Escape') {
-      document.getElementById('compose-modal').style.display = 'none';
-      clearComposeForm();
-    }
-    
-    // Ctrl+Enter відправляє лист
-    if (e.ctrlKey && e.key === 'Enter' && 
-        document.getElementById('compose-modal').style.display === 'flex') {
-      sendEmail();
-    }
-  });
 }
 
-// Відправлення листа
-function sendEmail() {
-  const to = document.getElementById('to-input').value.trim();
-  const subject = document.getElementById('subject-input').value.trim();
-  const message = document.getElementById('message-input').value.trim();
-  
-  if (!to || !subject || !message) {
-    showNotification('Будь ласка, заповніть всі поля', 'warning');
-    return;
-  }
-  
-  // Додаємо новий лист до "Надіслані"
-  const newEmail = {
-    id: emails.length > 0 ? Math.max(...emails.map(e => e.id)) + 1 : 1,
-    from: "Ви",
-    avatar: "В",
-    subject: subject,
-    preview: message.substring(0, 80) + '...',
-    date: "Сьогодні, " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-    unread: false,
-    starred: false,
-    tag: "work"
-  };
-  
-  emails.unshift(newEmail);
-  
-  // Оновлюємо кількість відправлених
-  updateSentCount();
-  
-  // Закриваємо модальне вікно
-  document.getElementById('compose-modal').style.display = 'none';
-  clearComposeForm();
-  
-  // Показуємо сповіщення
-  showNotification(translations[currentLanguage].emailSent);
-  
-  // Оновлюємо список листів
-  renderEmails();
+// Завантаження режиму читання
+function loadReadMode() {
+    if (isReadMode) {
+        document.body.classList.add('read-mode-active');
+        document.getElementById('readModeToggle').classList.add('active');
+    }
 }
 
-// Збереження чернетки
-function saveDraft() {
-  showNotification(translations[currentLanguage].emailSaved);
-  document.getElementById('compose-modal').style.display = 'none';
-  clearComposeForm();
+// Рендер листів
+function renderLetters(filteredLetters = letters) {
+    const container = document.getElementById('lettersContainer');
+    const emptyState = document.getElementById('emptyState');
+    const t = translations[currentLanguage];
+    
+    if (filteredLetters.length === 0) {
+        container.innerHTML = '';
+        emptyState.style.display = 'block';
+        emptyState.querySelector('h3').textContent = t.noLetters;
+        emptyState.querySelector('p').textContent = t.addFirstLetter;
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    
+    container.innerHTML = filteredLetters.map(letter => `
+        <div class="letter-card" data-id="${letter.id}">
+            <div class="letter-header">
+                <div>
+                    <h3 class="letter-title">${escapeHtml(letter.title)}</h3>
+                    <div class="letter-date">${formatDate(letter.date)}</div>
+                </div>
+                <div class="letter-checkbox">
+                    <input type="checkbox" class="select-letter" data-id="${letter.id}">
+                </div>
+            </div>
+            
+            <div class="letter-tags">
+                ${letter.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+            </div>
+            
+            <div class="letter-content" id="content-${letter.id}">
+                ${escapeHtml(letter.content)}
+                ${letter.content.length > 200 ? `<div class="read-more"><button class="btn-expand" onclick="toggleExpand(${letter.id})">${t.expand}</button></div>` : ''}
+            </div>
+            
+            <div class="letter-actions">
+                <button class="action-btn" onclick="editLetter(${letter.id})" title="${t.editLetter}">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn" onclick="exportAsPDF(${letter.id})" title="${t.exportPDF}">
+                    <i class="fas fa-file-pdf"></i>
+                </button>
+                <button class="action-btn" onclick="exportAsTXT(${letter.id})" title="${t.exportTXT}">
+                    <i class="fas fa-file-alt"></i>
+                </button>
+                <button class="action-btn" onclick="showDeleteModal([${letter.id}])" title="${t.delete}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
 }
 
-// Очищення форми написання листа
-function clearComposeForm() {
-  document.getElementById('to-input').value = '';
-  document.getElementById('subject-input').value = '';
-  document.getElementById('message-input').value = '';
+// Форматування дати
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(currentLanguage === 'uk' ? 'uk-UA' : currentLanguage, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
 }
 
-// Оновлення пошти
-function refreshEmails() {
-  // Симуляція оновлення
-  const refreshBtn = document.getElementById('refresh-btn');
-  refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-  
-  setTimeout(() => {
-    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i><span>' + translations[currentLanguage].refresh + '</span>';
-    renderEmails();
-  }, 1000);
+// Екранування HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
-// Вибрати всі листи
-function toggleSelectAll() {
-  isSelectAll = !isSelectAll;
-  const checkboxes = document.querySelectorAll('.email-checkbox');
-  const selectAllBtn = document.getElementById('select-all-btn');
-  
-  if (isSelectAll) {
-    // Вибираємо всі
-    selectedEmails.clear();
-    emails.forEach(email => selectedEmails.add(email.id));
-    checkboxes.forEach(checkbox => checkbox.checked = true);
-    selectAllBtn.innerHTML = '<i class="far fa-check-square"></i><span>' + translations[currentLanguage].selectAll + '</span>';
-  } else {
-    // Знімаємо виділення
-    selectedEmails.clear();
-    checkboxes.forEach(checkbox => checkbox.checked = false);
-    selectAllBtn.innerHTML = '<i class="far fa-square"></i><span>' + translations[currentLanguage].selectAll + '</span>';
-  }
-  
-  // Оновлюємо класи листів
-  document.querySelectorAll('.email').forEach(email => {
-    const emailId = parseInt(email.dataset.id);
-    if (selectedEmails.has(emailId)) {
-      email.classList.add('selected');
+// Пошук та фільтри
+function searchAndFilter() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const dateFilter = document.getElementById('dateFilter').value;
+    const tagFilter = document.getElementById('tagFilter').value;
+    
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    
+    const filtered = letters.filter(letter => {
+        // Пошук
+        const matchesSearch = !searchTerm || 
+            letter.title.toLowerCase().includes(searchTerm) ||
+            letter.content.toLowerCase().includes(searchTerm) ||
+            letter.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+        
+        // Фільтр за датою
+        let matchesDate = true;
+        const letterDate = new Date(letter.date);
+        
+        if (dateFilter === 'today') {
+            matchesDate = letterDate >= startOfDay;
+        } else if (dateFilter === 'week') {
+            matchesDate = letterDate >= startOfWeek;
+        } else if (dateFilter === 'month') {
+            matchesDate = letterDate >= startOfMonth;
+        }
+        
+        // Фільтр за тегом
+        let matchesTag = true;
+        if (tagFilter !== 'all') {
+            matchesTag = letter.tags.map(t => t.toLowerCase()).includes(tagFilter);
+        }
+        
+        return matchesSearch && matchesDate && matchesTag;
+    });
+    
+    renderLetters(filtered);
+}
+
+// Модальне вікно видалення
+function showDeleteModal(letterIds = []) {
+    lettersToDelete = letterIds;
+    const t = translations[currentLanguage];
+    
+    if (letterIds.length === 0) {
+        // Перевірити вибрані чекбокси
+        const selected = document.querySelectorAll('.select-letter:checked');
+        letterIds = Array.from(selected).map(cb => parseInt(cb.dataset.id));
+        
+        if (letterIds.length === 0) {
+            alert('Виберіть хоча б один лист для видалення');
+            return;
+        }
+    }
+    
+    lettersToDelete = letterIds;
+    document.getElementById('itemCount').textContent = letterIds.length;
+    document.getElementById('deleteMessage').innerHTML = `
+        ${t.deleteMessage} <span id="itemCount">${letterIds.length}</span> ${t.letters}?
+    `;
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
+// Підтвердження видалення
+function confirmDelete() {
+    letters = letters.filter(letter => !lettersToDelete.includes(letter.id));
+    localStorage.setItem('letters', JSON.stringify(letters));
+    renderLetters();
+    hideDeleteModal();
+}
+
+function hideDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+    lettersToDelete = [];
+    
+    // Скинути всі чекбокси
+    document.querySelectorAll('.select-letter').forEach(cb => cb.checked = false);
+}
+
+// Редагування листа
+function editLetter(id) {
+    const letter = letters.find(l => l.id === id);
+    if (!letter) return;
+    
+    editingLetterId = id;
+    const t = translations[currentLanguage];
+    
+    document.getElementById('editModalTitle').textContent = t.editLetter;
+    document.getElementById('letterTitle').value = letter.title;
+    document.getElementById('letterContent').value = letter.content;
+    document.getElementById('letterTags').value = letter.tags.join(', ');
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+function saveLetter(e) {
+    e.preventDefault();
+    
+    const title = document.getElementById('letterTitle').value.trim();
+    const content = document.getElementById('letterContent').value.trim();
+    const tags = document.getElementById('letterTags').value
+        .split(',')
+        .map(tag => tag.trim())
+        .filter(tag => tag.length > 0);
+    
+    if (!title || !content) {
+        alert('Заповніть обов\'язкові поля');
+        return;
+    }
+    
+    if (editingLetterId) {
+        // Оновити існуючий лист
+        const index = letters.findIndex(l => l.id === editingLetterId);
+        if (index !== -1) {
+            letters[index] = {
+                ...letters[index],
+                title,
+                content,
+                tags,
+                date: new Date().toISOString()
+            };
+        }
+        editingLetterId = null;
     } else {
-      email.classList.remove('selected');
-    }
-  });
-  
-  updateDeleteButton();
-}
-
-// Перемикання вибору листа
-function toggleEmailSelection(emailId, isChecked) {
-  if (isChecked) {
-    selectedEmails.add(emailId);
-  } else {
-    selectedEmails.delete(emailId);
-    isSelectAll = false;
-    document.getElementById('select-all-btn').innerHTML = '<i class="far fa-square"></i><span>' + translations[currentLanguage].selectAll + '</span>';
-  }
-  
-  // Оновлюємо клас листа
-  const emailElement = document.querySelector(`.email[data-id="${emailId}"]`);
-  if (emailElement) {
-    if (isChecked) {
-      emailElement.classList.add('selected');
-    } else {
-      emailElement.classList.remove('selected');
-    }
-  }
-  
-  updateDeleteButton();
-}
-
-// Оновлення стану кнопки видалення
-function updateDeleteButton() {
-  const deleteBtn = document.getElementById('delete-btn');
-  if (selectedEmails.size > 0) {
-    deleteBtn.disabled = false;
-    deleteBtn.title = '';
-  } else {
-    deleteBtn.disabled = true;
-    deleteBtn.title = translations[currentLanguage].selectEmail;
-  }
-}
-
-// Видалення вибраних листів
-function deleteSelectedEmails() {
-  if (selectedEmails.size === 0) return;
-  
-  // Підтвердження
-  if (!confirm(`Видалити ${selectedEmails.size} лист(ів)?`)) {
-    return;
-  }
-  
-  // Видаляємо листи
-  emails = emails.filter(email => !selectedEmails.has(email.id));
-  selectedEmails.clear();
-  isSelectAll = false;
-  
-  // Оновлюємо кнопку "Вибрати всі"
-  document.getElementById('select-all-btn').innerHTML = '<i class="far fa-square"></i><span>' + translations[currentLanguage].selectAll + '</span>';
-  
-  // Показуємо сповіщення
-  showNotification(translations[currentLanguage].emailDeleted);
-  
-  // Оновлюємо список листів
-  renderEmails();
-}
-
-// Відмітити прочитаними
-function markAsRead() {
-  let markedCount = 0;
-  
-  emails.forEach(email => {
-    if (selectedEmails.has(email.id) && email.unread) {
-      email.unread = false;
-      markedCount++;
-    }
-  });
-  
-  if (markedCount > 0) {
-    showNotification(translations[currentLanguage].markedRead);
-    renderEmails();
-  }
-}
-
-// Перемикання зірочки
-function toggleStar(emailId) {
-  const email = emails.find(e => e.id === emailId);
-  if (email) {
-    email.starred = !email.starred;
-    
-    // Показуємо сповіщення
-    if (email.starred) {
-      showNotification(translations[currentLanguage].emailStarred);
-    } else {
-      showNotification(translations[currentLanguage].emailUnstarred);
+        // Додати новий лист
+        const newLetter = {
+            id: Date.now(),
+            title,
+            content,
+            tags,
+            date: new Date().toISOString()
+        };
+        letters.unshift(newLetter);
     }
     
-    renderEmails();
-  }
+    localStorage.setItem('letters', JSON.stringify(letters));
+    renderLetters();
+    hideEditModal();
 }
 
-// Відкриття листа
-function openEmail(email) {
-  // В реальному додатку тут буде відкриття листа
-  // Зараз просто відмітимо як прочитаний
-  if (email.unread) {
-    email.unread = false;
-    renderEmails();
-  }
-  
-  // Показуємо модальне вікно з листом
-  alert(`Від: ${email.from}\nТема: ${email.subject}\n\n${email.preview}\n\n[Це демо версія. В реальному додатку тут буде повний текст листа]`);
+function hideEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+    document.getElementById('letterForm').reset();
+    editingLetterId = null;
 }
 
-// Пошук листів
-function searchEmails(query) {
-  if (!query.trim()) {
-    renderEmails();
-    return;
-  }
-  
-  const lowerQuery = query.toLowerCase();
-  const filteredEmails = emails.filter(email => 
-    email.from.toLowerCase().includes(lowerQuery) ||
-    email.subject.toLowerCase().includes(lowerQuery) ||
-    email.preview.toLowerCase().includes(lowerQuery)
-  );
-  
-  renderEmails(filteredEmails);
+// Експорт
+function exportAsPDF(id) {
+    const letter = letters.find(l => l.id === id);
+    if (!letter) return;
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFontSize(20);
+    doc.text(letter.title, 20, 20);
+    
+    doc.setFontSize(12);
+    doc.text(`Дата: ${formatDate(letter.date)}`, 20, 35);
+    
+    if (letter.tags.length > 0) {
+        doc.text(`Теги: ${letter.tags.join(', ')}`, 20, 45);
+    }
+    
+    doc.setFontSize(14);
+    const lines = doc.splitTextToSize(letter.content, 170);
+    doc.text(lines, 20, 60);
+    
+    doc.save(`лист_${letter.id}.pdf`);
 }
 
-// Оновлення кількості відправлених листів
-function updateSentCount() {
-  // В реальному додатку тут буде підрахунок відправлених листів
-  // Зараз просто збільшимо лічильник
-  const sentCountElement = document.getElementById('sent-count');
-  let currentCount = parseInt(sentCountElement.textContent);
-  sentCountElement.textContent = currentCount + 1;
+function exportAsTXT(id) {
+    const letter = letters.find(l => l.id === id);
+    if (!letter) return;
+    
+    const content = `
+${letter.title}
+${'='.repeat(letter.title.length)}
+
+Дата: ${formatDate(letter.date)}
+Теги: ${letter.tags.join(', ')}
+
+${letter.content}
+    `.trim();
+    
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `лист_${letter.id}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
-// Показ сповіщення
-function showNotification(message, type = 'success') {
-  const notification = document.getElementById('notification');
-  const notificationText = document.getElementById('notification-text');
-  
-  // Встановлюємо текст
-  notificationText.textContent = message;
-  
-  // Встановлюємо колір в залежності від типу
-  if (type === 'success') {
-    notification.style.background = 'var(--success)';
-  } else if (type === 'warning') {
-    notification.style.background = 'var(--warning)';
-  } else if (type === 'danger') {
-    notification.style.background = 'var(--danger)';
-  }
-  
-  // Показуємо сповіщення
-  notification.style.display = 'flex';
-  
-  // Ховаємо через 3 секунди
-  setTimeout(() => {
-    notification.style.display = 'none';
-  }, 3000);
+// Розгортання/згортання контенту
+function toggleExpand(id) {
+    const content = document.getElementById(`content-${id}`);
+    const button = content.querySelector('.btn-expand');
+    const t = translations[currentLanguage];
+    
+    if (content.classList.contains('expanded')) {
+        content.classList.remove('expanded');
+        button.textContent = t.expand;
+    } else {
+        content.classList.add('expanded');
+        button.textContent = t.collapse;
+    }
 }
+
+// Налаштування обробників подій
+function setupEventListeners() {
+    // Пошук та фільтри
+    document.getElementById('searchInput').addEventListener('input', searchAndFilter);
+    document.getElementById('dateFilter').addEventListener('change', searchAndFilter);
+    document.getElementById('tagFilter').addEventListener('change', searchAndFilter);
+    document.getElementById('clearFilters').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('dateFilter').value = 'all';
+        document.getElementById('tagFilter').value = 'all';
+        searchAndFilter();
+    });
+    
+    // Додати лист
+    document.getElementById('addLetterBtn').addEventListener('click', () => {
+        editingLetterId = null;
+        const t = translations[currentLanguage];
+        document.getElementById('editModalTitle').textContent = t.addLetterModal;
+        document.getElementById('letterForm').reset();
+        document.getElementById('editModal').style.display = 'flex';
+    });
+    
+    // Форма листа
+    document.getElementById('letterForm').addEventListener('submit', saveLetter);
+    
+    // Модальні вікна
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', hideDeleteModal);
+    });
+    
+    document.querySelectorAll('.close-edit-modal').forEach(btn => {
+        btn.addEventListener('click', hideEditModal);
+    });
+    
+    document.getElementById('confirmDelete').addEventListener('click', confirmDelete);
+    
+    // Вибір мови
+    document.querySelectorAll('.lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+            const lang = option.dataset.lang;
+            setLanguage(lang);
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === lang);
+            });
+            document.querySelector('.current-lang').textContent = getLanguageName(lang);
+        });
+    });
+    
+    // Вибір теми
+    document.querySelectorAll('.theme-option').forEach(option => {
+        option.addEventListener('click', () => {
+            const theme = option.dataset.theme;
+            setTheme(theme);
+        });
+    });
+    
+    // Режим читання
+    document.getElementById('readModeToggle').addEventListener('click', () => {
+        isReadMode = !isReadMode;
+        document.body.classList.toggle('read-mode-active', isReadMode);
+        document.getElementById('readModeToggle').classList.toggle('active', isReadMode);
+        localStorage.setItem('readMode', isReadMode);
+    });
+    
+    // Закриття модальних вікон по кліку на тло
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                if (modal.id === 'editModal') {
+                    hideEditModal();
+                } else if (modal.id === 'deleteModal') {
+                    hideDeleteModal();
+                }
+            }
+        });
+    });
+    
+    // Обробка клавіші Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            hideDeleteModal();
+            hideEditModal();
+        }
+    });
+}
+
+// Ініціалізація при завантаженні
+window.onload = initApp;
+
+// Глобальні функції для HTML атрибутів onclick
+window.toggleExpand = toggleExpand;
+window.editLetter = editLetter;
+window.exportAsPDF = exportAsPDF;
+window.exportAsTXT = exportAsTXT;
+window.showDeleteModal = showDeleteModal;
