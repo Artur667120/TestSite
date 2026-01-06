@@ -1,2753 +1,708 @@
 <!DOCTYPE html>
-<html lang="uk" data-theme="light">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MailFlow Pro | Поштовий клієнт</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Поштовий клієнт</title>
   <style>
-    /* CSS змінні для тем */
-    :root {
-      /* Світла тема */
-      --primary-bg: #ffffff;
-      --secondary-bg: #f8f9fa;
-      --card-bg: #ffffff;
-      --text-primary: #1a1a1a;
-      --text-secondary: #4b5563;
-      --text-muted: #6b7280;
-      --border-color: #e5e7eb;
-      --primary-color: #667eea;
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --success-color: #10b981;
-      --warning-color: #f59e0b;
-      --danger-color: #ef4444;
-      --sidebar-bg: #ffffff;
-      --header-bg: #ffffff;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.1);
-      --radius: 12px;
-      --accent: #667eea;
-      --hover-bg: #f9fafb;
-      --chart-grid: rgba(0, 0, 0, 0.05);
-    }
-
-    .dark-theme {
-      --primary-bg: #0f172a;
-      --secondary-bg: #1e293b;
-      --card-bg: #1e293b;
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-      --primary-color: #818cf8;
-      --primary-gradient: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-      --success-color: #34d399;
-      --warning-color: #fbbf24;
-      --danger-color: #f87171;
-      --sidebar-bg: #1e293b;
-      --header-bg: #0f172a;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
-      --hover-bg: #2d3748;
-      --chart-grid: rgba(255, 255, 255, 0.1);
-    }
-
-    .oled-theme {
-      --primary-bg: #000000;
-      --secondary-bg: #111111;
-      --card-bg: #111111;
-      --text-primary: #ffffff;
-      --text-secondary: #aaaaaa;
-      --text-muted: #666666;
-      --border-color: #222222;
-      --primary-color: #667eea;
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --success-color: #00ff00;
-      --warning-color: #ffff00;
-      --danger-color: #ff0000;
-      --sidebar-bg: #000000;
-      --header-bg: #000000;
-      --shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
-      --shadow-lg: 0 10px 40px rgba(255, 255, 255, 0.1);
-      --hover-bg: #1a1a1a;
-      --chart-grid: rgba(255, 255, 255, 0.05);
-    }
-
+    /* Основний стиль */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      font-family: Arial, sans-serif;
     }
-
+    
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--primary-bg);
-      color: var(--text-primary);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      overflow-x: hidden;
+      color: #333;
     }
-
-    /* Header */
+    
+    /* Шапка */
     header {
-      background: var(--header-bg);
-      padding: 1rem 2rem;
+      background: white;
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-
+    
     .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 24px;
-      font-weight: 700;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      gap: 10px;
     }
-
-    .logo i {
-      font-size: 28px;
-    }
-
+    
     .header-controls {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
     }
-
-    .theme-switcher {
-      display: flex;
-      background: var(--secondary-bg);
-      border-radius: 20px;
-      padding: 4px;
-    }
-
+    
     .theme-btn {
-      background: transparent;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 16px;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      border-radius: 20px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-size: 14px;
     }
-
+    
     .theme-btn.active {
-      background: var(--card-bg);
-      color: var(--primary-color);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .theme-btn i {
-      font-size: 16px;
-    }
-
-    .language-selector {
-      position: relative;
-      display: inline-block;
-    }
-
-    .language-btn {
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 8px 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .language-dropdown {
-      display: none;
-      position: absolute;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: var(--shadow-lg);
-      padding: 8px 0;
-      min-width: 160px;
-      top: 100%;
-      right: 0;
-      margin-top: 5px;
-      z-index: 1001;
-      border: 1px solid var(--border-color);
-    }
-
-    .language-option {
-      padding: 10px 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-secondary);
-    }
-
-    .language-option:hover {
-      background: var(--hover-bg);
-    }
-
-    .language-option.active {
-      color: var(--primary-color);
-      font-weight: 600;
-    }
-
-    .language-selector:hover .language-dropdown {
-      display: block;
-    }
-
-    .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--secondary-bg);
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      background: var(--primary-gradient);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #667eea;
       color: white;
-      font-weight: 600;
     }
-
-    .notification-badge {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .notification-badge::after {
-      content: '12';
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: var(--danger-color);
-      color: white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-    }
-
-    /* Main Layout */
+    
+    /* Основний контейнер */
     .container {
       display: flex;
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 24px;
-      gap: 24px;
-      min-height: calc(100vh - 80px);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      flex-shrink: 0;
-    }
-
-    .compose-btn {
-      background: var(--primary-gradient);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      padding: 16px 24px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .compose-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-    }
-
-    .sidebar-nav {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-
-    .nav-item:hover {
-      background: var(--hover-bg);
-    }
-
-    .nav-item.active {
-      background: rgba(102, 126, 234, 0.1);
-      color: var(--primary-color);
-      font-weight: 600;
-    }
-
-    .nav-item i {
-      width: 20px;
-      text-align: center;
-    }
-
-    .badge {
-      background: var(--primary-color);
-      color: white;
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .category-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      margin: 24px 0 12px;
-      font-weight: 600;
-    }
-
-    /* Main Content */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* Dashboard Grid */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
       gap: 20px;
     }
-
-    .metric-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
+    
+    /* Бічна панель */
+    .sidebar {
+      width: 250px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-
-    .metric-card.wide {
-      grid-column: span 2;
-    }
-
-    .metric-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
-    }
-
-    .metric-title {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-
-    .metric-value {
-      font-size: 32px;
-      font-weight: 700;
-      margin: 8px 0;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .metric-change {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      color: var(--success-color);
-      font-weight: 500;
-    }
-
-    .metric-change.negative {
-      color: var(--danger-color);
-    }
-
-    /* Charts */
-    .chart-container {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-    }
-
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .chart-title {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .chart-controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .chart-btn {
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 8px 16px;
-      cursor: pointer;
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .chart-btn.active {
-      background: var(--primary-color);
+    
+    .compose-btn {
+      background: #667eea;
       color: white;
-      border-color: var(--primary-color);
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 20px;
     }
-
-    /* Emails List */
-    .emails-section {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-    }
-
-    .section-header {
+    
+    .menu-item {
+      padding: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-bottom: 5px;
     }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 600;
+    
+    .menu-item:hover {
+      background: #f5f5f5;
     }
-
+    
+    .menu-item.active {
+      background: #667eea;
+      color: white;
+    }
+    
+    .badge {
+      background: #ff6b6b;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+    
+    /* Основний вміст */
+    .content {
+      flex: 1;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .new-badge {
+      background: #667eea;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 14px;
+    }
+    
+    /* Кнопки дій */
     .action-buttons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-
+    
     .action-btn {
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 10px 16px;
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      border-radius: 6px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      font-weight: 500;
-      transition: all 0.2s;
+      gap: 5px;
     }
-
-    .action-btn:hover:not(:disabled) {
-      background: var(--hover-bg);
+    
+    .action-btn:hover {
+      background: #e0e0e0;
     }
-
-    .action-btn.primary {
-      background: var(--primary-color);
+    
+    .action-btn.delete {
+      background: #ff6b6b;
       color: white;
-      border-color: var(--primary-color);
+      border-color: #ff6b6b;
     }
-
-    .action-btn.danger {
-      background: var(--danger-color);
-      color: white;
-      border-color: var(--danger-color);
-    }
-
-    .action-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .emails-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    
+    /* Список листів */
     .email-item {
       display: flex;
       align-items: center;
-      padding: 16px;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-bottom: 1px solid #eee;
       cursor: pointer;
-      transition: all 0.2s;
     }
-
+    
     .email-item:hover {
-      background: var(--hover-bg);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      background: #f9f9f9;
     }
-
-    .email-item.unread {
-      background: rgba(102, 126, 234, 0.05);
-      border-left: 4px solid var(--primary-color);
-    }
-
-    .email-item.selected {
-      background: rgba(102, 126, 234, 0.1);
-      border-color: var(--primary-color);
-    }
-
+    
     .email-checkbox {
-      margin-right: 16px;
-      width: 18px;
-      height: 18px;
+      margin-right: 10px;
+    }
+    
+    .star {
+      color: gold;
+      margin-right: 10px;
       cursor: pointer;
     }
-
-    .star-btn {
-      color: var(--text-muted);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      margin-right: 16px;
-      transition: color 0.2s;
-    }
-
-    .star-btn:hover {
-      color: #fbbf24;
-    }
-
-    .star-btn.active {
-      color: #fbbf24;
-    }
-
+    
     .sender-avatar {
       width: 40px;
       height: 40px;
+      background: #667eea;
       border-radius: 50%;
-      background: var(--primary-gradient);
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-weight: 600;
-      margin-right: 16px;
+      font-weight: bold;
+      margin-right: 15px;
     }
-
+    
     .email-content {
       flex: 1;
-      min-width: 0;
     }
-
-    .email-sender {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-primary);
-    }
-
+    
     .email-subject {
-      color: var(--text-secondary);
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .email-preview {
+      color: #666;
       font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-
-    .email-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-left: 24px;
-    }
-
+    
     .email-date {
-      color: var(--text-muted);
+      color: #999;
       font-size: 14px;
-      white-space: nowrap;
     }
-
-    .email-tag {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .tag-work {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--success-color);
-    }
-
-    .tag-personal {
-      background: rgba(245, 158, 11, 0.1);
-      color: var(--warning-color);
-    }
-
-    .tag-study {
-      background: rgba(102, 126, 234, 0.1);
-      color: var(--primary-color);
-    }
-
-    /* Competitors Section */
-    .competitors-section {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-    }
-
-    .competitor-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .competitor-item:last-child {
-      border-bottom: none;
-    }
-
-    .competitor-name {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 500;
-    }
-
-    .competitor-progress {
-      width: 100px;
-      height: 8px;
-      background: var(--secondary-bg);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--primary-gradient);
-      border-radius: 4px;
-    }
-
-    /* Activity Grid */
-    .activity-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .activity-item {
-      background: var(--secondary-bg);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .activity-value {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--primary-color);
-    }
-
-    .activity-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Modal */
-    .modal-overlay {
+    
+    /* Модальне вікно */
+    .modal {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
-      z-index: 2000;
-      backdrop-filter: blur(5px);
+      z-index: 1000;
     }
-
-    .modal {
-      background: var(--card-bg);
-      border-radius: var(--radius);
+    
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
       width: 90%;
       max-width: 600px;
-      box-shadow: var(--shadow-lg);
     }
-
+    
     .modal-header {
-      padding: 24px 32px;
-      border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 20px;
     }
-
-    .modal-title {
-      font-size: 20px;
-      font-weight: 600;
-    }
-
+    
     .close-btn {
       background: none;
       border: none;
       font-size: 24px;
       cursor: pointer;
-      color: var(--text-muted);
-      transition: color 0.2s;
     }
-
-    .close-btn:hover {
-      color: var(--danger-color);
-    }
-
-    .modal-body {
-      padding: 32px;
-    }
-
+    
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
-
+    
     .form-group label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: var(--text-secondary);
+      margin-bottom: 5px;
+      font-weight: bold;
     }
-
+    
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 12px 16px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background: var(--primary-bg);
-      color: var(--text-primary);
-      font-size: 16px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
     }
-
-    .form-group textarea {
-      min-height: 150px;
-      resize: vertical;
-      font-family: inherit;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
+    
     .modal-footer {
-      padding: 24px 32px;
-      border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: flex-end;
-      gap: 16px;
+      gap: 10px;
+      margin-top: 20px;
     }
-
+    
     .btn {
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 10px 20px;
       border: none;
-      font-size: 16px;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
     }
-
+    
     .btn-primary {
-      background: var(--primary-gradient);
+      background: #667eea;
       color: white;
     }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
+    
     .btn-secondary {
-      background: var(--secondary-bg);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-color);
+      background: #f5f5f5;
+      color: #333;
     }
-
-    .btn-secondary:hover {
-      background: var(--hover-bg);
-    }
-
-    /* Notification */
+    
+    /* Сповіщення */
     .notification {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--success-color);
+      bottom: 20px;
+      right: 20px;
+      background: #4CAF50;
       color: white;
-      padding: 16px 24px;
-      border-radius: 10px;
-      box-shadow: var(--shadow-lg);
+      padding: 15px 20px;
+      border-radius: 6px;
       display: none;
-      align-items: center;
-      gap: 12px;
-      z-index: 3000;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 1200px) {
-      .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .metric-card.wide {
-        grid-column: span 2;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 16px;
-      }
-      
-      .sidebar {
-        width: 100%;
-      }
-      
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .metric-card.wide {
-        grid-column: span 1;
-      }
-      
-      .activity-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .email-meta {
-        display: none;
-      }
-      
-      .header-controls {
-        flex-wrap: wrap;
-      }
-    }
-
-    /* Chart canvas */
-    canvas {
-      max-height: 300px;
+      z-index: 1001;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Шапка -->
   <header>
     <div class="logo">
-      <i class="fas fa-mail-bulk"></i>
-      <span id="app-title">MailFlow Pro</span>
+      <span>📧 Пошта</span>
     </div>
-    
     <div class="header-controls">
-      <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="light">
-          <i class="fas fa-sun"></i>
-          <span id="theme-light">Світла</span>
-        </button>
-        <button class="theme-btn" data-theme="dark">
-          <i class="fas fa-moon"></i>
-          <span id="theme-dark">Темна</span>
-        </button>
-        <button class="theme-btn" data-theme="oled">
-          <i class="fas fa-adjust"></i>
-          <span id="theme-oled">OLED</span>
-        </button>
-      </div>
-      
-      <div class="language-selector">
-        <button class="language-btn">
-          <i class="fas fa-globe"></i>
-          <span id="current-language">Українська</span>
-          <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="language-dropdown">
-          <div class="language-option active" data-lang="uk">
-            <i class="fas fa-check"></i>
-            Українська
-          </div>
-          <div class="language-option" data-lang="en">
-            <i class="fas fa-check"></i>
-            English
-          </div>
-          <div class="language-option" data-lang="de">
-            <i class="fas fa-check"></i>
-            Deutsch
-          </div>
-          <div class="language-option" data-lang="ru">
-            <i class="fas fa-check"></i>
-            Русский
-          </div>
-        </div>
-      </div>
-      
-      <div class="notification-badge" id="notificationBtn">
-        <i class="fas fa-bell" style="font-size: 20px; color: var(--text-secondary);"></i>
-      </div>
-      
-      <div class="user-menu" id="userMenu">
-        <div class="user-avatar" id="userAvatar">К</div>
-        <div>
-          <div style="font-weight: 600; font-size: 16px;" id="user-name">Користувач</div>
-          <div style="font-size: 14px; color: var(--text-muted);" id="user-email">user@mailflow.pro</div>
-        </div>
-        <i class="fas fa-chevron-down" style="color: var(--text-muted);"></i>
-      </div>
+      <button class="theme-btn active" onclick="setTheme('light')">Світла</button>
+      <button class="theme-btn" onclick="setTheme('dark')">Темна</button>
+      <button class="theme-btn" onclick="setTheme('oled')">OLED</button>
     </div>
   </header>
 
-  <!-- Main Container -->
+  <!-- Основний контент -->
   <div class="container">
     
-    <!-- Sidebar -->
+    <!-- Бічна панель -->
     <div class="sidebar">
-      <button class="compose-btn" id="composeBtn">
-        <i class="fas fa-edit"></i>
-        <span id="compose-text">Написати лист</span>
-      </button>
+      <button class="compose-btn" onclick="openComposeModal()">✏️ Написати лист</button>
       
-      <div class="sidebar-nav">
-        <div class="nav-item active" data-section="inbox">
-          <div>
-            <i class="fas fa-inbox"></i>
-            <span id="nav-inbox">Вхідні</span>
-          </div>
-          <div class="badge" id="inbox-badge">12</div>
-        </div>
-        
-        <div class="nav-item" data-section="sent">
-          <div>
-            <i class="fas fa-paper-plane"></i>
-            <span id="nav-sent">Надіслані</span>
-          </div>
-          <div class="badge" id="sent-badge">45</div>
-        </div>
-        
-        <div class="nav-item" data-section="drafts">
-          <div>
-            <i class="fas fa-file-alt"></i>
-            <span id="nav-drafts">Чернетки</span>
-          </div>
-          <div class="badge" id="drafts-badge">3</div>
-        </div>
-        
-        <div class="nav-item" data-section="trash">
-          <div>
-            <i class="fas fa-trash"></i>
-            <span id="nav-trash">Видалені</span>
-          </div>
-        </div>
-        
-        <div class="category-title" id="categories-title">Категорії</div>
-        
-        <div class="nav-item" data-category="work">
-          <div>
-            <i class="fas fa-briefcase"></i>
-            <span id="category-work">Робота</span>
-          </div>
-          <div class="badge">8</div>
-        </div>
-        
-        <div class="nav-item" data-category="study">
-          <div>
-            <i class="fas fa-graduation-cap"></i>
-            <span id="category-study">Навчання</span>
-          </div>
-          <div class="badge">3</div>
-        </div>
-        
-        <div class="nav-item" data-category="personal">
-          <div>
-            <i class="fas fa-heart"></i>
-            <span id="category-personal">Особисті</span>
-          </div>
-          <div class="badge">1</div>
-        </div>
+      <div class="menu-item active" onclick="setActiveSection('inbox')">
+        <span>📥 Вхідні</span>
+        <div class="badge" id="inboxBadge">12</div>
+      </div>
+      
+      <div class="menu-item" onclick="setActiveSection('sent')">
+        <span>📤 Надіслані</span>
+        <div class="badge" id="sentBadge">45</div>
+      </div>
+      
+      <div class="menu-item" onclick="setActiveSection('drafts')">
+        <span>📝 Чернетки</span>
+        <div class="badge" id="draftsBadge">3</div>
+      </div>
+      
+      <div class="menu-item" onclick="setActiveSection('trash')">
+        <span>🗑️ Видалені</span>
       </div>
     </div>
     
-    <!-- Main Content -->
-    <div class="main-content">
-      
-      <!-- Dashboard Metrics -->
-      <div class="dashboard-grid">
-        <div class="metric-card">
-          <div class="metric-header">
-            <div class="metric-title" id="metric-total">Загалом листів</div>
-            <i class="fas fa-envelope" style="color: var(--primary-color);"></i>
-          </div>
-          <div class="metric-value" id="total-emails">480.5</div>
-          <div class="metric-change">
-            <i class="fas fa-arrow-up"></i>
-            <span id="total-change">12.5% з минулого місяця</span>
-          </div>
-        </div>
-        
-        <div class="metric-card">
-          <div class="metric-header">
-            <div class="metric-title" id="metric-unread">Непрочитані</div>
-            <i class="fas fa-eye-slash" style="color: var(--warning-color);"></i>
-          </div>
-          <div class="metric-value" id="unread-count">12</div>
-          <div class="metric-change negative">
-            <i class="fas fa-arrow-down"></i>
-            <span id="unread-change">3.2% з вчора</span>
-          </div>
-        </div>
-        
-        <div class="metric-card wide">
-          <div class="metric-header">
-            <div class="metric-title" id="metric-productivity">Продуктивність</div>
-            <i class="fas fa-chart-line" style="color: var(--success-color);"></i>
-          </div>
-          <div class="metric-value" id="productivity-value">74%</div>
-          <div class="metric-change">
-            <i class="fas fa-arrow-up"></i>
-            <span id="productivity-change">На 8% вища за середню</span>
-          </div>
-          <div style="margin-top: 16px; font-size: 14px; color: var(--text-muted);" id="productivity-text">
-            Ваша продуктивність вище за 85% користувачів
-          </div>
-        </div>
-        
-        <div class="metric-card">
-          <div class="metric-header">
-            <div class="metric-title" id="metric-activity">Активність</div>
-            <i class="fas fa-bolt" style="color: var(--danger-color);"></i>
-          </div>
-          <div class="metric-value" id="activity-value">20k</div>
-          <div class="metric-change">
-            <i class="fas fa-arrow-up"></i>
-            <span id="activity-change">24.7% зростання</span>
-          </div>
-        </div>
+    <!-- Основний вміст -->
+    <div class="content">
+      <div class="content-header">
+        <h1 id="sectionTitle">📥 Вхідні <span class="new-badge" id="newBadge">12 нових</span></h1>
       </div>
       
-      <!-- Charts and Activity -->
-      <div class="dashboard-grid">
-        <div class="chart-container wide">
-          <div class="chart-header">
-            <div class="chart-title" id="chart-title">Активність за час</div>
-            <div class="chart-controls">
-              <button class="chart-btn active" data-period="day">День</button>
-              <button class="chart-btn" data-period="week">Тиждень</button>
-              <button class="chart-btn" data-period="month">Місяць</button>
-            </div>
-          </div>
-          <canvas id="activityChart"></canvas>
-        </div>
-        
-        <div class="competitors-section">
-          <div class="chart-header">
-            <div class="chart-title" id="performance-title">Продуктивність</div>
-          </div>
-          
-          <div class="activity-grid">
-            <div class="activity-item">
-              <div class="activity-value" id="work-percent">75%</div>
-              <div class="activity-label" id="work-label">Робота</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-value" id="study-percent">15%</div>
-              <div class="activity-label" id="study-label">Навчання</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-value" id="personal-percent">10%</div>
-              <div class="activity-label" id="personal-label">Особисте</div>
-            </div>
-          </div>
-          
-          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
-            <div class="chart-header" style="margin-bottom: 16px;">
-              <div class="chart-title" id="comparison-title">Порівняння</div>
-            </div>
-            
-            <div class="competitor-item">
-              <div class="competitor-name">
-                <i class="fas fa-user" style="color: var(--success-color);"></i>
-                <span id="you-text">Ви</span>
-              </div>
-              <div class="competitor-progress">
-                <div class="progress-fill" style="width: 85%;"></div>
-              </div>
-              <div style="font-weight: 600;">85%</div>
-            </div>
-            
-            <div class="competitor-item">
-              <div class="competitor-name">
-                <i class="fas fa-user" style="color: var(--warning-color);"></i>
-                <span id="average-text">Середній</span>
-              </div>
-              <div class="competitor-progress">
-                <div class="progress-fill" style="width: 74%;"></div>
-              </div>
-              <div>74%</div>
-            </div>
-          </div>
-        </div>
+      <!-- Кнопки дій -->
+      <div class="action-buttons">
+        <button class="action-btn" onclick="refreshEmails()">
+          🔄 Оновити
+        </button>
+        <button class="action-btn" onclick="selectAllEmails()">
+          ☐ Вибрати всі
+        </button>
+        <button class="action-btn delete" onclick="deleteSelectedEmails()">
+          🗑️ Видалити
+        </button>
+        <button class="action-btn" onclick="markAsRead()">
+          👁️ Прочитані
+        </button>
+        <button class="action-btn" onclick="markAsUnread()">
+          👁️‍🗨️ Непрочитані
+        </button>
       </div>
       
-      <!-- Emails List -->
-      <div class="emails-section">
-        <div class="section-header">
-          <div class="section-title" id="inbox-title">Вхідні листи <span style="color: var(--primary-color);" id="new-count">(12 нових)</span></div>
-          <div class="action-buttons">
-            <button class="action-btn" id="refreshBtn">
-              <i class="fas fa-sync-alt"></i>
-              <span id="refresh-text">Оновити</span>
-            </button>
-            <button class="action-btn" id="selectAllBtn">
-              <i class="far fa-square"></i>
-              <span id="select-all-text">Вибрати всі</span>
-            </button>
-            <button class="action-btn danger" id="deleteBtn" disabled>
-              <i class="fas fa-trash"></i>
-              <span id="delete-text">Видалити</span>
-            </button>
-            <button class="action-btn primary" id="markReadBtn" disabled>
-              <i class="fas fa-envelope-open"></i>
-              <span id="mark-read-text">Прочитані</span>
-            </button>
-            <button class="action-btn" id="markUnreadBtn" disabled>
-              <i class="fas fa-envelope"></i>
-              <span id="mark-unread-text">Непрочитані</span>
-            </button>
-          </div>
-        </div>
-        
-        <div class="emails-list" id="emailsList">
-          <!-- Emails will be loaded here -->
-        </div>
+      <!-- Список листів -->
+      <div id="emailsList">
+        <!-- Листи будуть додані тут -->
       </div>
     </div>
   </div>
 
-  <!-- Compose Modal -->
-  <div class="modal-overlay" id="composeModal">
-    <div class="modal">
+  <!-- Модальне вікно для написання листа -->
+  <div class="modal" id="composeModal">
+    <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title" id="compose-modal-title">Новий лист</div>
-        <button class="close-btn" id="closeModal">&times;</button>
+        <h2>✏️ Новий лист</h2>
+        <button class="close-btn" onclick="closeComposeModal()">×</button>
       </div>
       
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="toInput" id="to-label">Кому:</label>
-          <input type="email" id="toInput" placeholder="email@example.com">
-        </div>
-        
-        <div class="form-group">
-          <label for="subjectInput" id="subject-label">Тема:</label>
-          <input type="text" id="subjectInput" placeholder="Введіть тему листа">
-        </div>
-        
-        <div class="form-group">
-          <label for="messageInput" id="message-label">Повідомлення:</label>
-          <textarea id="messageInput" placeholder="Введіть текст листа..."></textarea>
-        </div>
+      <div class="form-group">
+        <label>Кому:</label>
+        <input type="email" id="toInput" placeholder="email@example.com">
+      </div>
+      
+      <div class="form-group">
+        <label>Тема:</label>
+        <input type="text" id="subjectInput" placeholder="Введіть тему листа">
+      </div>
+      
+      <div class="form-group">
+        <label>Повідомлення:</label>
+        <textarea id="messageInput" rows="10" placeholder="Введіть текст листа..."></textarea>
       </div>
       
       <div class="modal-footer">
-        <button class="btn btn-secondary" id="saveDraftBtn">
-          <i class="fas fa-save"></i>
-          <span id="save-draft-text">Зберегти чернетку</span>
-        </button>
-        <button class="btn btn-primary" id="sendEmailBtn">
-          <i class="fas fa-paper-plane"></i>
-          <span id="send-email-text">Надіслати</span>
-        </button>
+        <button class="btn btn-secondary" onclick="saveDraft()">💾 Зберегти чернетку</button>
+        <button class="btn btn-primary" onclick="sendEmail()">📤 Надіслати</button>
       </div>
     </div>
   </div>
 
-  <!-- Notification Panel -->
-  <div class="modal-overlay" id="notificationsModal">
-    <div class="modal" style="max-width: 400px;">
-      <div class="modal-header">
-        <div class="modal-title">Сповіщення</div>
-        <button class="close-btn" id="closeNotificationsBtn">&times;</button>
-      </div>
-      
-      <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
-        <div id="notificationsList">
-          <!-- Notifications will be loaded here -->
-        </div>
-      </div>
-      
-      <div class="modal-footer">
-        <button class="btn btn-secondary" id="clearNotificationsBtn">
-          <i class="fas fa-trash"></i>
-          Очистити всі
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Notification Toast -->
-  <div class="notification" id="notificationToast">
-    <i class="fas fa-check-circle"></i>
-    <span id="notificationText">Лист успішно надіслано!</span>
+  <!-- Сповіщення -->
+  <div class="notification" id="notification">
+    <span id="notificationText">Операція виконана!</span>
   </div>
 
   <script>
-    // ==================== КОНФІГУРАЦІЯ ====================
-    const translations = {
-      uk: {
-        // Заголовки
-        'app-title': 'MailFlow Pro',
-        'compose-text': 'Написати лист',
-        'nav-inbox': 'Вхідні',
-        'nav-sent': 'Надіслані',
-        'nav-drafts': 'Чернетки',
-        'nav-trash': 'Видалені',
-        'categories-title': 'Категорії',
-        'category-work': 'Робота',
-        'category-study': 'Навчання',
-        'category-personal': 'Особисті',
-        'metric-total': 'Загалом листів',
-        'metric-unread': 'Непрочитані',
-        'metric-productivity': 'Продуктивність',
-        'metric-activity': 'Активність',
-        'chart-title': 'Активність за час',
-        'performance-title': 'Продуктивність',
-        'comparison-title': 'Порівняння',
-        'work-label': 'Робота',
-        'study-label': 'Навчання',
-        'personal-label': 'Особисте',
-        'you-text': 'Ви',
-        'average-text': 'Середній',
-        'inbox-title': 'Вхідні листи',
-        'refresh-text': 'Оновити',
-        'select-all-text': 'Вибрати всі',
-        'delete-text': 'Видалити',
-        'mark-read-text': 'Прочитані',
-        'mark-unread-text': 'Непрочитані',
-        'compose-modal-title': 'Новий лист',
-        'to-label': 'Кому:',
-        'subject-label': 'Тема:',
-        'message-label': 'Повідомлення:',
-        'save-draft-text': 'Зберегти чернетку',
-        'send-email-text': 'Надіслати',
-        'theme-light': 'Світла',
-        'theme-dark': 'Темна',
-        'theme-oled': 'OLED',
-        'user-name': 'Користувач',
-        'user-email': 'user@mailflow.pro',
-        
-        // Повідомлення
-        'email-sent': 'Лист успішно надіслано!',
-        'email-saved': 'Лист збережено в чернетках',
-        'email-deleted': 'Лист(и) успішно видалено!',
-        'marked-read': 'Лист(и) відмічено прочитаними',
-        'marked-unread': 'Лист(и) відмічено непрочитаними',
-        'starred': 'Додано до обраних',
-        'unstarred': 'Видалено з обраних',
-        'refreshed': 'Оновлено список листів',
-        'no-emails': 'Немає листів для відображення',
-        'select-emails': 'Виберіть листи для дії',
-        'all-selected': 'Всі листи вибрано',
-        'none-selected': 'Виділення знято',
-        'notifications-cleared': 'Сповіщення очищено',
-        
-        // Підказки
-        'compose-tooltip': 'Створити новий лист',
-        'refresh-tooltip': 'Оновити список листів',
-        'select-all-tooltip': 'Вибрати/зняти всі листи',
-        'delete-tooltip': 'Видалити вибрані листи',
-        'mark-read-tooltip': 'Відмітити як прочитані',
-        'mark-unread-tooltip': 'Відмітити як непрочитані',
-        'star-tooltip': 'Додати до обраних',
-        'language': 'Українська'
-      },
-      en: {
-        'app-title': 'MailFlow Pro',
-        'compose-text': 'Compose',
-        'nav-inbox': 'Inbox',
-        'nav-sent': 'Sent',
-        'nav-drafts': 'Drafts',
-        'nav-trash': 'Trash',
-        'categories-title': 'Categories',
-        'category-work': 'Work',
-        'category-study': 'Study',
-        'category-personal': 'Personal',
-        'metric-total': 'Total Emails',
-        'metric-unread': 'Unread',
-        'metric-productivity': 'Productivity',
-        'metric-activity': 'Activity',
-        'chart-title': 'Activity Over Time',
-        'performance-title': 'Performance',
-        'comparison-title': 'Comparison',
-        'work-label': 'Work',
-        'study-label': 'Study',
-        'personal-label': 'Personal',
-        'you-text': 'You',
-        'average-text': 'Average',
-        'inbox-title': 'Inbox',
-        'refresh-text': 'Refresh',
-        'select-all-text': 'Select All',
-        'delete-text': 'Delete',
-        'mark-read-text': 'Mark Read',
-        'mark-unread-text': 'Mark Unread',
-        'compose-modal-title': 'New Email',
-        'to-label': 'To:',
-        'subject-label': 'Subject:',
-        'message-label': 'Message:',
-        'save-draft-text': 'Save Draft',
-        'send-email-text': 'Send',
-        'theme-light': 'Light',
-        'theme-dark': 'Dark',
-        'theme-oled': 'OLED',
-        'user-name': 'User',
-        'user-email': 'user@mailflow.pro',
-        
-        'email-sent': 'Email sent successfully!',
-        'email-saved': 'Email saved to drafts',
-        'email-deleted': 'Email(s) deleted successfully!',
-        'marked-read': 'Email(s) marked as read',
-        'marked-unread': 'Email(s) marked as unread',
-        'starred': 'Added to favorites',
-        'unstarred': 'Removed from favorites',
-        'refreshed': 'Email list refreshed',
-        'no-emails': 'No emails to display',
-        'select-emails': 'Select emails for action',
-        'all-selected': 'All emails selected',
-        'none-selected': 'Selection cleared',
-        'notifications-cleared': 'Notifications cleared',
-        
-        'compose-tooltip': 'Create new email',
-        'refresh-tooltip': 'Refresh email list',
-        'select-all-tooltip': 'Select/deselect all emails',
-        'delete-tooltip': 'Delete selected emails',
-        'mark-read-tooltip': 'Mark as read',
-        'mark-unread-tooltip': 'Mark as unread',
-        'star-tooltip': 'Add to favorites',
-        'language': 'English'
-      },
-      de: {
-        'app-title': 'MailFlow Pro',
-        'compose-text': 'Verfassen',
-        'nav-inbox': 'Posteingang',
-        'nav-sent': 'Gesendet',
-        'nav-drafts': 'Entwürfe',
-        'nav-trash': 'Papierkorb',
-        'categories-title': 'Kategorien',
-        'category-work': 'Arbeit',
-        'category-study': 'Studium',
-        'category-personal': 'Persönlich',
-        'metric-total': 'E-Mails gesamt',
-        'metric-unread': 'Ungelesen',
-        'metric-productivity': 'Produktivität',
-        'metric-activity': 'Aktivität',
-        'chart-title': 'Aktivität über Zeit',
-        'performance-title': 'Leistung',
-        'comparison-title': 'Vergleich',
-        'work-label': 'Arbeit',
-        'study-label': 'Studium',
-        'personal-label': 'Persönlich',
-        'you-text': 'Sie',
-        'average-text': 'Durchschnitt',
-        'inbox-title': 'Posteingang',
-        'refresh-text': 'Aktualisieren',
-        'select-all-text': 'Alle auswählen',
-        'delete-text': 'Löschen',
-        'mark-read-text': 'Als gelesen',
-        'mark-unread-text': 'Als ungelesen',
-        'compose-modal-title': 'Neue E-Mail',
-        'to-label': 'An:',
-        'subject-label': 'Betreff:',
-        'message-label': 'Nachricht:',
-        'save-draft-text': 'Entwurf speichern',
-        'send-email-text': 'Senden',
-        'theme-light': 'Hell',
-        'theme-dark': 'Dunkel',
-        'theme-oled': 'OLED',
-        'user-name': 'Benutzer',
-        'user-email': 'user@mailflow.pro',
-        
-        'email-sent': 'E-Mail erfolgreich gesendet!',
-        'email-saved': 'E-Mail als Entwurf gespeichert',
-        'email-deleted': 'E-Mail(s) erfolgreich gelöscht!',
-        'marked-read': 'E-Mail(s) als gelesen markiert',
-        'marked-unread': 'E-Mail(s) als ungelesen markiert',
-        'starred': 'Zu Favoriten hinzugefügt',
-        'unstarred': 'Aus Favoriten entfernt',
-        'refreshed': 'E-Mail-Liste aktualisiert',
-        'no-emails': 'Keine E-Mails zum Anzeigen',
-        'select-emails': 'Wählen Sie E-Mails für Aktion',
-        'all-selected': 'Alle E-Mails ausgewählt',
-        'none-selected': 'Auswahl aufgehoben',
-        'notifications-cleared': 'Benachrichtigungen gelöscht',
-        
-        'compose-tooltip': 'Neue E-Mail erstellen',
-        'refresh-tooltip': 'E-Mail-Liste aktualisieren',
-        'select-all-tooltip': 'Alle E-Mails auswählen/abwählen',
-        'delete-tooltip': 'Ausgewählte E-Mails löschen',
-        'mark-read-tooltip': 'Als gelesen markieren',
-        'mark-unread-tooltip': 'Als ungelesen markieren',
-        'star-tooltip': 'Zu Favoriten hinzufügen',
-        'language': 'Deutsch'
-      },
-      ru: {
-        'app-title': 'MailFlow Pro',
-        'compose-text': 'Написать',
-        'nav-inbox': 'Входящие',
-        'nav-sent': 'Отправленные',
-        'nav-drafts': 'Черновики',
-        'nav-trash': 'Удаленные',
-        'categories-title': 'Категории',
-        'category-work': 'Работа',
-        'category-study': 'Учёба',
-        'category-personal': 'Личное',
-        'metric-total': 'Всего писем',
-        'metric-unread': 'Непрочитанные',
-        'metric-productivity': 'Продуктивность',
-        'metric-activity': 'Активность',
-        'chart-title': 'Активность по времени',
-        'performance-title': 'Производительность',
-        'comparison-title': 'Сравнение',
-        'work-label': 'Работа',
-        'study-label': 'Учёба',
-        'personal-label': 'Личное',
-        'you-text': 'Вы',
-        'average-text': 'Средний',
-        'inbox-title': 'Входящие',
-        'refresh-text': 'Обновить',
-        'select-all-text': 'Выбрать все',
-        'delete-text': 'Удалить',
-        'mark-read-text': 'Прочитанные',
-        'mark-unread-text': 'Непрочитанные',
-        'compose-modal-title': 'Новое письмо',
-        'to-label': 'Кому:',
-        'subject-label': 'Тема:',
-        'message-label': 'Сообщение:',
-        'save-draft-text': 'Сохранить черновик',
-        'send-email-text': 'Отправить',
-        'theme-light': 'Светлая',
-        'theme-dark': 'Тёмная',
-        'theme-oled': 'OLED',
-        'user-name': 'Пользователь',
-        'user-email': 'user@mailflow.pro',
-        
-        'email-sent': 'Письмо успешно отправлено!',
-        'email-saved': 'Письмо сохранено в черновиках',
-        'email-deleted': 'Письмо(а) успешно удалены!',
-        'marked-read': 'Письмо(а) отмечены прочитанными',
-        'marked-unread': 'Письмо(а) отмечены непрочитанными',
-        'starred': 'Добавлено в избранное',
-        'unstarred': 'Удалено из избранного',
-        'refreshed': 'Список писем обновлен',
-        'no-emails': 'Нет писем для отображения',
-        'select-emails': 'Выберите письма для действия',
-        'all-selected': 'Все письма выбраны',
-        'none-selected': 'Выбор снят',
-        'notifications-cleared': 'Уведомления очищены',
-        
-        'compose-tooltip': 'Создать новое письмо',
-        'refresh-tooltip': 'Обновить список писем',
-        'select-all-tooltip': 'Выбрать/снять все письма',
-        'delete-tooltip': 'Удалить выбранные письма',
-        'mark-read-tooltip': 'Отметить как прочитанные',
-        'mark-unread-tooltip': 'Отметить как непрочитанные',
-        'star-tooltip': 'Добавить в избранное',
-        'language': 'Русский'
-      }
-    };
-
-    // ==================== СТАН ДОДАТКУ ====================
-    let state = {
-      currentLanguage: 'uk',
-      currentTheme: 'light',
-      currentSection: 'inbox',
-      currentCategory: null,
-      emails: [],
-      sentEmails: [],
-      draftEmails: [],
-      trashEmails: [],
-      selectedEmails: new Set(),
-      isAllSelected: false,
-      notifications: [],
-      activityChart: null,
-      chartPeriod: 'day'
-    };
-
-    // ==================== ДЕМО ДАНІ ====================
-    const demoEmails = [
+    // ================ ПРОСТА РЕАЛІЗАЦІЯ ================
+    
+    // Дані листів
+    let emails = [
       {
         id: 1,
-        sender: "Університет Київський",
-        avatar: "УК",
-        subject: "Запрошення на конференцію 'Цифрові технології 2024'",
-        preview: "Шановні студенти та викладачі! Запрошуємо взяти участь у міжнародній конференції...",
+        sender: "Університет",
+        avatar: "У",
+        subject: "Запрошення на конференцію",
+        preview: "Шановні студенти та викладачі! Запрошуємо взяти участь...",
         date: "10:30",
-        time: "Сьогодні",
         unread: true,
-        starred: false,
-        tag: "study",
-        section: "inbox",
-        body: "Шановні студенти та викладачі!\n\nЗапрошуємо взяти участь у міжнародній конференції 'Цифрові технології 2024', яка відбудеться 15-17 травня 2024 року.\n\nТеми конференції:\n- Штучний інтелект\n- Веб-розробка\n- Кібербезпека\n- Data Science\n\nРеєстрація відкрита до 30 квітня.\n\nЗ повагою,\nОрганізаційний комітет"
+        starred: true,
+        tag: "study"
       },
       {
         id: 2,
         sender: "Олена Кравець",
-        avatar: "ОК",
-        subject: "Зустріч завтра о 14:00 - презентація проекту",
-        preview: "Привіт! Не забудь про нашу зустріч у Zoom завтра. Готуй презентацію щодо нового проекту...",
+        avatar: "О",
+        subject: "Зустріч завтра о 14:00",
+        preview: "Привіт! Не забудь про нашу зустріч у Zoom завтра...",
         date: "09:45",
-        time: "Сьогодні",
         unread: false,
-        starred: true,
-        tag: "work",
-        section: "inbox",
-        body: "Привіт!\n\nНе забудь про нашу зустріч у Zoom завтра о 14:00. Готуй презентацію щодо нового проекту 'Smart Dashboard'.\n\nПункти для обговорення:\n1. Архітектура проекту\n2. Таймлайн\n3. Бюджет\n4. Команда\n\nБудуть присутні всі ключові зацікавлені особи.\n\nДякую,\nОлена"
+        starred: false,
+        tag: "work"
       },
       {
         id: 3,
         sender: "Максим Шевчук",
-        avatar: "МШ",
-        subject: "Фото з походу в Карпати - неймовірні краєвиди!",
-        preview: "Привіт, кидаю пару крутих фоток з нашої останньої подорожі до Карпат. Погода була ідеальною...",
+        avatar: "М",
+        subject: "Фото з походу в Карпати",
+        preview: "Привіт, кидаю пару крутих фоток з нашої подорожі...",
         date: "18:30",
-        time: "Вчора",
-        unread: true,
-        starred: false,
-        tag: "personal",
-        section: "inbox",
-        body: "Привіт!\n\nКидаю пару крутих фоток з нашої останньої подорожі до Карпат. Погода була ідеальною, а краєвиди просто зачаровували.\n\nОсобливо сподобався похід на гору Петрос. Вид зверху неймовірний!\n\nФото в додатку. Обов'язково маєш колись поїхати!\n\nМакс"
-      },
-      {
-        id: 4,
-        sender: "Дмитро Пономаренко",
-        avatar: "ДП",
-        subject: "Футбол у суботу на стадіоні 'Нивки'",
-        preview: "Хлопці, граємо 7 на 7 о 17:00. Будь обов'язково, твої навички потрібні...",
-        date: "11:20",
-        time: "2 дн. тому",
         unread: true,
         starred: true,
-        tag: "personal",
-        section: "inbox",
-        body: "Хлопці,\n\nГраємо 7 на 7 у суботу о 17:00 на стадіоні 'Нивки'. Будь обов'язково, твої навички потрібні нашій команді.\n\nПриноси:\n- Футбольне взуття\n- Форму\n- Воду\n\nПісля гри йдемо в піцерію.\n\nДіма"
-      },
-      {
-        id: 5,
-        sender: "Богдан Коваль",
-        avatar: "БК",
-        subject: "Re: Співпраця над новим проектом - уточнення деталей",
-        preview: "Дякую за пропозицію! Мені дуже сподобалася ідея. Запропонував свої доповнення в прикріпленому...",
-        date: "16:40",
-        time: "3 дн. тому",
-        unread: false,
-        starred: false,
-        tag: "work",
-        section: "inbox",
-        body: "Дякую за пропозицію!\n\nМені дуже сподобалася ідея проекту. Запропонував свої доповнення в прикріпленому документі.\n\nОсобливо цікавить:\n1. Технологічний стек\n2. Бюджет\n3. Терміни\n\nДавай обговоримо деталі у середу.\n\nБогдан"
-      },
-      {
-        id: 6,
-        sender: "IT компанія TechSoft",
-        avatar: "ТС",
-        subject: "Запрошення на співбесіду на посаду Senior Developer",
-        preview: "Шановний кандидате, запрошуємо вас на співбесіду на посаду Senior Frontend Developer...",
-        date: "14:15",
-        time: "4 дн. тому",
-        unread: false,
-        starred: true,
-        tag: "work",
-        section: "inbox",
-        body: "Шановний кандидате,\n\nЗапрошуємо вас на співбесіду на посаду Senior Frontend Developer.\n\nДата: 25 березня 2024\nЧас: 11:00\nМісце: вул. Хрещатик, 25, офіс 304 (або Zoom)\n\nБудь ласка, підготуйте:\n1. Портфоліо проектів\n2. Приклади коду\n3. Ідеї для нашого продукту\n\nЗ повагою,\nHR-менеджер TechSoft"
+        tag: "personal"
       }
     ];
-
-    const demoSentEmails = [
-      {
-        id: 101,
-        sender: "Ви",
-        avatar: "В",
-        subject: "Пропозиція співпраці",
-        preview: "Шановний Богдане, пропоную співпрацю над новим проектом у сфері веб-розробки...",
-        date: "15:20",
-        time: "Сьогодні",
-        unread: false,
-        starred: false,
-        tag: "work",
-        section: "sent",
-        body: "Шановний Богдане,\n\nПропоную співпрацю над новим проектом у сфері веб-розробки. Маю декілька цікавих ідей, які хотів би обговорити.\n\nДавай зустрінемось наступного тижня?\n\nЗ повагою,\nКористувач"
-      }
-    ];
-
-    const demoDraftEmails = [
-      {
-        id: 201,
-        sender: "Ви",
-        avatar: "В",
-        subject: "Відгук на конференцію",
-        preview: "Шановні організатори, хотів би подякувати за чудову конференцію...",
-        date: "Вчора",
-        time: "Чернетка",
-        unread: false,
-        starred: false,
-        tag: "study",
-        section: "drafts",
-        body: "Шановні організатори,\n\nХотів би подякувати за чудову конференцію. Особливо сподобались доповіді про штучний інтелект..."
-      }
-    ];
-
-    const demoNotifications = [
-      {
-        id: 1,
-        title: "Новий лист",
-        message: "Отримано лист від Університету Київського",
-        time: "10:30",
-        read: false,
-        icon: "fa-envelope",
-        color: "primary"
-      },
-      {
-        id: 2,
-        title: "Нагадування",
-        message: "Зустріч з Оленою завтра о 14:00",
-        time: "09:45",
-        read: true,
-        icon: "fa-calendar",
-        color: "warning"
-      },
-      {
-        id: 3,
-        title: "Успішно відправлено",
-        message: "Лист Богдану Ковалю відправлено",
-        time: "Вчора",
-        read: true,
-        icon: "fa-paper-plane",
-        color: "success"
-      }
-    ];
-
-    // ==================== ІНІЦІАЛІЗАЦІЯ ====================
-    document.addEventListener('DOMContentLoaded', function() {
-      initApp();
-    });
-
-    function initApp() {
-      loadState();
-      setupEventListeners();
-      renderAll();
-      initCharts();
-      showNotification('Додаток завантажено успішно!', 'success');
-    }
-
-    // ==================== ЗБЕРЕЖЕННЯ СТАНУ ====================
-    function saveState() {
-      const stateToSave = {
-        currentLanguage: state.currentLanguage,
-        currentTheme: state.currentTheme,
-        currentSection: state.currentSection,
-        emails: state.emails,
-        sentEmails: state.sentEmails,
-        draftEmails: state.draftEmails,
-        trashEmails: state.trashEmails,
-        notifications: state.notifications
-      };
-      localStorage.setItem('mailflow-state', JSON.stringify(stateToSave));
-    }
-
-    function loadState() {
-      const saved = localStorage.getItem('mailflow-state');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        state.currentLanguage = parsed.currentLanguage || 'uk';
-        state.currentTheme = parsed.currentTheme || 'light';
-        state.currentSection = parsed.currentSection || 'inbox';
-        state.emails = parsed.emails || demoEmails;
-        state.sentEmails = parsed.sentEmails || demoSentEmails;
-        state.draftEmails = parsed.draftEmails || demoDraftEmails;
-        state.trashEmails = parsed.trashEmails || [];
-        state.notifications = parsed.notifications || demoNotifications;
-      } else {
-        // Використовуємо демо дані
-        state.emails = [...demoEmails];
-        state.sentEmails = [...demoSentEmails];
-        state.draftEmails = [...demoDraftEmails];
-        state.trashEmails = [];
-        state.notifications = [...demoNotifications];
-      }
-    }
-
-    // ==================== ОБРОБНИКИ ПОДІЙ ====================
-    function setupEventListeners() {
-      // Перемикання тем
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const theme = this.dataset.theme;
-          setTheme(theme);
-        });
-      });
-
-      // Перемикання мови
-      document.querySelectorAll('.language-option').forEach(option => {
-        option.addEventListener('click', function() {
-          const lang = this.dataset.lang;
-          setLanguage(lang);
-        });
-      });
-
-      // Перемикання розділів
-      document.querySelectorAll('.nav-item[data-section]').forEach(item => {
-        item.addEventListener('click', function() {
-          const section = this.dataset.section;
-          setActiveSection(section);
-        });
-      });
-
-      // Перемикання категорій
-      document.querySelectorAll('.nav-item[data-category]').forEach(item => {
-        item.addEventListener('click', function() {
-          const category = this.dataset.category;
-          setActiveCategory(category);
-        });
-      });
-
-      // Відкриття модального вікна
-      document.getElementById('composeBtn').addEventListener('click', () => {
-        openComposeModal();
-      });
-
-      // Закриття модального вікна
-      document.getElementById('closeModal').addEventListener('click', closeComposeModal);
-      
-      // Клік на оверлей
-      document.getElementById('composeModal').addEventListener('click', function(e) {
-        if (e.target === this) closeComposeModal();
-      });
-
-      // Надіслати лист
-      document.getElementById('sendEmailBtn').addEventListener('click', sendEmail);
-
-      // Зберегти чернетку
-      document.getElementById('saveDraftBtn').addEventListener('click', saveDraft);
-
-      // Кнопки дій
-      document.getElementById('refreshBtn').addEventListener('click', refreshEmails);
-      document.getElementById('selectAllBtn').addEventListener('click', toggleSelectAll);
-      document.getElementById('deleteBtn').addEventListener('click', deleteSelectedEmails);
-      document.getElementById('markReadBtn').addEventListener('click', markAsRead);
-      document.getElementById('markUnreadBtn').addEventListener('click', markAsUnread);
-
-      // Сповіщення
-      document.getElementById('notificationBtn').addEventListener('click', openNotifications);
-      document.getElementById('closeNotificationsBtn').addEventListener('click', closeNotifications);
-      document.getElementById('clearNotificationsBtn').addEventListener('click', clearNotifications);
-
-      // Клавіатурні скорочення
-      document.addEventListener('keydown', function(e) {
-        // Ctrl + N - новий лист
-        if (e.ctrlKey && e.key === 'n') {
-          e.preventDefault();
-          openComposeModal();
-        }
-        
-        // Ctrl + Enter - відправити лист
-        if (e.ctrlKey && e.key === 'Enter' && 
-            document.getElementById('composeModal').style.display === 'flex') {
-          sendEmail();
-        }
-        
-        // Delete - видалити вибрані
-        if (e.key === 'Delete' && state.selectedEmails.size > 0) {
-          deleteSelectedEmails();
-        }
-        
-        // Esc - закрити модальні вікна
-        if (e.key === 'Escape') {
-          closeComposeModal();
-          closeNotifications();
-        }
-      });
-
-      // Періоди графіків
-      document.querySelectorAll('.chart-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const period = this.dataset.period;
-          setChartPeriod(period);
-        });
-      });
-
-      // Пошук (заглушка)
-      const searchInput = document.querySelector('.search-bar input');
-      if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
-          // Можна додати пошук тут
-        });
-      }
-    }
-
-    // ==================== ОНОВЛЕННЯ ІНТЕРФЕЙСУ ====================
-    function renderAll() {
-      updateUI();
+    
+    let selectedEmails = [];
+    let currentSection = 'inbox';
+    
+    // Функція для завантаження сторінки
+    window.onload = function() {
       renderEmails();
-      updateMetrics();
-      updateBadges();
-      updateActionButtons();
-      renderNotifications();
-    }
-
-    function updateUI() {
-      const t = translations[state.currentLanguage];
-      
-      // Оновлюємо всі тексти
-      Object.keys(t).forEach(key => {
-        const element = document.getElementById(key);
-        if (element) {
-          element.textContent = t[key];
-        }
+      showNotification('Поштовий клієнт завантажено!', 'success');
+    };
+    
+    // ================ ФУНКЦІЇ ДЛЯ КНОПОК ================
+    
+    // Темні теми
+    function setTheme(theme) {
+      // Змінюємо активну кнопку теми
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
       });
+      event.target.classList.add('active');
       
-      // Оновлюємо заголовок сторінки
-      document.title = t['app-title'];
-      
-      // Оновлюємо аватар
-      const userAvatar = document.getElementById('userAvatar');
-      if (userAvatar) {
-        userAvatar.textContent = t['user-name'].charAt(0);
+      // Застосовуємо тему
+      if (theme === 'dark') {
+        document.body.style.background = '#1a1a1a';
+        document.body.style.color = 'white';
+      } else if (theme === 'oled') {
+        document.body.style.background = '#000000';
+        document.body.style.color = 'white';
+      } else {
+        document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        document.body.style.color = '#333';
       }
       
-      // Оновлюємо поточну мову
-      const currentLanguageElement = document.getElementById('current-language');
-      if (currentLanguageElement) {
-        currentLanguageElement.textContent = t['language'];
-      }
+      showNotification('Тема змінена на ' + theme, 'success');
+    }
+    
+    // Розділи
+    function setActiveSection(section) {
+      currentSection = section;
       
-      // Оновлюємо активну мову
-      document.querySelectorAll('.language-option').forEach(option => {
-        option.classList.remove('active');
-        if (option.dataset.lang === state.currentLanguage) {
-          option.classList.add('active');
-        }
+      // Оновлюємо активний пункт меню
+      document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('active');
       });
-    }
-
-    function renderEmails() {
-      const emailsList = document.getElementById('emailsList');
-      let emailsToRender = [];
+      event.target.classList.add('active');
       
-      // Визначаємо, які листи показувати
-      switch (state.currentSection) {
-        case 'inbox':
-          emailsToRender = state.emails;
-          break;
-        case 'sent':
-          emailsToRender = state.sentEmails;
-          break;
-        case 'drafts':
-          emailsToRender = state.draftEmails;
-          break;
-        case 'trash':
-          emailsToRender = state.trashEmails;
-          break;
-        default:
-          // Фільтрація за категорією
-          if (state.currentCategory) {
-            emailsToRender = state.emails.filter(email => email.tag === state.currentCategory);
-          } else {
-            emailsToRender = state.emails;
-          }
-      }
-      
-      if (emailsToRender.length === 0) {
-        emailsList.innerHTML = `
-          <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-            <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-            <h3 style="margin-bottom: 8px;">${translations[state.currentLanguage]['no-emails']}</h3>
-            <p>${getEmptyStateMessage()}</p>
-          </div>
-        `;
-        return;
-      }
-      
-      emailsList.innerHTML = emailsToRender.map(email => `
-        <div class="email-item ${email.unread ? 'unread' : ''} ${state.selectedEmails.has(email.id) ? 'selected' : ''}" data-id="${email.id}">
-          <input type="checkbox" class="email-checkbox" ${state.selectedEmails.has(email.id) ? 'checked' : ''}>
-          <button class="star-btn ${email.starred ? 'active' : ''}" title="${translations[state.currentLanguage]['star-tooltip']}">
-            <i class="fas fa-star"></i>
-          </button>
-          <div class="sender-avatar">${email.avatar}</div>
-          <div class="email-content">
-            <div class="email-sender">${email.sender}</div>
-            <div class="email-subject">
-              ${email.subject}
-              <span class="email-tag tag-${email.tag}">${getTagName(email.tag)}</span>
-            </div>
-          </div>
-          <div class="email-meta">
-            <div class="email-date">${email.date}</div>
-          </div>
-        </div>
-      `).join('');
-      
-      // Додаємо обробники кліків на листи
-      addEmailEventListeners();
-    }
-
-    function getEmptyStateMessage() {
-      switch (state.currentSection) {
-        case 'inbox': return 'Немає нових листів';
-        case 'sent': return 'Немає відправлених листів';
-        case 'drafts': return 'Немає чернеток';
-        case 'trash': return 'Корзина порожня';
-        default: return 'Немає листів у цій категорії';
-      }
-    }
-
-    function addEmailEventListeners() {
-      document.querySelectorAll('.email-item').forEach(item => {
-        const emailId = parseInt(item.dataset.id);
-        const email = getEmailById(emailId);
-        
-        if (!email) return;
-        
-        // Клік на чекбокс
-        item.querySelector('.email-checkbox').addEventListener('click', function(e) {
-          e.stopPropagation();
-          toggleEmailSelection(emailId, this.checked);
-        });
-        
-        // Клік на зірочку
-        item.querySelector('.star-btn').addEventListener('click', function(e) {
-          e.stopPropagation();
-          toggleStar(emailId);
-        });
-        
-        // Клік на лист
-        item.addEventListener('click', function(e) {
-          if (!e.target.matches('.email-checkbox, .star-btn, .star-btn *')) {
-            openEmail(email);
-          }
-        });
-      });
-    }
-
-    function getEmailById(id) {
-      // Шукаємо лист у всіх розділах
-      const allEmails = [...state.emails, ...state.sentEmails, ...state.draftEmails, ...state.trashEmails];
-      return allEmails.find(email => email.id === id);
-    }
-
-    function getTagName(tag) {
-      const tags = {
-        'work': translations[state.currentLanguage]['category-work'],
-        'study': translations[state.currentLanguage]['category-study'],
-        'personal': translations[state.currentLanguage]['category-personal']
+      // Оновлюємо заголовок
+      const titles = {
+        'inbox': '📥 Вхідні',
+        'sent': '📤 Надіслані', 
+        'drafts': '📝 Чернетки',
+        'trash': '🗑️ Видалені'
       };
-      return tags[tag] || tag;
+      document.getElementById('sectionTitle').innerHTML = titles[section] + ' <span class="new-badge" id="newBadge">12 нових</span>';
+      
+      renderEmails();
+      showNotification('Перейшли до ' + titles[section], 'success');
     }
-
-    // ==================== ФУНКЦІОНАЛ КНОПОК ====================
+    
+    // Відкриття модального вікна
     function openComposeModal() {
       document.getElementById('composeModal').style.display = 'flex';
       document.getElementById('toInput').focus();
+      showNotification('Відкрито форму для написання листа', 'info');
     }
-
+    
+    // Закриття модального вікна
     function closeComposeModal() {
       document.getElementById('composeModal').style.display = 'none';
       document.getElementById('toInput').value = '';
       document.getElementById('subjectInput').value = '';
       document.getElementById('messageInput').value = '';
+      showNotification('Форма закрита', 'info');
     }
-
+    
+    // Надіслання листа
     function sendEmail() {
-      const to = document.getElementById('toInput').value.trim();
-      const subject = document.getElementById('subjectInput').value.trim();
-      const message = document.getElementById('messageInput').value.trim();
+      const to = document.getElementById('toInput').value;
+      const subject = document.getElementById('subjectInput').value;
+      const message = document.getElementById('messageInput').value;
       
       if (!to || !subject || !message) {
-        showNotification('Будь ласка, заповніть всі поля', 'warning');
+        showNotification('Заповніть всі поля!', 'error');
         return;
       }
       
-      // Створюємо новий лист
-      const newEmail = {
-        id: Date.now(),
+      // Додаємо новий лист
+      emails.unshift({
+        id: emails.length + 1,
         sender: "Ви",
         avatar: "В",
         subject: subject,
-        preview: message.substring(0, 80) + '...',
-        date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        time: "Зараз",
+        preview: message.substring(0, 50) + '...',
+        date: 'Зараз',
         unread: false,
         starred: false,
-        tag: "work",
-        section: "sent",
-        body: message,
-        to: to
-      };
+        tag: "work"
+      });
       
-      // Додаємо до надісланих
-      state.sentEmails.unshift(newEmail);
-      
-      // Оновлюємо лічильник
-      updateBadges();
-      
-      // Закриваємо модальне вікно
       closeComposeModal();
-      
-      // Показуємо сповіщення
-      showNotification(translations[state.currentLanguage]['email-sent'], 'success');
-      
-      // Якщо ми у розділі "Надіслані", оновлюємо список
-      if (state.currentSection === 'sent') {
-        renderEmails();
-      }
-      
-      // Зберігаємо стан
-      saveState();
+      renderEmails();
+      showNotification('Лист успішно надіслано до ' + to, 'success');
     }
-
+    
+    // Збереження чернетки
     function saveDraft() {
-      const to = document.getElementById('toInput').value.trim();
-      const subject = document.getElementById('subjectInput').value.trim();
-      const message = document.getElementById('messageInput').value.trim();
-      
-      if (!subject && !message) {
-        showNotification('Чернетка порожня', 'warning');
-        return;
-      }
-      
-      // Створюємо чернетку
-      const draft = {
-        id: Date.now(),
-        sender: "Ви",
-        avatar: "В",
-        subject: subject || '(Без теми)',
-        preview: message ? (message.substring(0, 80) + '...') : '(Порожня чернетка)',
-        date: new Date().toLocaleDateString(),
-        time: "Чернетка",
-        unread: false,
-        starred: false,
-        tag: "work",
-        section: "drafts",
-        body: message,
-        to: to
-      };
-      
-      // Додаємо до чернеток
-      state.draftEmails.unshift(draft);
-      
-      // Оновлюємо лічильник
-      updateBadges();
-      
-      // Закриваємо модальне вікно
+      showNotification('Чернетку збережено', 'success');
       closeComposeModal();
-      
-      // Показуємо сповіщення
-      showNotification(translations[state.currentLanguage]['email-saved'], 'success');
-      
-      // Якщо ми у розділі "Чернетки", оновлюємо список
-      if (state.currentSection === 'drafts') {
-        renderEmails();
-      }
-      
-      // Зберігаємо стан
-      saveState();
     }
-
+    
+    // Оновлення листів
     function refreshEmails() {
-      const btn = document.getElementById('refreshBtn');
-      const icon = btn.querySelector('i');
-      icon.classList.add('fa-spin');
+      showNotification('Оновлено список листів', 'success');
+      const btn = event.target;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '🔄 Оновлюється...';
       
-      showNotification(translations[state.currentLanguage]['refreshed'], 'info');
-      
-      // Симуляція завантаження нових листів
       setTimeout(() => {
-        icon.classList.remove('fa-spin');
-        
-        // Додаємо випадковий новий лист (для демонстрації)
-        const newEmail = {
-          id: Date.now(),
-          sender: "Новий відправник",
-          avatar: "Н",
-          subject: "Новий лист " + new Date().getHours() + ":" + new Date().getMinutes(),
-          preview: "Це новий лист, отриманий після оновлення...",
-          date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-          time: "Зараз",
-          unread: true,
-          starred: false,
-          tag: ["work", "study", "personal"][Math.floor(Math.random() * 3)],
-          section: "inbox",
-          body: "Це новий лист, отриманий після оновлення."
-        };
-        
-        state.emails.unshift(newEmail);
+        btn.innerHTML = originalText;
         renderEmails();
-        updateMetrics();
-        updateBadges();
-        saveState();
       }, 1000);
     }
-
-    function toggleSelectAll() {
-      const btn = document.getElementById('selectAllBtn');
-      const icon = btn.querySelector('i');
-      let emailsToSelect = [];
+    
+    // Вибрати всі листи
+    function selectAllEmails() {
+      const checkboxes = document.querySelectorAll('.email-checkbox');
+      const allSelected = checkboxes.length > 0 && checkboxes[0].checked;
       
-      // Визначаємо, які листи вибирати
-      switch (state.currentSection) {
-        case 'inbox':
-          emailsToSelect = state.emails;
-          break;
-        case 'sent':
-          emailsToSelect = state.sentEmails;
-          break;
-        case 'drafts':
-          emailsToSelect = state.draftEmails;
-          break;
-        case 'trash':
-          emailsToSelect = state.trashEmails;
-          break;
-        default:
-          if (state.currentCategory) {
-            emailsToSelect = state.emails.filter(email => email.tag === state.currentCategory);
-          } else {
-            emailsToSelect = state.emails;
-          }
-      }
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = !allSelected;
+      });
       
-      state.isAllSelected = !state.isAllSelected;
-      
-      if (state.isAllSelected) {
-        // Вибрати всі
-        state.selectedEmails.clear();
-        emailsToSelect.forEach(email => state.selectedEmails.add(email.id));
-        icon.classList.remove('fa-square');
-        icon.classList.add('fa-check-square');
-        showNotification(translations[state.currentLanguage]['all-selected'], 'info');
-      } else {
-        // Зняти всі
-        state.selectedEmails.clear();
-        icon.classList.remove('fa-check-square');
-        icon.classList.add('fa-square');
-        showNotification(translations[state.currentLanguage]['none-selected'], 'info');
-      }
-      
-      renderEmails();
-      updateActionButtons();
+      const count = !allSelected ? checkboxes.length : 0;
+      showNotification(!allSelected ? 'Вибрані всі листи (' + count + ')' : 'Виділення знято', 'success');
     }
-
-    function toggleEmailSelection(emailId, isChecked) {
-      if (isChecked) {
-        state.selectedEmails.add(emailId);
-      } else {
-        state.selectedEmails.delete(emailId);
-        state.isAllSelected = false;
-        document.getElementById('selectAllBtn').querySelector('i').className = 'far fa-square';
-      }
-      
-      updateActionButtons();
-    }
-
-    function updateActionButtons() {
-      const deleteBtn = document.getElementById('deleteBtn');
-      const markReadBtn = document.getElementById('markReadBtn');
-      const markUnreadBtn = document.getElementById('markUnreadBtn');
-      const selectAllIcon = document.getElementById('selectAllBtn').querySelector('i');
-      
-      const hasSelection = state.selectedEmails.size > 0;
-      
-      deleteBtn.disabled = !hasSelection;
-      markReadBtn.disabled = !hasSelection;
-      markUnreadBtn.disabled = !hasSelection;
-      
-      // Оновлюємо іконку "Вибрати всі"
-      if (state.isAllSelected) {
-        selectAllIcon.className = 'far fa-check-square';
-      } else {
-        selectAllIcon.className = 'far fa-square';
-      }
-    }
-
+    
+    // Видалити вибрані листи
     function deleteSelectedEmails() {
-      if (state.selectedEmails.size === 0) {
-        showNotification(translations[state.currentLanguage]['select-emails'], 'warning');
+      const checkboxes = document.querySelectorAll('.email-checkbox:checked');
+      if (checkboxes.length === 0) {
+        showNotification('Виберіть листи для видалення', 'error');
         return;
       }
       
-      if (!confirm(`Видалити ${state.selectedEmails.size} лист(ів)?`)) {
-        return;
+      if (confirm('Видалити ' + checkboxes.length + ' листів?')) {
+        // Видаляємо листи (просто приховуємо для демонстрації)
+        checkboxes.forEach(checkbox => {
+          const emailItem = checkbox.closest('.email-item');
+          emailItem.style.display = 'none';
+        });
+        
+        showNotification('Видалено ' + checkboxes.length + ' листів', 'success');
       }
-      
-      // Видаляємо листи з поточного розділу
-      const emailsToDelete = Array.from(state.selectedEmails);
-      
-      emailsToDelete.forEach(emailId => {
-        // Шукаємо лист у всіх розділах
-        let email = getEmailById(emailId);
-        if (!email) return;
-        
-        // Видаляємо з поточного розділу
-        switch (state.currentSection) {
-          case 'inbox':
-            state.emails = state.emails.filter(e => e.id !== emailId);
-            break;
-          case 'sent':
-            state.sentEmails = state.sentEmails.filter(e => e.id !== emailId);
-            break;
-          case 'drafts':
-            state.draftEmails = state.draftEmails.filter(e => e.id !== emailId);
-            break;
-          case 'trash':
-            state.trashEmails = state.trashEmails.filter(e => e.id !== emailId);
-            break;
-        }
-        
-        // Якщо це не корзина, додаємо до корзини
-        if (state.currentSection !== 'trash') {
-          email.section = 'trash';
-          state.trashEmails.unshift(email);
-        }
-      });
-      
-      // Очищаємо вибір
-      state.selectedEmails.clear();
-      state.isAllSelected = false;
-      
-      // Оновлюємо інтерфейс
-      renderEmails();
-      updateBadges();
-      updateActionButtons();
-      
-      // Показуємо сповіщення
-      showNotification(translations[state.currentLanguage]['email-deleted'], 'success');
-      
-      // Зберігаємо стан
-      saveState();
     }
-
+    
+    // Відмітити прочитаними
     function markAsRead() {
-      if (state.selectedEmails.size === 0) {
-        showNotification(translations[state.currentLanguage]['select-emails'], 'warning');
+      const checkboxes = document.querySelectorAll('.email-checkbox:checked');
+      if (checkboxes.length === 0) {
+        showNotification('Виберіть листи', 'error');
         return;
       }
       
-      state.selectedEmails.forEach(emailId => {
-        const email = getEmailById(emailId);
-        if (email) {
-          email.unread = false;
-        }
+      checkboxes.forEach(checkbox => {
+        const emailItem = checkbox.closest('.email-item');
+        emailItem.style.opacity = '0.7';
       });
       
-      renderEmails();
-      updateBadges();
-      updateActionButtons();
-      showNotification(translations[state.currentLanguage]['marked-read'], 'success');
-      saveState();
+      showNotification('Відмічено прочитаними: ' + checkboxes.length + ' листів', 'success');
     }
-
+    
+    // Відмітити непрочитаними
     function markAsUnread() {
-      if (state.selectedEmails.size === 0) {
-        showNotification(translations[state.currentLanguage]['select-emails'], 'warning');
+      const checkboxes = document.querySelectorAll('.email-checkbox:checked');
+      if (checkboxes.length === 0) {
+        showNotification('Виберіть листи', 'error');
         return;
       }
       
-      state.selectedEmails.forEach(emailId => {
-        const email = getEmailById(emailId);
-        if (email) {
-          email.unread = true;
-        }
+      checkboxes.forEach(checkbox => {
+        const emailItem = checkbox.closest('.email-item');
+        emailItem.style.opacity = '1';
       });
       
-      renderEmails();
-      updateBadges();
-      updateActionButtons();
-      showNotification(translations[state.currentLanguage]['marked-unread'], 'success');
-      saveState();
+      showNotification('Відмічено непрочитаними: ' + checkboxes.length + ' листів', 'success');
     }
-
-    function toggleStar(emailId) {
-      const email = getEmailById(emailId);
-      if (email) {
-        email.starred = !email.starred;
-        renderEmails();
-        showNotification(
-          email.starred 
-            ? translations[state.currentLanguage]['starred']
-            : translations[state.currentLanguage]['unstarred'],
-          'info'
-        );
-        saveState();
-      }
-    }
-
-    function openEmail(email) {
-      // Відмічаємо як прочитаний
-      if (email.unread) {
-        email.unread = false;
-        updateBadges();
-        saveState();
-      }
+    
+    // ================ ДОПОМІЖНІ ФУНКЦІЇ ================
+    
+    // Показати сповіщення
+    function showNotification(message, type) {
+      const notification = document.getElementById('notification');
+      const text = document.getElementById('notificationText');
       
-      // Показуємо модальне вікно з листом
-      const modal = document.createElement('div');
-      modal.className = 'modal-overlay';
-      modal.style.display = 'flex';
-      modal.innerHTML = `
-        <div class="modal" style="max-width: 800px;">
-          <div class="modal-header">
-            <div class="modal-title">${email.subject}</div>
-            <button class="close-btn">&times;</button>
-          </div>
-          <div class="modal-body">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-              <div class="sender-avatar">${email.avatar}</div>
-              <div>
-                <div style="font-weight: 600; font-size: 16px;">${email.sender}</div>
-                <div style="color: var(--text-muted); font-size: 14px;">${email.date}, ${email.time}</div>
-              </div>
-              ${email.to ? `<div style="margin-left: auto; color: var(--text-muted);">Кому: ${email.to}</div>` : ''}
-            </div>
-            <div style="white-space: pre-wrap; line-height: 1.6; font-size: 16px; color: var(--text-primary);">
-              ${email.body}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" id="replyBtn">
-              <i class="fas fa-reply"></i>
-              Відповісти
-            </button>
-            <button class="btn btn-secondary" id="forwardBtn">
-              <i class="fas fa-share"></i>
-              Переслати
-            </button>
-            <button class="btn btn-primary" id="closeEmailBtn">
-              <i class="fas fa-times"></i>
-              Закрити
-            </button>
-          </div>
-        </div>
-      `;
-      
-      document.body.appendChild(modal);
-      
-      // Обробники подій для модального вікна листа
-      modal.querySelector('.close-btn').addEventListener('click', () => {
-        document.body.removeChild(modal);
-      });
-      
-      modal.querySelector('#closeEmailBtn').addEventListener('click', () => {
-        document.body.removeChild(modal);
-      });
-      
-      modal.querySelector('#replyBtn').addEventListener('click', () => {
-        document.body.removeChild(modal);
-        openComposeModal();
-        document.getElementById('toInput').value = email.sender === "Ви" ? email.to : email.sender;
-        document.getElementById('subjectInput').value = `Re: ${email.subject}`;
-        document.getElementById('messageInput').value = `\n\n---\n${email.body}`;
-        document.getElementById('messageInput').focus();
-      });
-      
-      modal.querySelector('#forwardBtn').addEventListener('click', () => {
-        document.body.removeChild(modal);
-        openComposeModal();
-        document.getElementById('subjectInput').value = `Fwd: ${email.subject}`;
-        document.getElementById('messageInput').value = `\n\n--- Пересланий лист ---\n\nВід: ${email.sender}\nДата: ${email.date}\nТема: ${email.subject}\n\n${email.body}`;
-        document.getElementById('messageInput').focus();
-      });
-      
-      // Клік на оверлей
-      modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-          document.body.removeChild(modal);
-        }
-      });
-    }
-
-    // ==================== СПОВІЩЕННЯ ====================
-    function openNotifications() {
-      document.getElementById('notificationsModal').style.display = 'flex';
-    }
-
-    function closeNotifications() {
-      document.getElementById('notificationsModal').style.display = 'none';
-    }
-
-    function clearNotifications() {
-      state.notifications = [];
-      renderNotifications();
-      updateBadges();
-      showNotification(translations[state.currentLanguage]['notifications-cleared'], 'success');
-      saveState();
-    }
-
-    function renderNotifications() {
-      const notificationsList = document.getElementById('notificationsList');
-      
-      if (state.notifications.length === 0) {
-        notificationsList.innerHTML = `
-          <div style="text-align: center; padding: 20px; color: var(--text-muted);">
-            <i class="fas fa-bell-slash" style="font-size: 32px; margin-bottom: 12px; opacity: 0.5;"></i>
-            <p>Немає сповіщень</p>
-          </div>
-        `;
-        return;
-      }
-      
-      notificationsList.innerHTML = state.notifications.map(notification => `
-        <div class="notification-item" style="padding: 12px; border-bottom: 1px solid var(--border-color); display: flex; align-items: flex-start; gap: 12px; ${!notification.read ? 'background: var(--hover-bg);' : ''}">
-          <div style="color: var(--${notification.color}-color); font-size: 18px;">
-            <i class="fas ${notification.icon}"></i>
-          </div>
-          <div style="flex: 1;">
-            <div style="font-weight: 600; margin-bottom: 4px;">${notification.title}</div>
-            <div style="color: var(--text-secondary); font-size: 14px;">${notification.message}</div>
-          </div>
-          <div style="color: var(--text-muted); font-size: 12px; white-space: nowrap;">
-            ${notification.time}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function showNotification(message, type = 'success') {
-      const notification = document.getElementById('notificationToast');
-      const notificationText = document.getElementById('notificationText');
-      
-      // Встановлюємо колір
-      const colors = {
-        'success': 'var(--success-color)',
-        'warning': 'var(--warning-color)',
-        'info': 'var(--primary-color)',
-        'error': 'var(--danger-color)'
-      };
-      
-      notification.style.background = colors[type] || colors.success;
-      notificationText.textContent = message;
-      notification.style.display = 'flex';
+      text.textContent = message;
+      notification.style.display = 'block';
+      notification.style.background = type === 'error' ? '#ff6b6b' : 
+                                    type === 'success' ? '#4CAF50' : '#2196F3';
       
       // Ховаємо через 3 секунди
       setTimeout(() => {
         notification.style.display = 'none';
       }, 3000);
     }
-
-    // ==================== МЕТРИКИ ТА БЕЙДЖИ ====================
-    function updateMetrics() {
-      const unreadCount = state.emails.filter(email => email.unread).length;
-      const totalEmails = state.emails.length + state.sentEmails.length + state.draftEmails.length;
+    
+    // Відобразити листи
+    function renderEmails() {
+      const emailsList = document.getElementById('emailsList');
       
-      // Оновлюємо значення
-      document.getElementById('unread-count').textContent = unreadCount;
-      document.getElementById('total-emails').textContent = totalEmails;
-      document.getElementById('new-count').textContent = `(${unreadCount} нових)`;
-    }
-
-    function updateBadges() {
-      const unreadCount = state.emails.filter(email => email.unread).length;
-      const inboxBadge = document.getElementById('inbox-badge');
-      const sentBadge = document.getElementById('sent-badge');
-      const draftsBadge = document.getElementById('drafts-badge');
-      const notificationBadge = document.querySelector('.notification-badge');
-      
-      if (inboxBadge) inboxBadge.textContent = unreadCount;
-      if (sentBadge) sentBadge.textContent = state.sentEmails.length;
-      if (draftsBadge) draftsBadge.textContent = state.draftEmails.length;
-      
-      // Оновлюємо сповіщення
-      const unreadNotifications = state.notifications.filter(n => !n.read).length;
-      if (notificationBadge) {
-        if (unreadNotifications > 0) {
-          notificationBadge.setAttribute('data-count', unreadNotifications);
-          notificationBadge.innerHTML = `<i class="fas fa-bell" style="font-size: 20px; color: var(--text-secondary);"></i>`;
-        } else {
-          notificationBadge.removeAttribute('data-count');
-          notificationBadge.innerHTML = `<i class="fas fa-bell" style="font-size: 20px; color: var(--text-muted);"></i>`;
-        }
-      }
-    }
-
-    // ==================== ТЕМИ ТА МОВИ ====================
-    function setTheme(theme) {
-      state.currentTheme = theme;
-      document.documentElement.setAttribute('data-theme', theme);
-      
-      // Оновлюємо активну кнопку
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.theme === theme) {
-          btn.classList.add('active');
-        }
-      });
-      
-      // Оновлюємо графік
-      if (state.activityChart) {
-        state.activityChart.update();
+      if (emails.length === 0) {
+        emailsList.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Немає листів</div>';
+        return;
       }
       
-      saveState();
+      emailsList.innerHTML = emails.map(email => `
+        <div class="email-item">
+          <input type="checkbox" class="email-checkbox">
+          <span class="star" onclick="toggleStar(this)">${email.starred ? '★' : '☆'}</span>
+          <div class="sender-avatar">${email.avatar}</div>
+          <div class="email-content">
+            <div class="email-subject">${email.sender}: ${email.subject}</div>
+            <div class="email-preview">${email.preview}</div>
+          </div>
+          <div class="email-date">${email.date}</div>
+        </div>
+      `).join('');
     }
-
-    function setLanguage(lang) {
-      state.currentLanguage = lang;
-      renderAll();
-      saveState();
-    }
-
-    function setActiveSection(section) {
-      state.currentSection = section;
-      state.currentCategory = null;
-      state.selectedEmails.clear();
-      state.isAllSelected = false;
-      
-      // Оновлюємо активний пункт меню
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      document.querySelector(`.nav-item[data-section="${section}"]`).classList.add('active');
-      
-      renderEmails();
-      updateActionButtons();
-      saveState();
-    }
-
-    function setActiveCategory(category) {
-      state.currentCategory = category;
-      state.currentSection = null;
-      state.selectedEmails.clear();
-      state.isAllSelected = false;
-      
-      // Оновлюємо активний пункт меню
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      document.querySelector(`.nav-item[data-category="${category}"]`).classList.add('active');
-      
-      renderEmails();
-      updateActionButtons();
-      saveState();
-    }
-
-    // ==================== ГРАФІКИ ====================
-    function initCharts() {
-      const ctx = document.getElementById('activityChart').getContext('2d');
-      
-      // Дані для графіка
-      const data = getChartData();
-      
-      state.activityChart = new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              mode: 'index',
-              intersect: false
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: {
-                color: 'var(--chart-grid)'
-              },
-              ticks: {
-                color: 'var(--text-muted)'
-              }
-            },
-            x: {
-              grid: {
-                color: 'var(--chart-grid)'
-              },
-              ticks: {
-                color: 'var(--text-muted)'
-              }
-            }
-          },
-          interaction: {
-            intersect: false,
-            mode: 'nearest'
-          },
-          elements: {
-            point: {
-              radius: 4,
-              hoverRadius: 6
-            }
-          }
-        }
-      });
-    }
-
-    function getChartData() {
-      let labels, data;
-      
-      switch (state.chartPeriod) {
-        case 'day':
-          labels = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
-          data = [20, 45, 80, 65, 90, 75];
-          break;
-        case 'week':
-          labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-          data = [65, 78, 82, 75, 90, 60, 55];
-          break;
-        case 'month':
-          labels = ['Т1', 'Т2', 'Т3', 'Т4'];
-          data = [70, 85, 65, 90];
-          break;
-        default:
-          labels = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
-          data = [20, 45, 80, 65, 90, 75];
+    
+    // Перемикання зірочки
+    function toggleStar(element) {
+      if (element.textContent === '☆') {
+        element.textContent = '★';
+        element.style.color = 'gold';
+        showNotification('Додано до обраних', 'success');
+      } else {
+        element.textContent = '☆';
+        element.style.color = '#ccc';
+        showNotification('Видалено з обраних', 'info');
       }
-      
-      return {
-        labels: labels,
-        datasets: [{
-          label: 'Активність',
-          data: data,
-          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-color'),
-          backgroundColor: 'rgba(102, 126, 234, 0.1)',
-          borderWidth: 3,
-          fill: true,
-          tension: 0.4,
-          pointBackgroundColor: 'white',
-          pointBorderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-color'),
-          pointBorderWidth: 2,
-          pointRadius: 5,
-          pointHoverRadius: 8
-        }]
-      };
-    }
-
-    function setChartPeriod(period) {
-      state.chartPeriod = period;
-      
-      // Оновлюємо активну кнопку
-      document.querySelectorAll('.chart-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.period === period) {
-          btn.classList.add('active');
-        }
-      });
-      
-      // Оновлюємо дані графіка
-      if (state.activityChart) {
-        const newData = getChartData();
-        state.activityChart.data.labels = newData.labels;
-        state.activityChart.data.datasets[0].data = newData.datasets[0].data;
-        state.activityChart.update();
-      }
-    }
-
-    // ==================== КОРИСНІ ФУНКЦІЇ ====================
-    function addNotification(title, message, type = 'info') {
-      const notification = {
-        id: Date.now(),
-        title: title,
-        message: message,
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        read: false,
-        icon: getNotificationIcon(type),
-        color: type
-      };
-      
-      state.notifications.unshift(notification);
-      updateBadges();
-      renderNotifications();
-      saveState();
-    }
-
-    function getNotificationIcon(type) {
-      const icons = {
-        'info': 'fa-info-circle',
-        'success': 'fa-check-circle',
-        'warning': 'fa-exclamation-triangle',
-        'error': 'fa-times-circle',
-        'primary': 'fa-envelope'
-      };
-      return icons[type] || 'fa-info-circle';
     }
   </script>
 </body>
