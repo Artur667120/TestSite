@@ -1,496 +1,12 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" id="html-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Пошта Загурського Артура Тарасовича</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-    }
-
-    /* Верхня панель */
-    header {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-    }
-    
-    .tagline {
-      font-size: 14px;
-      color: #666;
-      font-weight: 500;
-    }
-    
-    .user {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: rgba(102, 126, 234, 0.1);
-      padding: 10px 20px;
-      border-radius: 25px;
-      border: 1px solid rgba(102, 126, 234, 0.2);
-    }
-    
-    .user-info {
-      text-align: right;
-    }
-    
-    .user-name {
-      font-weight: 700;
-      color: #2d3748;
-      font-size: 16px;
-    }
-    
-    .user-email {
-      font-size: 14px;
-      color: #667eea;
-    }
-    
-    .avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      border: 3px solid #667eea;
-      object-fit: cover;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    /* Основний контейнер */
-    .main-container {
-      display: flex;
-      min-height: calc(100vh - 85px);
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* Бокове меню */
-    .sidebar {
-      width: 280px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 25px 0;
-      margin-right: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-      height: fit-content;
-    }
-    
-    .sidebar-header {
-      padding: 0 25px 20px;
-      border-bottom: 1px solid #e2e8f0;
-      margin-bottom: 20px;
-    }
-    
-    .compose-btn {
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      justify-content: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .compose-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-    }
-    
-    .menu-item {
-      padding: 15px 30px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      cursor: pointer;
-      transition: all 0.3s;
-      border-left: 4px solid transparent;
-    }
-    
-    .menu-item:hover {
-      background: rgba(102, 126, 234, 0.1);
-      border-left-color: rgba(102, 126, 234, 0.5);
-      padding-left: 34px;
-    }
-    
-    .menu-item.active {
-      background: rgba(102, 126, 234, 0.15);
-      font-weight: 700;
-      color: #667eea;
-      border-left: 4px solid #667eea;
-    }
-    
-    .menu-icon {
-      width: 24px;
-      height: 24px;
-      filter: brightness(0.8);
-    }
-    
-    .menu-count {
-      margin-left: auto;
-      background: #667eea;
-      color: white;
-      padding: 3px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    
-    .category-title {
-      padding: 20px 30px 10px;
-      font-size: 12px;
-      text-transform: uppercase;
-      color: #718096;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-
-    /* Список листів */
-    .emails-container {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-    }
-    
-    .emails-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    
-    .emails-header h2 {
-      font-size: 24px;
-      color: #2d3748;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .inbox-count {
-      background: #667eea;
-      color: white;
-      padding: 5px 12px;
-      border-radius: 15px;
-      font-size: 14px;
-    }
-    
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background: #f7fafc;
-      border-radius: 12px;
-      padding: 12px 20px;
-      width: 300px;
-      border: 1px solid #e2e8f0;
-    }
-    
-    .search-bar input {
-      border: none;
-      background: transparent;
-      flex: 1;
-      outline: none;
-      font-size: 15px;
-      margin-left: 10px;
-    }
-    
-    .emails {
-      max-height: calc(100vh - 250px);
-      overflow-y: auto;
-    }
-    
-    .email {
-      display: flex;
-      align-items: center;
-      padding: 18px 20px;
-      border-bottom: 1px solid #f1f5f9;
-      cursor: pointer;
-      transition: all 0.3s;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      position: relative;
-    }
-    
-    .email::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: transparent;
-      border-radius: 4px 0 0 4px;
-      transition: background 0.3s;
-    }
-    
-    .email:hover {
-      background: #f8fafc;
-      transform: translateX(5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
-    
-    .email:hover::before {
-      background: linear-gradient(to bottom, #667eea, #764ba2);
-    }
-    
-    .email.unread {
-      background: rgba(102, 126, 234, 0.05);
-    }
-    
-    .star {
-      width: 24px;
-      height: 24px;
-      margin-right: 15px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    
-    .star:hover {
-      transform: scale(1.2);
-    }
-    
-    .sender {
-      width: 200px;
-      font-weight: 600;
-      color: #2d3748;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .sender-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
-    }
-    
-    .email-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-    }
-    
-    .email-title {
-      font-weight: 600;
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .email-preview {
-      color: #718096;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    .email-date {
-      margin-left: 20px;
-      color: #a0aec0;
-      font-size: 14px;
-      min-width: 100px;
-      text-align: right;
-    }
-    
-    .email-tags {
-      display: flex;
-      gap: 5px;
-      margin-left: 20px;
-    }
-    
-    .tag {
-      padding: 3px 10px;
-      border-radius: 15px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    
-    .tag-work {
-      background: rgba(56, 161, 105, 0.1);
-      color: #38a169;
-    }
-    
-    .tag-personal {
-      background: rgba(237, 137, 54, 0.1);
-      color: #ed8936;
-    }
-    
-    .tag-study {
-      background: rgba(102, 126, 234, 0.1);
-      color: #667eea;
-    }
-    
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #a0aec0;
-    }
-    
-    .empty-state img {
-      width: 150px;
-      opacity: 0.5;
-      margin-bottom: 20px;
-    }
-
-    /* Адаптивність */
-    @media (max-width: 1024px) {
-      .main-container {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 20px;
-      }
-      
-      .search-bar {
-        width: 250px;
-      }
-      
-      .sender {
-        width: 150px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      header {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
-      }
-      
-      .logo-container {
-        justify-content: center;
-      }
-      
-      .user {
-        justify-content: center;
-      }
-      
-      .emails-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
-      }
-      
-      .search-bar {
-        width: 100%;
-      }
-      
-      .sender {
-        width: 120px;
-      }
-      
-      .email-preview {
-        display: none;
-      }
-      
-      .email-tags {
-        display: none;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .email {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      
-      .sender {
-        width: 100%;
-      }
-      
-      .email-content {
-        margin-left: 0;
-        width: 100%;
-      }
-      
-      .email-date {
-        margin-left: 0;
-        text-align: left;
-      }
-      
-      .sidebar {
-        padding: 20px 0;
-      }
-      
-      .menu-item {
-        padding: 12px 20px;
-      }
-    }
-    
-    /* Спеціальний email від Загурського Артура Тарасовича */
-    .email-important {
-      background: linear-gradient(90deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
-      border: 1px solid rgba(102, 126, 234, 0.2);
-    }
-    
-    .email-important::before {
-      background: linear-gradient(to bottom, #ff6b6b, #ee5a52);
-    }
-  </style>
+  <title>Поштова система Inbox Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📧</text></svg>">
 </head>
 <body>
 
@@ -499,12 +15,41 @@
       <div class="logo">Inbox Pro</div>
       <div class="tagline">Персональна поштова система</div>
     </div>
-    <div class="user">
-      <div class="user-info">
-        <div class="user-name">Загурський Артур Тарасович</div>
-        <div class="user-email">artur.zagursky@example.com</div>
+    
+    <div class="header-controls">
+      <div class="language-selector">
+        <button class="language-btn">
+          <i class="fas fa-globe"></i>
+          <span id="current-language">Українська</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="language-dropdown">
+          <div class="language-option" data-lang="uk">
+            <i class="fas fa-check" id="check-uk"></i>
+            Українська
+          </div>
+          <div class="language-option" data-lang="en">
+            <i class="fas fa-check" id="check-en"></i>
+            English
+          </div>
+          <div class="language-option" data-lang="de">
+            <i class="fas fa-check" id="check-de"></i>
+            Deutsch
+          </div>
+          <div class="language-option" data-lang="ru">
+            <i class="fas fa-check" id="check-ru"></i>
+            Русский
+          </div>
+        </div>
       </div>
-      <div class="avatar">АЗ</div>
+      
+      <div class="user">
+        <div class="user-info">
+          <div class="user-name" id="user-name">Користувач</div>
+          <div class="user-email" id="user-email">user@inboxpro.com</div>
+        </div>
+        <div class="avatar" id="user-avatar">К</div>
+      </div>
     </div>
   </header>
 
@@ -513,164 +58,129 @@
     <!-- Бокове меню -->
     <nav class="sidebar">
       <div class="sidebar-header">
-        <button class="compose-btn">
-          <img src="https://img.icons8.com/ios/50/ffffff/edit--v1.png" style="width: 20px; height: 20px; filter: brightness(0) invert(1);">
-          Написати листа
+        <button class="compose-btn" id="compose-btn">
+          <i class="fas fa-edit"></i>
+          <span id="compose-text">Написати листа</span>
         </button>
       </div>
       
-      <div class="menu-item active">
-        <img src="https://img.icons8.com/material-rounded/24/667eea/inbox.png" class="menu-icon">
-        <span>Вхідні</span>
-        <div class="menu-count">12</div>
+      <div class="menu-item active" data-section="inbox">
+        <i class="fas fa-inbox menu-icon"></i>
+        <span id="menu-inbox">Вхідні</span>
+        <div class="menu-count" id="inbox-count">12</div>
       </div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/sent.png" class="menu-icon">
-        <span>Надіслані</span>
-        <div class="menu-count">45</div>
+      <div class="menu-item" data-section="sent">
+        <i class="fas fa-paper-plane menu-icon"></i>
+        <span id="menu-sent">Надіслані</span>
+        <div class="menu-count" id="sent-count">45</div>
       </div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/edit.png" class="menu-icon">
-        <span>Чернетки</span>
-        <div class="menu-count">3</div>
+      <div class="menu-item" data-section="drafts">
+        <i class="fas fa-edit menu-icon"></i>
+        <span id="menu-drafts">Чернетки</span>
+        <div class="menu-count" id="drafts-count">3</div>
       </div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/spam.png" class="menu-icon">
-        <span>Спам</span>
-        <div class="menu-count">7</div>
+      <div class="menu-item" data-section="spam">
+        <i class="fas fa-ban menu-icon"></i>
+        <span id="menu-spam">Спам</span>
+        <div class="menu-count" id="spam-count">7</div>
       </div>
       
-      <div class="category-title">Категорії</div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/briefcase.png" class="menu-icon">
-        <span>Робота</span>
+      <div class="category-title" id="categories-title">Категорії</div>
+      <div class="menu-item" data-category="work">
+        <i class="fas fa-briefcase menu-icon"></i>
+        <span id="category-work">Робота</span>
       </div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/graduation-cap.png" class="menu-icon">
-        <span>Навчання</span>
+      <div class="menu-item" data-category="study">
+        <i class="fas fa-graduation-cap menu-icon"></i>
+        <span id="category-study">Навчання</span>
       </div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/favorite-male.png" class="menu-icon">
-        <span>Особисті</span>
+      <div class="menu-item" data-category="personal">
+        <i class="fas fa-heart menu-icon"></i>
+        <span id="category-personal">Особисті</span>
       </div>
-      <div class="menu-item">
-        <img src="https://img.icons8.com/material-outlined/24/718096/traveler.png" class="menu-icon">
-        <span>Подорожі</span>
+      <div class="menu-item" data-category="travel">
+        <i class="fas fa-plane menu-icon"></i>
+        <span id="category-travel">Подорожі</span>
       </div>
     </nav>
 
-    <!-- Список листів -->
+    <!-- Основний вміст -->
     <section class="emails-container">
       <div class="emails-header">
-        <h2>Вхідні <span class="inbox-count">12 нових</span></h2>
+        <h2 id="inbox-title">Вхідні <span class="inbox-count">12 нових</span></h2>
         <div class="search-bar">
-          <img src="https://img.icons8.com/ios/50/718096/search--v1.png" style="width: 20px; height: 20px;">
-          <input type="text" placeholder="Пошук в пошті...">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" placeholder="Пошук в пошті...">
         </div>
       </div>
 
-      <div class="emails">
-        <!-- Особливий важливий лист -->
-        <div class="email unread email-important">
-          <img src="https://img.icons8.com/color/48/star--v1.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ee5a52);">АЗ</div>
-            Загурський Артур Тарасович
-          </div>
-          <div class="email-content">
-            <div class="email-title">
-              Про важливість особистого бренду у цифрову епоху
-              <span class="tag tag-work">Робота</span>
-            </div>
-            <div class="email-preview">Шановні колеги! Ділюся міркуваннями щодо побудови професійного іміджу в інтернеті. У сучасному світі онлайн-присутність стає...</div>
-          </div>
-          <div class="email-date">Сьогодні, 10:30</div>
-        </div>
+      <div class="email-actions">
+        <button class="action-btn" id="refresh-btn">
+          <i class="fas fa-sync-alt"></i>
+          <span id="refresh-text">Оновити</span>
+        </button>
+        <button class="action-btn" id="select-all-btn">
+          <i class="far fa-square"></i>
+          <span id="select-all-text">Вибрати всі</span>
+        </button>
+        <button class="action-btn delete-btn" id="delete-btn" disabled>
+          <i class="fas fa-trash"></i>
+          <span id="delete-text">Видалити</span>
+        </button>
+        <button class="action-btn" id="mark-read-btn">
+          <i class="fas fa-envelope-open"></i>
+          <span id="mark-read-text">Відмітити прочитаним</span>
+        </button>
+      </div>
 
-        <!-- Інші листи -->
-        <div class="email unread">
-          <img src="https://img.icons8.com/fluency/48/star.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar">УН</div>
-            Український Національний Університет
-          </div>
-          <div class="email-content">
-            <div class="email-title">
-              Запрошення на конференцію "Цифрові технології"
-              <span class="tag tag-study">Навчання</span>
-            </div>
-            <div class="email-preview">Шановні студенти та викладачі! Запрошуємо взяти участь у щорічній конференції з веб-розробки та дизайну...</div>
-          </div>
-          <div class="email-date">Вчора, 14:15</div>
-        </div>
-
-        <div class="email">
-          <img src="https://img.icons8.com/color/48/star--v1.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar">ОК</div>
-            Олена Кравець
-          </div>
-          <div class="email-content">
-            <div class="email-title">Зустріч завтра о 14:00</div>
-            <div class="email-preview">Привіт, Артуре! Не забудь про нашу зустріч у Zoom завтра. Готуй презентацію щодо нового проекту...</div>
-          </div>
-          <div class="email-date">15 бер, 09:45</div>
-        </div>
-
-        <div class="email unread">
-          <img src="https://img.icons8.com/color/48/star--v1.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar">МШ</div>
-            Максим Шевчук
-          </div>
-          <div class="email-content">
-            <div class="email-title">Фото з походу в Карпати</div>
-            <div class="email-preview">Привіт, кидаю пару крутих фоток з нашої останньої подорожі до Карпат. Погода була ідеальною...</div>
-          </div>
-          <div class="email-date">14 бер, 18:30</div>
-        </div>
-
-        <div class="email unread">
-          <img src="https://img.icons8.com/color/48/star--v1.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar">ДП</div>
-            Дмитро Пономаренко
-          </div>
-          <div class="email-content">
-            <div class="email-title">Футбол у суботу</div>
-            <div class="email-preview">Хлопці, граємо 7 на 7 о 17:00 на стадіоні "Нивки". Будь обов'язково, твої навички потрібні...</div>
-          </div>
-          <div class="email-date">8 бер, 11:20</div>
-        </div>
-
-        <div class="email">
-          <img src="https://img.icons8.com/color/48/star--v1.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar">ТП</div>
-            Тамара Прокопенко
-          </div>
-          <div class="email-content">
-            <div class="email-title">Привіт з Італії!</div>
-            <div class="email-preview">Артуре, привіт з Риму! Погода чудова, архітектура вражає. Згадав наші розмови про веб-дизайн стародавніх...</div>
-          </div>
-          <div class="email-date">5 бер, 22:15</div>
-        </div>
-
-        <div class="email">
-          <img src="https://img.icons8.com/color/48/star--v1.png" class="star">
-          <div class="sender">
-            <div class="sender-avatar">БК</div>
-            Богдан Коваль
-          </div>
-          <div class="email-content">
-            <div class="email-title">Re: Співпраця над новим проектом</div>
-            <div class="email-preview">Артуре, дякую за пропозицію! Мені дуже сподобалася ідея. Запропонував свої доповнення в прикріпленому...</div>
-          </div>
-          <div class="email-date">3 бер, 16:40</div>
-        </div>
+      <div class="emails" id="emails-list">
+        <!-- Листи будуть додані через JavaScript -->
       </div>
     </section>
   </div>
 
+  <!-- Модальне вікно для написання листа -->
+  <div class="modal-overlay" id="compose-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="compose-modal-title">Новий лист</h3>
+        <button class="close-modal" id="close-compose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="to-input" id="to-label">Кому:</label>
+          <input type="email" id="to-input" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="subject-input" id="subject-label">Тема:</label>
+          <input type="text" id="subject-input" placeholder="Введіть тему листа" required>
+        </div>
+        <div class="form-group">
+          <label for="message-input" id="message-label">Повідомлення:</label>
+          <textarea id="message-input" rows="10" placeholder="Введіть текст листа..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="save-draft-btn">
+          <i class="fas fa-save"></i>
+          <span id="save-draft-text">Зберегти чернетку</span>
+        </button>
+        <button class="btn-primary" id="send-email-btn">
+          <i class="fas fa-paper-plane"></i>
+          <span id="send-email-text">Надіслати</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Сповіщення -->
+  <div class="notification" id="notification">
+    <div class="notification-content">
+      <i class="fas fa-check-circle"></i>
+      <span id="notification-text">Операція успішна!</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
