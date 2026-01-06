@@ -1,1 +1,826 @@
+:root {
+  --primary: #667eea;
+  --secondary: #764ba2;
+  --danger: #f56565;
+  --success: #48bb78;
+  --warning: #ed8936;
+  --dark: #2d3748;
+  --light: #f7fafc;
+  --gray: #718096;
+  --border: #e2e8f0;
+  --shadow: 0 10px 30px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  min-height: 100vh;
+  color: var(--dark);
+}
+
+/* Верхня панель */
+header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.language-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.language-btn {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 20px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--dark);
+  transition: all 0.3s;
+}
+
+.language-btn:hover {
+  background: rgba(102, 126, 234, 0.2);
+  transform: translateY(-1px);
+}
+
+.language-dropdown {
+  display: none;
+  position: absolute;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px 0;
+  min-width: 180px;
+  z-index: 1001;
+  top: 100%;
+  right: 0;
+  margin-top: 5px;
+}
+
+.language-option {
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dark);
+}
+
+.language-option:hover {
+  background-color: var(--light);
+}
+
+.language-option .fa-check {
+  color: var(--primary);
+  opacity: 0;
+}
+
+.language-option.active .fa-check {
+  opacity: 1;
+}
+
+.language-selector:hover .language-dropdown {
+  display: block;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.user-info {
+  text-align: right;
+}
+
+.user-name {
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 16px;
+}
+
+.user-email {
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Основний контейнер */
+.main-container {
+  display: flex;
+  min-height: calc(100vh - 85px);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Бокове меню */
+.sidebar {
+  width: 280px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius);
+  padding: 25px 0;
+  margin-right: 20px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  height: fit-content;
+}
+
+.sidebar-header {
+  padding: 0 25px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.compose-btn {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.compose-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.menu-item {
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-left: 4px solid transparent;
+  color: var(--gray);
+}
+
+.menu-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-left-color: rgba(102, 126, 234, 0.5);
+  padding-left: 34px;
+}
+
+.menu-item.active {
+  background: rgba(102, 126, 234, 0.15);
+  font-weight: 700;
+  color: var(--primary);
+  border-left: 4px solid var(--primary);
+}
+
+.menu-icon {
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.menu-count {
+  margin-left: auto;
+  background: var(--primary);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.category-title {
+  padding: 20px 30px 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--gray);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Список листів */
+.emails-container {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.emails-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.emails-header h2 {
+  font-size: 24px;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inbox-count {
+  background: var(--primary);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--light);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  width: 300px;
+  border: 1px solid var(--border);
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  flex: 1;
+  outline: none;
+  font-size: 15px;
+  margin-left: 10px;
+  color: var(--dark);
+}
+
+.search-bar input::placeholder {
+  color: var(--gray);
+}
+
+/* Кнопки дій */
+.email-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--dark);
+  transition: all 0.3s;
+}
+
+.action-btn:hover:not(:disabled) {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.delete-btn {
+  background: rgba(245, 101, 101, 0.1);
+  border-color: rgba(245, 101, 101, 0.3);
+  color: var(--danger);
+}
+
+.delete-btn:hover:not(:disabled) {
+  background: rgba(245, 101, 101, 0.2);
+  border-color: var(--danger);
+}
+
+/* Список email */
+.emails {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 300px);
+}
+
+.email {
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.email::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: transparent;
+  border-radius: 4px 0 0 4px;
+  transition: background 0.3s;
+}
+
+.email:hover {
+  background: var(--light);
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.email:hover::before {
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+}
+
+.email.unread {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.email.selected {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid var(--primary);
+}
+
+.email-checkbox {
+  margin-right: 15px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.star {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #d1d5db;
+}
+
+.star:hover {
+  transform: scale(1.2);
+  color: #fbbf24;
+}
+
+.star.active {
+  color: #fbbf24;
+}
+
+.sender {
+  width: 200px;
+  font-weight: 600;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sender-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.email-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.email-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.email-preview {
+  color: var(--gray);
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email-date {
+  margin-left: 20px;
+  color: var(--gray);
+  font-size: 14px;
+  min-width: 100px;
+  text-align: right;
+}
+
+.email-tags {
+  display: flex;
+  gap: 5px;
+  margin-left: 20px;
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tag-work {
+  background: rgba(56, 161, 105, 0.1);
+  color: var(--success);
+}
+
+.tag-personal {
+  background: rgba(237, 137, 54, 0.1);
+  color: var(--warning);
+}
+
+.tag-study {
+  background: rgba(102, 126, 234, 0.1);
+  color: var(--primary);
+}
+
+.tag-travel {
+  background: rgba(159, 122, 234, 0.1);
+  color: #9f7aea;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.empty-state i {
+  font-size: 80px;
+  opacity: 0.5;
+  margin-bottom: 20px;
+}
+
+/* Модальне вікно */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  background: white;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  color: var(--dark);
+  font-size: 20px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--gray);
+  line-height: 1;
+}
+
+.close-modal:hover {
+  color: var(--danger);
+}
+
+.modal-body {
+  padding: 30px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.modal-footer {
+  padding: 20px 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: var(--light);
+  color: var(--dark);
+  border: 1px solid var(--border);
+  padding: 12px 25px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-secondary:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: var(--primary);
+}
+
+/* Сповіщення */
+.notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--success);
+  color: white;
+  padding: 15px 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: none;
+  align-items: center;
+  gap: 15px;
+  z-index: 3000;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Адаптивність */
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    width: 250px;
+  }
+  
+  .sender {
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .logo-container {
+    justify-content: center;
+  }
+  
+  .header-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .user {
+    justify-content: center;
+  }
+  
+  .emails-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .search-bar {
+    width: 100%;
+  }
+  
+  .sender {
+    width: 120px;
+  }
+  
+  .email-preview {
+    display: none;
+  }
+  
+  .email-tags {
+    display: none;
+  }
+  
+  .email-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .email {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .sender {
+    width: 100%;
+  }
+  
+  .email-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .email-date {
+    margin-left: 0;
+    text-align: left;
+  }
+  
+  .sidebar {
+    padding: 20px 0;
+  }
+  
+  .menu-item {
+    padding: 12px 20px;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
