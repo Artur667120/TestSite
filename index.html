@@ -1,173 +1,692 @@
 <!DOCTYPE html>
-<html lang="uk" id="html-root">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Поштова система Inbox Pro</title>
+  <title>Поштовий клієнт</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📧</text></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+    
+    /* Шапка */
+    header {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    /* Основний контейнер */
+    .container {
+      display: flex;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: calc(100vh - 80px);
+    }
+    
+    /* Бічна панель */
+    .sidebar {
+      width: 280px;
+      background: white;
+      border-radius: 16px;
+      padding: 24px 0;
+      margin-right: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      height: fit-content;
+    }
+    
+    .compose-btn {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 90%;
+      margin: 0 auto 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .compose-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .menu-item {
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      color: #555;
+      border-left: 4px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .menu-item:hover {
+      background: #f5f7ff;
+      color: #667eea;
+    }
+    
+    .menu-item.active {
+      background: #f5f7ff;
+      color: #667eea;
+      border-left-color: #667eea;
+      font-weight: 600;
+    }
+    
+    .menu-item i {
+      width: 20px;
+      text-align: center;
+    }
+    
+    .badge {
+      background: #667eea;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: auto;
+    }
+    
+    /* Контентна область */
+    .content {
+      flex: 1;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .content-header h1 {
+      font-size: 28px;
+      color: #222;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .new-badge {
+      background: #667eea;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 12px 18px;
+      width: 300px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .search-bar input {
+      border: none;
+      background: transparent;
+      flex: 1;
+      outline: none;
+      font-size: 15px;
+      margin-left: 10px;
+      color: #333;
+    }
+    
+    /* Список листів */
+    .emails-list {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 65vh;
+    }
+    
+    .email-item {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+    
+    .email-item:hover {
+      background: #f9f9f9;
+    }
+    
+    .email-item.unread {
+      background: #f0f4ff;
+    }
+    
+    .email-checkbox {
+      width: 18px;
+      height: 18px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+    
+    .star {
+      color: #ccc;
+      margin-right: 15px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.2s;
+    }
+    
+    .star:hover, .star.active {
+      color: #ffc107;
+    }
+    
+    .sender-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 12px;
+    }
+    
+    .email-info {
+      flex: 1;
+    }
+    
+    .email-subject {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #222;
+    }
+    
+    .email-preview {
+      color: #666;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .email-date {
+      color: #888;
+      font-size: 14px;
+      min-width: 120px;
+      text-align: right;
+    }
+    
+    .email-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+    
+    .tag-work { background: #e3f2fd; color: #1976d2; }
+    .tag-personal { background: #f3e5f5; color: #7b1fa2; }
+    .tag-study { background: #e8f5e9; color: #2e7d32; }
+    
+    /* Панель дій */
+    .actions-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .action-btn {
+      background: #f8f9fa;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: #555;
+      transition: all 0.2s;
+    }
+    
+    .action-btn:hover {
+      background: #e9ecef;
+      border-color: #667eea;
+    }
+    
+    .action-btn.delete {
+      background: #ffeaea;
+      border-color: #ffcdd2;
+      color: #d32f2f;
+    }
+    
+    .action-btn.delete:hover {
+      background: #ffcdd2;
+    }
+    
+    /* Модальне вікно */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .modal-header {
+      padding: 20px 30px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-header h3 {
+      font-size: 20px;
+      color: #222;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+      line-height: 1;
+    }
+    
+    .close-btn:hover {
+      color: #333;
+    }
+    
+    .modal-body {
+      padding: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .modal-footer {
+      padding: 20px 30px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #333;
+      border: 1px solid #ddd;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-secondary:hover {
+      background: #e9ecef;
+    }
+    
+    /* Сповіщення */
+    .notification {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #4caf50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      gap: 12px;
+      z-index: 1001;
+    }
+    
+    /* Адаптивність */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .search-bar {
+        width: 250px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .search-bar {
+        width: 100%;
+      }
+      
+      .email-date {
+        display: none;
+      }
+      
+      .actions-bar {
+        flex-wrap: wrap;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      .modal-body {
+        padding: 20px;
+      }
+      
+      .modal-footer {
+        flex-direction: column;
+      }
+      
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Шапка -->
   <header>
-    <div class="logo-container">
-      <div class="logo">Inbox Pro</div>
-      <div class="tagline">Персональна поштова система</div>
+    <div class="logo">
+      <i class="fas fa-envelope"></i>
+      Поштовий клієнт
     </div>
-    
-    <div class="header-controls">
-      <div class="language-selector">
-        <button class="language-btn">
-          <i class="fas fa-globe"></i>
-          <span id="current-language">Українська</span>
-          <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="language-dropdown">
-          <div class="language-option" data-lang="uk">
-            <i class="fas fa-check" id="check-uk"></i>
-            Українська
-          </div>
-          <div class="language-option" data-lang="en">
-            <i class="fas fa-check" id="check-en"></i>
-            English
-          </div>
-          <div class="language-option" data-lang="de">
-            <i class="fas fa-check" id="check-de"></i>
-            Deutsch
-          </div>
-          <div class="language-option" data-lang="ru">
-            <i class="fas fa-check" id="check-ru"></i>
-            Русский
-          </div>
-        </div>
+    <div class="user-info">
+      <div>
+        <div style="font-weight: 600; font-size: 16px;">Користувач</div>
+        <div style="font-size: 14px; color: #667eea;">user@example.com</div>
       </div>
-      
-      <div class="user">
-        <div class="user-info">
-          <div class="user-name" id="user-name">Користувач</div>
-          <div class="user-email" id="user-email">user@inboxpro.com</div>
-        </div>
-        <div class="avatar" id="user-avatar">К</div>
-      </div>
+      <div class="avatar">К</div>
     </div>
   </header>
 
-  <div class="main-container">
-
-    <!-- Бокове меню -->
-    <nav class="sidebar">
-      <div class="sidebar-header">
-        <button class="compose-btn" id="compose-btn">
-          <i class="fas fa-edit"></i>
-          <span id="compose-text">Написати листа</span>
-        </button>
+  <!-- Основний контент -->
+  <div class="container">
+    
+    <!-- Бічна панель -->
+    <div class="sidebar">
+      <button class="compose-btn" id="composeBtn">
+        <i class="fas fa-edit"></i>
+        Написати лист
+      </button>
+      
+      <div class="menu-item active">
+        <i class="fas fa-inbox"></i>
+        <span>Вхідні</span>
+        <div class="badge">12</div>
       </div>
       
-      <div class="menu-item active" data-section="inbox">
-        <i class="fas fa-inbox menu-icon"></i>
-        <span id="menu-inbox">Вхідні</span>
-        <div class="menu-count" id="inbox-count">12</div>
-      </div>
-      <div class="menu-item" data-section="sent">
-        <i class="fas fa-paper-plane menu-icon"></i>
-        <span id="menu-sent">Надіслані</span>
-        <div class="menu-count" id="sent-count">45</div>
-      </div>
-      <div class="menu-item" data-section="drafts">
-        <i class="fas fa-edit menu-icon"></i>
-        <span id="menu-drafts">Чернетки</span>
-        <div class="menu-count" id="drafts-count">3</div>
-      </div>
-      <div class="menu-item" data-section="spam">
-        <i class="fas fa-ban menu-icon"></i>
-        <span id="menu-spam">Спам</span>
-        <div class="menu-count" id="spam-count">7</div>
+      <div class="menu-item">
+        <i class="fas fa-paper-plane"></i>
+        <span>Надіслані</span>
+        <div class="badge">45</div>
       </div>
       
-      <div class="category-title" id="categories-title">Категорії</div>
-      <div class="menu-item" data-category="work">
-        <i class="fas fa-briefcase menu-icon"></i>
-        <span id="category-work">Робота</span>
+      <div class="menu-item">
+        <i class="fas fa-file-alt"></i>
+        <span>Чернетки</span>
+        <div class="badge">3</div>
       </div>
-      <div class="menu-item" data-category="study">
-        <i class="fas fa-graduation-cap menu-icon"></i>
-        <span id="category-study">Навчання</span>
+      
+      <div class="menu-item">
+        <i class="fas fa-ban"></i>
+        <span>Спам</span>
+        <div class="badge">7</div>
       </div>
-      <div class="menu-item" data-category="personal">
-        <i class="fas fa-heart menu-icon"></i>
-        <span id="category-personal">Особисті</span>
+      
+      <div style="padding: 24px 24px 12px; font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase;">
+        Категорії
       </div>
-      <div class="menu-item" data-category="travel">
-        <i class="fas fa-plane menu-icon"></i>
-        <span id="category-travel">Подорожі</span>
+      
+      <div class="menu-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Робота</span>
       </div>
-    </nav>
-
-    <!-- Основний вміст -->
-    <section class="emails-container">
-      <div class="emails-header">
-        <h2 id="inbox-title">Вхідні <span class="inbox-count">12 нових</span></h2>
+      
+      <div class="menu-item">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Навчання</span>
+      </div>
+      
+      <div class="menu-item">
+        <i class="fas fa-heart"></i>
+        <span>Особисті</span>
+      </div>
+    </div>
+    
+    <!-- Контентна область -->
+    <div class="content">
+      <div class="content-header">
+        <h1>Вхідні <span class="new-badge">12 нових</span></h1>
         <div class="search-bar">
-          <i class="fas fa-search"></i>
-          <input type="text" id="search-input" placeholder="Пошук в пошті...">
+          <i class="fas fa-search" style="color: #888;"></i>
+          <input type="text" placeholder="Пошук в пошті...">
         </div>
       </div>
-
-      <div class="email-actions">
-        <button class="action-btn" id="refresh-btn">
+      
+      <!-- Панель дій -->
+      <div class="actions-bar">
+        <button class="action-btn" id="refreshBtn">
           <i class="fas fa-sync-alt"></i>
-          <span id="refresh-text">Оновити</span>
+          Оновити
         </button>
-        <button class="action-btn" id="select-all-btn">
+        <button class="action-btn" id="selectAllBtn">
           <i class="far fa-square"></i>
-          <span id="select-all-text">Вибрати всі</span>
+          Вибрати всі
         </button>
-        <button class="action-btn delete-btn" id="delete-btn" disabled>
+        <button class="action-btn delete" id="deleteBtn">
           <i class="fas fa-trash"></i>
-          <span id="delete-text">Видалити</span>
+          Видалити
         </button>
-        <button class="action-btn" id="mark-read-btn">
+        <button class="action-btn" id="markReadBtn">
           <i class="fas fa-envelope-open"></i>
-          <span id="mark-read-text">Відмітити прочитаним</span>
+          Відмітити прочитаним
         </button>
       </div>
-
-      <div class="emails" id="emails-list">
+      
+      <!-- Список листів -->
+      <div class="emails-list" id="emailsList">
         <!-- Листи будуть додані через JavaScript -->
       </div>
-    </section>
+    </div>
   </div>
 
   <!-- Модальне вікно для написання листа -->
-  <div class="modal-overlay" id="compose-modal">
+  <div class="modal-overlay" id="composeModal">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="compose-modal-title">Новий лист</h3>
-        <button class="close-modal" id="close-compose">&times;</button>
+        <h3>Новий лист</h3>
+        <button class="close-btn" id="closeModal">&times;</button>
       </div>
+      
       <div class="modal-body">
         <div class="form-group">
-          <label for="to-input" id="to-label">Кому:</label>
-          <input type="email" id="to-input" placeholder="email@example.com" required>
+          <label for="toInput">Кому:</label>
+          <input type="email" id="toInput" placeholder="email@example.com">
         </div>
+        
         <div class="form-group">
-          <label for="subject-input" id="subject-label">Тема:</label>
-          <input type="text" id="subject-input" placeholder="Введіть тему листа" required>
+          <label for="subjectInput">Тема:</label>
+          <input type="text" id="subjectInput" placeholder="Введіть тему листа">
         </div>
+        
         <div class="form-group">
-          <label for="message-input" id="message-label">Повідомлення:</label>
-          <textarea id="message-input" rows="10" placeholder="Введіть текст листа..."></textarea>
+          <label for="messageInput">Повідомлення:</label>
+          <textarea id="messageInput" rows="10" placeholder="Введіть текст листа..."></textarea>
         </div>
       </div>
+      
       <div class="modal-footer">
-        <button class="btn-secondary" id="save-draft-btn">
+        <button class="btn-secondary" id="saveDraftBtn">
           <i class="fas fa-save"></i>
-          <span id="save-draft-text">Зберегти чернетку</span>
+          Зберегти чернетку
         </button>
-        <button class="btn-primary" id="send-email-btn">
+        <button class="btn-primary" id="sendEmailBtn">
           <i class="fas fa-paper-plane"></i>
-          <span id="send-email-text">Надіслати</span>
+          Надіслати
         </button>
       </div>
     </div>
@@ -175,12 +694,382 @@
 
   <!-- Сповіщення -->
   <div class="notification" id="notification">
-    <div class="notification-content">
-      <i class="fas fa-check-circle"></i>
-      <span id="notification-text">Операція успішна!</span>
-    </div>
+    <i class="fas fa-check-circle"></i>
+    <span id="notificationText">Лист успішно надіслано!</span>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Дані листів
+    const emails = [
+      {
+        id: 1,
+        sender: "Університет",
+        avatar: "У",
+        subject: "Запрошення на конференцію",
+        preview: "Шановні студенти та викладачі! Запрошуємо взяти участь у конференції...",
+        date: "Вчора, 14:15",
+        unread: true,
+        starred: false,
+        tag: "study"
+      },
+      {
+        id: 2,
+        sender: "Олена Кравець",
+        avatar: "О",
+        subject: "Зустріч завтра о 14:00",
+        preview: "Привіт! Не забудь про нашу зустріч у Zoom завтра...",
+        date: "15 бер, 09:45",
+        unread: false,
+        starred: true,
+        tag: "work"
+      },
+      {
+        id: 3,
+        sender: "Максим Шевчук",
+        avatar: "М",
+        subject: "Фото з походу в Карпати",
+        preview: "Привіт, кидаю пару крутих фоток з нашої останньої подорожі...",
+        date: "14 бер, 18:30",
+        unread: true,
+        starred: false,
+        tag: "personal"
+      },
+      {
+        id: 4,
+        sender: "Дмитро Пономаренко",
+        avatar: "Д",
+        subject: "Футбол у суботу",
+        preview: "Хлопці, граємо 7 на 7 о 17:00 на стадіоні...",
+        date: "8 бер, 11:20",
+        unread: true,
+        starred: true,
+        tag: "personal"
+      },
+      {
+        id: 5,
+        sender: "Тамара Прокопенко",
+        avatar: "Т",
+        subject: "Привіт з Італії!",
+        preview: "Привіт з Риму! Погода чудова, архітектура вражає...",
+        date: "5 бер, 22:15",
+        unread: false,
+        starred: true,
+        tag: "personal"
+      },
+      {
+        id: 6,
+        sender: "Богдан Коваль",
+        avatar: "Б",
+        subject: "Співпраця над новим проектом",
+        preview: "Дякую за пропозицію! Мені дуже сподобалася ідея...",
+        date: "3 бер, 16:40",
+        unread: false,
+        starred: false,
+        tag: "work"
+      },
+      {
+        id: 7,
+        sender: "IT компанія",
+        avatar: "IT",
+        subject: "Запрошення на співбесіду",
+        preview: "Шановний кандидате, запрошуємо вас на співбесіду на посаду розробника...",
+        date: "2 бер, 10:30",
+        unread: true,
+        starred: true,
+        tag: "work"
+      },
+      {
+        id: 8,
+        sender: "Наталія Петренко",
+        avatar: "Н",
+        subject: "Дякую за допомогу",
+        preview: "Дуже дякую за вашу допомогу з проектом! Все працює ідеально...",
+        date: "1 бер, 18:15",
+        unread: false,
+        starred: false,
+        tag: "work"
+      }
+    ];
+
+    // Змінні стану
+    let selectedEmails = new Set();
+    let isAllSelected = false;
+
+    // Ініціалізація
+    document.addEventListener('DOMContentLoaded', function() {
+      renderEmails();
+      setupEventListeners();
+    });
+
+    // Рендеринг листів
+    function renderEmails() {
+      const emailsList = document.getElementById('emailsList');
+      
+      if (emails.length === 0) {
+        emailsList.innerHTML = `
+          <div style="text-align: center; padding: 60px 20px; color: #888;">
+            <i class="fas fa-inbox" style="font-size: 60px; margin-bottom: 20px; opacity: 0.3;"></i>
+            <h3 style="margin-bottom: 10px;">Вхідні порожні</h3>
+            <p>Тут будуть відображатися ваші листи</p>
+          </div>
+        `;
+        return;
+      }
+      
+      emailsList.innerHTML = emails.map(email => `
+        <div class="email-item ${email.unread ? 'unread' : ''}" data-id="${email.id}">
+          <input type="checkbox" class="email-checkbox" ${selectedEmails.has(email.id) ? 'checked' : ''}>
+          <i class="fas fa-star star ${email.starred ? 'active' : ''}"></i>
+          <div class="sender-avatar">${email.avatar}</div>
+          <div class="email-info">
+            <div class="email-subject">
+              ${email.subject}
+              <span class="email-tag tag-${email.tag}">${getTagName(email.tag)}</span>
+            </div>
+            <div class="email-preview">${email.preview}</div>
+          </div>
+          <div class="email-date">${email.date}</div>
+        </div>
+      `).join('');
+    }
+
+    // Назви тегів
+    function getTagName(tag) {
+      const tags = {
+        'work': 'Робота',
+        'personal': 'Особисте',
+        'study': 'Навчання'
+      };
+      return tags[tag] || tag;
+    }
+
+    // Налаштування обробників подій
+    function setupEventListeners() {
+      // Відкриття модального вікна
+      document.getElementById('composeBtn').addEventListener('click', function() {
+        document.getElementById('composeModal').style.display = 'flex';
+        document.getElementById('toInput').focus();
+      });
+
+      // Закриття модального вікна
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      
+      // Клік на оверлей
+      document.getElementById('composeModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeModal();
+        }
+      });
+
+      // Надіслати лист
+      document.getElementById('sendEmailBtn').addEventListener('click', function() {
+        const to = document.getElementById('toInput').value.trim();
+        const subject = document.getElementById('subjectInput').value.trim();
+        const message = document.getElementById('messageInput').value.trim();
+        
+        if (!to || !subject || !message) {
+          alert('Будь ласка, заповніть всі поля');
+          return;
+        }
+        
+        showNotification('Лист успішно надіслано!');
+        closeModal();
+        
+        // Додаємо новий лист до списку
+        emails.unshift({
+          id: emails.length + 1,
+          sender: "Ви",
+          avatar: "В",
+          subject: subject,
+          preview: message.substring(0, 80) + '...',
+          date: "Зараз",
+          unread: false,
+          starred: false,
+          tag: "work"
+        });
+        
+        renderEmails();
+        updateBadge();
+      });
+
+      // Зберегти чернетку
+      document.getElementById('saveDraftBtn').addEventListener('click', function() {
+        showNotification('Лист збережено в чернетках');
+        closeModal();
+      });
+
+      // Оновити
+      document.getElementById('refreshBtn').addEventListener('click', function() {
+        showNotification('Оновлено');
+        const icon = this.querySelector('i');
+        icon.classList.add('fa-spin');
+        
+        setTimeout(() => {
+          icon.classList.remove('fa-spin');
+        }, 1000);
+      });
+
+      // Вибрати всі
+      document.getElementById('selectAllBtn').addEventListener('click', function() {
+        isAllSelected = !isAllSelected;
+        const checkboxes = document.querySelectorAll('.email-checkbox');
+        const icon = this.querySelector('i');
+        
+        if (isAllSelected) {
+          // Вибрати всі
+          selectedEmails.clear();
+          emails.forEach(email => selectedEmails.add(email.id));
+          checkboxes.forEach(checkbox => checkbox.checked = true);
+          icon.classList.remove('fa-square');
+          icon.classList.add('fa-check-square');
+        } else {
+          // Зняти всі
+          selectedEmails.clear();
+          checkboxes.forEach(checkbox => checkbox.checked = false);
+          icon.classList.remove('fa-check-square');
+          icon.classList.add('fa-square');
+        }
+        
+        document.querySelectorAll('.email-item').forEach(item => {
+          const id = parseInt(item.dataset.id);
+          if (selectedEmails.has(id)) {
+            item.classList.add('unread');
+          } else {
+            item.classList.remove('unread');
+          }
+        });
+      });
+
+      // Видалити
+      document.getElementById('deleteBtn').addEventListener('click', function() {
+        if (selectedEmails.size === 0) {
+          alert('Будь ласка, виберіть листи для видалення');
+          return;
+        }
+        
+        if (confirm(`Видалити ${selectedEmails.size} листів?`)) {
+          // Видаляємо вибрані листи
+          for (let i = emails.length - 1; i >= 0; i--) {
+            if (selectedEmails.has(emails[i].id)) {
+              emails.splice(i, 1);
+            }
+          }
+          
+          selectedEmails.clear();
+          isAllSelected = false;
+          document.getElementById('selectAllBtn').querySelector('i').className = 'far fa-square';
+          
+          renderEmails();
+          updateBadge();
+          showNotification('Листи видалено');
+        }
+      });
+
+      // Відмітити прочитаним
+      document.getElementById('markReadBtn').addEventListener('click', function() {
+        if (selectedEmails.size === 0) {
+          alert('Будь ласка, виберіть листи');
+          return;
+        }
+        
+        emails.forEach(email => {
+          if (selectedEmails.has(email.id)) {
+            email.unread = false;
+          }
+        });
+        
+        renderEmails();
+        updateBadge();
+        showNotification('Листи відмічено прочитаними');
+      });
+
+      // Обробка кліків на листах
+      document.getElementById('emailsList').addEventListener('click', function(e) {
+        const emailItem = e.target.closest('.email-item');
+        if (!emailItem) return;
+        
+        const emailId = parseInt(emailItem.dataset.id);
+        const email = emails.find(e => e.id === emailId);
+        
+        if (!email) return;
+        
+        // Клік на чекбокс
+        if (e.target.classList.contains('email-checkbox')) {
+          if (e.target.checked) {
+            selectedEmails.add(emailId);
+          } else {
+            selectedEmails.delete(emailId);
+            isAllSelected = false;
+            document.getElementById('selectAllBtn').querySelector('i').className = 'far fa-square';
+          }
+          
+          if (selectedEmails.has(emailId)) {
+            emailItem.classList.add('unread');
+          } else {
+            emailItem.classList.remove('unread');
+          }
+          
+          return;
+        }
+        
+        // Клік на зірочку
+        if (e.target.classList.contains('star')) {
+          email.starred = !email.starred;
+          e.target.classList.toggle('active');
+          showNotification(email.starred ? 'Додано до обраних' : 'Видалено з обраних');
+          return;
+        }
+        
+        // Клік на лист - відмітити прочитаним
+        if (email.unread) {
+          email.unread = false;
+          emailItem.classList.remove('unread');
+          updateBadge();
+        }
+        
+        // Показати лист (в реальному додатку буде детальний перегляд)
+        alert(`Лист від: ${email.sender}\nТема: ${email.subject}\n\n${email.preview}\n\nДата: ${email.date}`);
+      });
+    }
+
+    // Закриття модального вікна
+    function closeModal() {
+      document.getElementById('composeModal').style.display = 'none';
+      document.getElementById('toInput').value = '';
+      document.getElementById('subjectInput').value = '';
+      document.getElementById('messageInput').value = '';
+    }
+
+    // Показ сповіщення
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      
+      notificationText.textContent = message;
+      notification.style.display = 'flex';
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    // Оновлення бейджа
+    function updateBadge() {
+      const unreadCount = emails.filter(email => email.unread).length;
+      const badge = document.querySelector('.new-badge');
+      const inboxBadge = document.querySelector('.sidebar .badge');
+      
+      if (badge) {
+        badge.textContent = `${unreadCount} нових`;
+      }
+      
+      if (inboxBadge) {
+        inboxBadge.textContent = unreadCount;
+      }
+    }
+
+    // Ініціалізуємо бейдж
+    updateBadge();
+  </script>
 </body>
 </html>
