@@ -82,6 +82,33 @@
             --shadow-color: rgba(26, 115, 232, 0.1);
         }
 
+        [data-theme="neon"] {
+            --primary-color: #00ff9d;
+            --primary-light: #33ffb1;
+            --primary-dark: #00cc7e;
+            --secondary-color: #ff00ff;
+            --accent-color: #ff2e2e;
+            --warning-color: #ffff00;
+            --info-color: #00ffff;
+            
+            --bg-color: #0a0a14;
+            --sidebar-bg: #151520;
+            --header-bg: #0a0a14;
+            --card-bg: #1a1a2e;
+            --hover-bg: #25253a;
+            --active-bg: #2a2a3e;
+            
+            --text-color: #ffffff;
+            --text-secondary: #b0b0ff;
+            --text-light: #8888cc;
+            --border-color: #333344;
+            --shadow-color: rgba(0, 255, 157, 0.2);
+            
+            --neon-glow: 0 0 10px rgba(0, 255, 157, 0.7),
+                        0 0 20px rgba(0, 255, 157, 0.5),
+                        0 0 30px rgba(0, 255, 157, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -137,11 +164,19 @@
             font-size: 20px;
         }
 
+        [data-theme="neon"] .logo-icon {
+            box-shadow: var(--neon-glow);
+        }
+
         .logo-text h1 {
             font-size: 20px;
             font-weight: 500;
             color: var(--text-color);
             margin-bottom: 4px;
+        }
+
+        [data-theme="neon"] .logo-text h1 {
+            text-shadow: 0 0 10px var(--primary-color);
         }
 
         .logo-text p {
@@ -169,6 +204,10 @@
             justify-content: center;
             color: white;
             font-weight: 500;
+        }
+
+        [data-theme="neon"] .user-avatar {
+            box-shadow: 0 0 8px var(--primary-color);
         }
 
         .user-details h3 {
@@ -212,10 +251,19 @@
             background-color: var(--hover-bg);
         }
 
+        [data-theme="neon"] .nav-item:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+
         .nav-item.active {
             background-color: var(--active-bg);
             color: var(--primary-color);
             font-weight: 500;
+        }
+
+        [data-theme="neon"] .nav-item.active {
+            box-shadow: var(--neon-glow);
+            border: 1px solid var(--primary-color);
         }
 
         .nav-item i {
@@ -234,6 +282,10 @@
             border-radius: 12px;
             min-width: 24px;
             text-align: center;
+        }
+
+        [data-theme="neon"] .nav-badge {
+            box-shadow: 0 0 8px var(--primary-color);
         }
 
         .nav-divider {
@@ -283,6 +335,10 @@
             font-weight: 400;
         }
 
+        [data-theme="neon"] .page-title h2 {
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
         .new-count {
             background-color: var(--primary-color);
             color: white;
@@ -290,6 +346,10 @@
             font-weight: 500;
             padding: 4px 8px;
             border-radius: 12px;
+        }
+
+        [data-theme="neon"] .new-count {
+            box-shadow: 0 0 10px var(--primary-color);
         }
 
         .controls {
@@ -317,6 +377,11 @@
             background-color: var(--hover-bg);
         }
 
+        [data-theme="neon"] .settings-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            border-color: var(--primary-color);
+        }
+
         .settings-btn i {
             font-size: 16px;
         }
@@ -334,6 +399,11 @@
             z-index: 1000;
             display: none;
             animation: slideDown 0.2s ease;
+        }
+
+        [data-theme="neon"] .settings-panel {
+            box-shadow: var(--neon-glow);
+            border-color: var(--primary-color);
         }
 
         @keyframes slideDown {
@@ -426,10 +496,19 @@
             background-color: var(--hover-bg);
         }
 
+        [data-theme="neon"] .settings-option:hover {
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+
         .settings-option.active {
             background-color: var(--active-bg);
             color: var(--primary-color);
             font-weight: 500;
+        }
+
+        [data-theme="neon"] .settings-option.active {
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+            border: 1px solid var(--primary-color);
         }
 
         .settings-option i {
@@ -459,6 +538,11 @@
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        [data-theme="neon"] .search-box:focus {
+            box-shadow: 0 0 0 2px var(--primary-color),
+                        0 0 15px var(--primary-color);
         }
 
         .search-icon {
@@ -498,6 +582,11 @@
             border-color: var(--border-color);
         }
 
+        [data-theme="neon"] .action-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            border-color: var(--primary-color);
+        }
+
         .action-btn.primary {
             background-color: var(--primary-color);
             color: white;
@@ -506,6 +595,14 @@
 
         .action-btn.primary:hover {
             background-color: var(--primary-dark);
+        }
+
+        [data-theme="neon"] .action-btn.primary {
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        [data-theme="neon"] .action-btn.primary:hover {
+            box-shadow: 0 0 20px var(--primary-color);
         }
 
         /* Контейнер листів */
@@ -533,9 +630,19 @@
             border-color: var(--primary-light);
         }
 
+        [data-theme="neon"] .letter-card:hover {
+            box-shadow: var(--neon-glow);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
         .letter-card.unread {
             border-left: 3px solid var(--primary-color);
             background-color: var(--active-bg);
+        }
+
+        [data-theme="neon"] .letter-card.unread {
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
         }
 
         .letter-header {
@@ -610,6 +717,10 @@
             gap: 4px;
         }
 
+        [data-theme="neon"] .btn-expand {
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
         .letter-tags {
             display: flex;
             flex-wrap: wrap;
@@ -626,6 +737,10 @@
             display: flex;
             align-items: center;
             gap: 4px;
+        }
+
+        [data-theme="neon"] .tag {
+            box-shadow: 0 0 5px rgba(0, 255, 157, 0.2);
         }
 
         .letter-actions {
@@ -653,6 +768,11 @@
         .icon-btn:hover {
             background-color: var(--hover-bg);
             color: var(--text-color);
+        }
+
+        [data-theme="neon"] .icon-btn:hover {
+            box-shadow: 0 0 10px var(--primary-color);
+            color: var(--primary-color);
         }
 
         /* Пустий стан */
@@ -699,12 +819,21 @@
             padding: 20px;
         }
 
+        [data-theme="neon"] .modal {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
         .modal-content {
             background-color: var(--card-bg);
             border-radius: var(--border-radius-lg);
             width: 90%;
             max-width: 500px;
             animation: modalSlide 0.3s ease;
+        }
+
+        [data-theme="neon"] .modal-content {
+            box-shadow: var(--neon-glow);
+            border: 1px solid var(--primary-color);
         }
 
         @keyframes modalSlide {
@@ -767,7 +896,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px 16px;
             border: 1px solid var(--border-color);
@@ -785,10 +915,18 @@
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        [data-theme="neon"] .form-group input:focus,
+        [data-theme="neon"] .form-group textarea:focus,
+        [data-theme="neon"] .form-group select:focus {
+            box-shadow: 0 0 0 2px var(--primary-color),
+                        0 0 15px var(--primary-color);
         }
 
         .modal-actions {
@@ -838,6 +976,12 @@
             .settings-btn {
                 padding: 8px;
             }
+            
+            .settings-panel {
+                right: 12px;
+                left: 12px;
+                width: auto;
+            }
         }
 
         @media (max-width: 480px) {
@@ -859,12 +1003,6 @@
             
             .letter-card {
                 padding: 16px;
-            }
-            
-            .settings-panel {
-                right: 12px;
-                left: 12px;
-                width: auto;
             }
         }
 
@@ -888,6 +1026,11 @@
             background-color: var(--hover-bg);
         }
 
+        [data-theme="neon"] .btn:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            border-color: var(--primary-color);
+        }
+
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
@@ -896,6 +1039,14 @@
 
         .btn-primary:hover {
             background-color: var(--primary-dark);
+        }
+
+        [data-theme="neon"] .btn-primary {
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        [data-theme="neon"] .btn-primary:hover {
+            box-shadow: 0 0 20px var(--primary-color);
         }
 
         .btn-secondary {
@@ -907,6 +1058,10 @@
             background-color: var(--accent-color);
             color: white;
             border-color: var(--accent-color);
+        }
+
+        [data-theme="neon"] .btn-danger {
+            box-shadow: 0 0 10px var(--accent-color);
         }
 
         .btn-danger:hover {
@@ -938,6 +1093,10 @@
         .checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+        }
+
+        [data-theme="neon"] .checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
+            box-shadow: 0 0 8px var(--primary-color);
         }
 
         .checkbox-container input[type="checkbox"]:checked + .checkbox-custom::after {
@@ -987,6 +1146,7 @@
                 <button class="nav-item" id="navDrafts">
                     <i class="fas fa-file-alt"></i>
                     <span>Чернетки</span>
+                    <span class="nav-badge" id="draftsCount">1</span>
                 </button>
                 
                 <button class="nav-item" id="navSpam">
@@ -1082,6 +1242,10 @@
                             <i class="fas fa-droplet"></i>
                             <span>Синя</span>
                         </button>
+                        <button class="settings-option theme-option" data-theme="neon">
+                            <i class="fas fa-bolt"></i>
+                            <span>Неон</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1153,7 +1317,7 @@
                     
                     <div class="form-group">
                         <label for="letterFolder">Папка</label>
-                        <select id="letterFolder" class="form-group input" style="width: 100%; padding: 12px 16px;">
+                        <select id="letterFolder">
                             <option value="inbox">Вхідні</option>
                             <option value="sent">Надіслані</option>
                             <option value="drafts">Чернетки</option>
@@ -1238,6 +1402,7 @@
                 lightTheme: "Світла",
                 darkTheme: "Темна",
                 blueTheme: "Синя",
+                neonTheme: "Неон",
                 expand: "Розгорнути",
                 collapse: "Згорнути",
                 exportPDF: "Експорт PDF",
@@ -1289,6 +1454,7 @@
                 lightTheme: "Light",
                 darkTheme: "Dark",
                 blueTheme: "Blue",
+                neonTheme: "Neon",
                 expand: "Expand",
                 collapse: "Collapse",
                 exportPDF: "Export PDF",
@@ -1340,6 +1506,7 @@
                 lightTheme: "Светлая",
                 darkTheme: "Темная",
                 blueTheme: "Синяя",
+                neonTheme: "Неон",
                 expand: "Развернуть",
                 collapse: "Свернуть",
                 exportPDF: "Экспорт PDF",
@@ -1349,7 +1516,7 @@
             }
         };
 
-        // Дані додатку з прикладами листів у різних папках
+        // Дані додатку
         let letters = JSON.parse(localStorage.getItem('letters')) || [
             // ВХІДНІ (5 листів, 3 непрочитаних)
             {
@@ -1364,7 +1531,7 @@
             {
                 id: 2,
                 title: "Важливе повідомлення про оновлення",
-                content: "Ми оновили наш сервіс з новими функціями. Тепер ви можете використовувати різні теми оформлення, перемикати мови та експортувати листи у форматі PDF. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                content: "Ми оновили наш сервіс з новими функціями. Тепер ви можете використовувати різні теми оформлення, перемикати мови та експортувати листи у форматі PDF.",
                 date: new Date(Date.now() - 86400000).toISOString(),
                 tags: ["важливе", "оновлення", "робота"],
                 read: false,
@@ -1373,7 +1540,7 @@
             {
                 id: 3,
                 title: "Запрошення на зустріч команди",
-                content: "Запрошую вас на щотижневу зустріч команди, яка відбудеться у п'ятницю о 14:00. Теми для обговорення: 1) Прогрес по поточному проекту 2) Планування наступного тижня 3) Технічні питання.",
+                content: "Запрошую вас на щотижневу зустріч команди, яка відбудеться у п'ятницю о 14:00.",
                 date: new Date(Date.now() - 172800000).toISOString(),
                 tags: ["робота", "зустріч"],
                 read: false,
@@ -1382,7 +1549,7 @@
             {
                 id: 4,
                 title: "Особистий щоденник: гарний день",
-                content: "Сьогодні чудовий день! Погода сонячна, настрій відмінний. Заплановано багато справ на день, але я впевнений, що впораюся з усіма завданнями.",
+                content: "Сьогодні чудовий день! Погода сонячна, настрій відмінний.",
                 date: new Date(Date.now() - 259200000).toISOString(),
                 tags: ["особисте", "щоденник"],
                 read: true,
@@ -1391,7 +1558,7 @@
             {
                 id: 5,
                 title: "Нагадування про оплату рахунків",
-                content: "Нагадуємо про необхідність оплатити комунальні послуги до кінця місяця. Термін оплати: 30 число. Сума до оплати: 1250 грн.",
+                content: "Нагадуємо про необхідність оплатити комунальні послуги до кінця місяця.",
                 date: new Date(Date.now() - 345600000).toISOString(),
                 tags: ["нагадування", "фінанси"],
                 read: true,
@@ -1402,7 +1569,7 @@
             {
                 id: 6,
                 title: "План на наступний тиждень",
-                content: "1. Завершити проект до п'ятниці\n2. Зустріч з командою о 14:00\n3. Підготувати звіт\n4. Зробити покупки\n5. Заняття спортом",
+                content: "1. Завершити проект до п'ятниці\n2. Зустріч з командою о 14:00\n3. Підготувати звіт",
                 date: new Date(Date.now() - 432000000).toISOString(),
                 tags: ["робота", "плани"],
                 read: true,
@@ -1411,7 +1578,7 @@
             {
                 id: 7,
                 title: "Запит на відпустку",
-                content: "Прошу надати мені щорічну оплачувану відпустку з 15 по 30 липня включно. Під час моєї відсутності мої обов'язки буде виконувати колега Іван Петренко.",
+                content: "Прошу надати мені щорічну оплачувану відпустку з 15 по 30 липня включно.",
                 date: new Date(Date.now() - 518400000).toISOString(),
                 tags: ["робота", "відпустка"],
                 read: true,
@@ -1420,7 +1587,7 @@
             {
                 id: 8,
                 title: "Привітання з днем народження",
-                content: "Щиро вітаю з днем народження! Бажаю здоров'я, щастя, успіхів у роботі та особистому житті. Нехай усі мрії збуваються!",
+                content: "Щиро вітаю з днем народження! Бажаю здоров'я, щастя, успіхів у роботі та особистому житті.",
                 date: new Date(Date.now() - 604800000).toISOString(),
                 tags: ["особисте", "привітання"],
                 read: true,
@@ -1431,7 +1598,7 @@
             {
                 id: 9,
                 title: "ВИГРАЙТЕ 1 000 000$!!!",
-                content: "Вітаємо! Ви стали переможцем нашої лотереї! Для отримання виграшу надішліть свої банківські реквізити та паспортні дані на цю адресу. Ця пропозиція діє лише 24 години!",
+                content: "Вітаємо! Ви стали переможцем нашої лотереї!",
                 date: new Date(Date.now() - 691200000).toISOString(),
                 tags: ["шахрайство", "лотерея"],
                 read: true,
@@ -1440,7 +1607,7 @@
             {
                 id: 10,
                 title: "Чудова пропозиція для вас",
-                content: "Купуйте наші таблетки для схуднення! Гарантоване зниження ваги на 10 кг за тиждень без дієт та тренувань. Акція! Знижка 50% тільки сьогодні!",
+                content: "Купуйте наші таблетки для схуднення! Гарантоване зниження ваги на 10 кг за тиждень!",
                 date: new Date(Date.now() - 777600000).toISOString(),
                 tags: ["реклама", "схуднення"],
                 read: true,
@@ -1451,7 +1618,7 @@
             {
                 id: 11,
                 title: "Проект нового дизайну",
-                content: "Запропоновані зміни до дизайну включають:\n- Нова палітра кольорів\n- Покращена навігація\n- Додаткові функції фільтрації\n- Мобільна оптимізація\n\nПотрібно обговорити з командою.",
+                content: "Запропоновані зміни до дизайну включають нову палітру кольорів та покращену навігацію.",
                 date: new Date(Date.now() - 864000000).toISOString(),
                 tags: ["робота", "дизайн", "проект"],
                 read: true,
@@ -1459,9 +1626,10 @@
             }
         ];
 
-        let currentLanguage = localStorage.getItem('language') || 'uk';
-        let currentTheme = localStorage.getItem('theme') || 'light';
-        let isReadMode = localStorage.getItem('readMode') === 'true';
+        // Стан додатку
+        let currentLanguage = 'uk';
+        let currentTheme = 'light';
+        let isReadMode = false;
         let currentFolder = 'inbox';
         let selectedLetters = [];
         let editingLetterId = null;
@@ -1470,25 +1638,44 @@
         document.addEventListener('DOMContentLoaded', initApp);
 
         function initApp() {
-            loadLanguage();
-            loadTheme();
+            // Завантажити налаштування з localStorage
+            const savedLanguage = localStorage.getItem('inboxPro_language');
+            const savedTheme = localStorage.getItem('inboxPro_theme');
+            const savedReadMode = localStorage.getItem('inboxPro_readMode');
+            const savedLetters = localStorage.getItem('inboxPro_letters');
+            
+            if (savedLanguage) currentLanguage = savedLanguage;
+            if (savedTheme) currentTheme = savedTheme;
+            if (savedReadMode === 'true') isReadMode = true;
+            if (savedLetters) {
+                try {
+                    letters = JSON.parse(savedLetters);
+                } catch (e) {
+                    console.log('Помилка завантаження листів, використовуються стандартні');
+                }
+            }
+            
+            setLanguage(currentLanguage);
+            setTheme(currentTheme);
             loadReadMode();
             updateCounts();
             renderLetters();
             setupEventListeners();
+            
+            console.log('Додаток ініціалізовано успішно!');
+        }
+
+        // Зберегти налаштування
+        function saveSettings() {
+            localStorage.setItem('inboxPro_language', currentLanguage);
+            localStorage.setItem('inboxPro_theme', currentTheme);
+            localStorage.setItem('inboxPro_readMode', isReadMode);
+            localStorage.setItem('inboxPro_letters', JSON.stringify(letters));
         }
 
         // Завантаження мови
-        function loadLanguage() {
-            const lang = localStorage.getItem('language') || 'uk';
-            setLanguage(lang);
-        }
-
         function setLanguage(lang) {
             currentLanguage = lang;
-            localStorage.setItem('language', lang);
-            document.documentElement.lang = lang;
-            
             const t = translations[lang];
             
             // Оновлення тексту
@@ -1541,13 +1728,12 @@
             document.getElementById('languageTitle').textContent = t.language;
             document.getElementById('themeTitle').textContent = t.theme;
             
-            document.querySelectorAll('.lang-option')[0].querySelector('span').textContent = '🇺🇦 Українська';
-            document.querySelectorAll('.lang-option')[1].querySelector('span').textContent = '🇺🇸 English';
-            document.querySelectorAll('.lang-option')[2].querySelector('span').textContent = '🇷🇺 Русский';
-            
-            document.querySelectorAll('.theme-option')[0].querySelector('span').textContent = t.lightTheme;
-            document.querySelectorAll('.theme-option')[1].querySelector('span').textContent = t.darkTheme;
-            document.querySelectorAll('.theme-option')[2].querySelector('span').textContent = t.blueTheme;
+            // Оновити тексти тем
+            const themeOptions = document.querySelectorAll('.theme-option span');
+            if (themeOptions[0]) themeOptions[0].textContent = t.lightTheme;
+            if (themeOptions[1]) themeOptions[1].textContent = t.darkTheme;
+            if (themeOptions[2]) themeOptions[2].textContent = t.blueTheme;
+            if (themeOptions[3]) themeOptions[3].textContent = t.neonTheme;
             
             // Оновити активні опції
             document.querySelectorAll('.lang-option').forEach(option => {
@@ -1560,23 +1746,20 @@
             
             updateNewCount();
             renderLetters();
+            saveSettings();
         }
 
         // Завантаження теми
-        function loadTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            setTheme(theme);
-        }
-
         function setTheme(theme) {
             currentTheme = theme;
-            localStorage.setItem('theme', theme);
             document.documentElement.setAttribute('data-theme', theme);
             
             // Оновити активну опцію теми
             document.querySelectorAll('.theme-option').forEach(option => {
                 option.classList.toggle('active', option.dataset.theme === theme);
             });
+            
+            saveSettings();
         }
 
         // Завантаження режиму читання
@@ -1596,6 +1779,7 @@
             
             document.getElementById('inboxCount').textContent = inboxCount;
             document.getElementById('sentCount').textContent = sentCount;
+            document.getElementById('draftsCount').textContent = draftsCount;
             document.getElementById('spamCount').textContent = spamCount;
             
             updateNewCount();
@@ -1754,7 +1938,7 @@
                     btn.onclick = () => showDeleteModal(selectedLetters);
                     document.querySelector('.action-bar').appendChild(btn);
                 } else {
-                    btn.querySelector('span').textContent = `${translations[currentLanguage].delete} (${selectedLetters.length})`;
+                    deleteBtn.querySelector('span').textContent = `${translations[currentLanguage].delete} (${selectedLetters.length})`;
                 }
             } else if (deleteBtn) {
                 deleteBtn.remove();
@@ -1766,7 +1950,7 @@
             const letter = letters.find(l => l.id === id);
             if (letter) {
                 letter.read = !letter.read;
-                localStorage.setItem('letters', JSON.stringify(letters));
+                saveSettings();
                 updateCounts();
                 renderLetters();
             }
@@ -1776,7 +1960,10 @@
         function showDeleteModal(letterIds = []) {
             if (letterIds.length === 0) {
                 letterIds = selectedLetters;
-                if (letterIds.length === 0) return;
+                if (letterIds.length === 0) {
+                    alert(translations[currentLanguage].deleteMessage);
+                    return;
+                }
             }
             
             document.getElementById('itemCount').textContent = letterIds.length;
@@ -1792,7 +1979,7 @@
         function confirmDelete() {
             if (window.pendingDeleteIds) {
                 letters = letters.filter(letter => !window.pendingDeleteIds.includes(letter.id));
-                localStorage.setItem('letters', JSON.stringify(letters));
+                saveSettings();
                 updateCounts();
                 renderLetters();
                 hideDeleteModal();
@@ -1871,7 +2058,7 @@
                 letters.unshift(newLetter);
             }
             
-            localStorage.setItem('letters', JSON.stringify(letters));
+            saveSettings();
             updateCounts();
             renderLetters();
             hideEditModal();
@@ -1881,7 +2068,8 @@
             document.getElementById('editModal').style.display = 'none';
             document.getElementById('letterForm').reset();
             editingLetterId = null;
-            document.getElementById('editModalTitle').textContent = translations[currentLanguage].newLetter;
+            const t = translations[currentLanguage];
+            document.getElementById('editModalTitle').textContent = t.newLetter;
             document.getElementById('letterFolder').value = currentFolder === 'sent' ? 'sent' : 'inbox';
         }
 
@@ -1943,7 +2131,12 @@
             
             // Вибрати всі
             document.getElementById('selectAllBtn').addEventListener('click', () => {
-                document.querySelectorAll('.select-letter').forEach(cb => cb.checked = true);
+                const checkboxes = document.querySelectorAll('.select-letter');
+                const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                
+                checkboxes.forEach(cb => {
+                    cb.checked = !allChecked;
+                });
                 updateSelectedLetters();
             });
             
@@ -2056,7 +2249,7 @@
                 isReadMode = !isReadMode;
                 document.body.classList.toggle('read-mode-active', isReadMode);
                 document.getElementById('readModeToggle').classList.toggle('active', isReadMode);
-                localStorage.setItem('readMode', isReadMode);
+                saveSettings();
             });
             
             // Закриття панелі налаштувань при кліку поза нею
@@ -2064,8 +2257,17 @@
                 const settingsPanel = document.getElementById('settingsPanel');
                 const settingsBtn = document.getElementById('settingsBtn');
                 
-                if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
+                if (settingsPanel && !settingsPanel.contains(e.target) && settingsBtn && !settingsBtn.contains(e.target)) {
                     settingsPanel.classList.remove('show');
+                }
+            });
+            
+            // Обробка клавіші Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.getElementById('settingsPanel').classList.remove('show');
+                    hideDeleteModal();
+                    hideEditModal();
                 }
             });
         }
