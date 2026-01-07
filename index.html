@@ -295,7 +295,146 @@
         .controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
+        }
+
+        /* Кнопки налаштувань (видимі завжди) */
+        .settings-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .settings-btn:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .settings-btn i {
+            font-size: 16px;
+        }
+
+        /* Панель налаштувань (по кліку) */
+        .settings-panel {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 4px 24px var(--shadow-color);
+            width: 280px;
+            z-index: 1000;
+            display: none;
+            animation: slideDown 0.2s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .settings-panel.show {
+            display: block;
+        }
+
+        .settings-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .settings-header h3 {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .settings-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 20px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .settings-close:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .settings-section {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .settings-section h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .settings-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .settings-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .settings-option:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .settings-option.active {
+            background-color: var(--active-bg);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .settings-option i {
+            width: 20px;
+            text-align: center;
         }
 
         /* Пошук */
@@ -396,6 +535,7 @@
 
         .letter-card.unread {
             border-left: 3px solid var(--primary-color);
+            background-color: var(--active-bg);
         }
 
         .letter-header {
@@ -658,72 +798,6 @@
             margin-top: 24px;
         }
 
-        /* Вибір мови та теми */
-        .settings-dropdown {
-            position: relative;
-        }
-
-        .settings-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: var(--transition);
-            background: none;
-            border: none;
-        }
-
-        .settings-btn:hover {
-            background-color: var(--hover-bg);
-        }
-
-        .settings-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 20px var(--shadow-color);
-            min-width: 200px;
-            z-index: 100;
-            display: none;
-        }
-
-        .settings-menu.show {
-            display: block;
-        }
-
-        .settings-item {
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-            font-size: 14px;
-            color: var(--text-color);
-        }
-
-        .settings-item:hover {
-            background-color: var(--hover-bg);
-        }
-
-        .settings-divider {
-            height: 1px;
-            background-color: var(--border-color);
-            margin: 4px 0;
-        }
-
         /* Адаптивність */
         @media (max-width: 1024px) {
             .sidebar {
@@ -752,6 +826,18 @@
             .search-container {
                 max-width: 300px;
             }
+            
+            .controls {
+                gap: 8px;
+            }
+            
+            .settings-btn span {
+                display: none;
+            }
+            
+            .settings-btn {
+                padding: 8px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -773,6 +859,12 @@
             
             .letter-card {
                 padding: 16px;
+            }
+            
+            .settings-panel {
+                right: 12px;
+                left: 12px;
+                width: auto;
             }
         }
 
@@ -883,13 +975,13 @@
                 <button class="nav-item active" id="navInbox">
                     <i class="fas fa-inbox"></i>
                     <span>Вхідні</span>
-                    <span class="nav-badge" id="inboxCount">12</span>
+                    <span class="nav-badge" id="inboxCount">5</span>
                 </button>
                 
                 <button class="nav-item" id="navSent">
                     <i class="fas fa-paper-plane"></i>
                     <span>Надіслані</span>
-                    <span class="nav-badge" id="sentCount">45</span>
+                    <span class="nav-badge" id="sentCount">3</span>
                 </button>
                 
                 <button class="nav-item" id="navDrafts">
@@ -900,7 +992,7 @@
                 <button class="nav-item" id="navSpam">
                     <i class="fas fa-ban"></i>
                     <span>Спам</span>
-                    <span class="nav-badge" id="spamCount">7</span>
+                    <span class="nav-badge" id="spamCount">2</span>
                 </button>
 
                 <div class="nav-divider"></div>
@@ -935,45 +1027,62 @@
             <div class="top-bar">
                 <div class="page-title">
                     <h2 id="pageTitle">Вхідні</h2>
-                    <span class="new-count" id="newCount">12 нових</span>
+                    <span class="new-count" id="newCount">3 нових</span>
                 </div>
                 
                 <div class="controls">
-                    <div class="settings-dropdown">
-                        <button class="settings-btn" id="settingsBtn">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        <div class="settings-menu" id="settingsMenu">
-                            <div class="nav-title" style="padding: 12px 16px 8px;">Мова</div>
-                            <button class="settings-item lang-option" data-lang="uk">
-                                <span>🇺🇦 Українська</span>
-                            </button>
-                            <button class="settings-item lang-option" data-lang="en">
-                                <span>🇺🇸 English</span>
-                            </button>
-                            <button class="settings-item lang-option" data-lang="ru">
-                                <span>🇷🇺 Русский</span>
-                            </button>
-                            <div class="settings-divider"></div>
-                            <div class="nav-title" style="padding: 12px 16px 8px;">Тема</div>
-                            <button class="settings-item theme-option" data-theme="light">
-                                <i class="fas fa-sun"></i>
-                                <span>Світла</span>
-                            </button>
-                            <button class="settings-item theme-option" data-theme="dark">
-                                <i class="fas fa-moon"></i>
-                                <span>Темна</span>
-                            </button>
-                            <button class="settings-item theme-option" data-theme="blue">
-                                <i class="fas fa-droplet"></i>
-                                <span>Синя</span>
-                            </button>
-                        </div>
-                    </div>
+                    <button class="settings-btn" id="settingsBtn">
+                        <i class="fas fa-cog"></i>
+                        <span id="settingsText">Налаштування</span>
+                    </button>
                     
                     <button class="icon-btn" id="readModeToggle" title="Режим читання">
                         <i class="fas fa-book-reader"></i>
                     </button>
+                </div>
+            </div>
+
+            <!-- Панель налаштувань (по кліку) -->
+            <div class="settings-panel" id="settingsPanel">
+                <div class="settings-header">
+                    <h3 id="settingsPanelTitle">Налаштування</h3>
+                    <button class="settings-close" id="closeSettingsBtn">&times;</button>
+                </div>
+                
+                <div class="settings-section">
+                    <h4 id="languageTitle">Мова</h4>
+                    <div class="settings-options">
+                        <button class="settings-option lang-option active" data-lang="uk">
+                            <i class="fas fa-globe"></i>
+                            <span>🇺🇦 Українська</span>
+                        </button>
+                        <button class="settings-option lang-option" data-lang="en">
+                            <i class="fas fa-globe"></i>
+                            <span>🇺🇸 English</span>
+                        </button>
+                        <button class="settings-option lang-option" data-lang="ru">
+                            <i class="fas fa-globe"></i>
+                            <span>🇷🇺 Русский</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h4 id="themeTitle">Тема</h4>
+                    <div class="settings-options">
+                        <button class="settings-option theme-option active" data-theme="light">
+                            <i class="fas fa-sun"></i>
+                            <span>Світла</span>
+                        </button>
+                        <button class="settings-option theme-option" data-theme="dark">
+                            <i class="fas fa-moon"></i>
+                            <span>Темна</span>
+                        </button>
+                        <button class="settings-option theme-option" data-theme="blue">
+                            <i class="fas fa-droplet"></i>
+                            <span>Синя</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -1042,6 +1151,16 @@
                         <input type="text" id="letterTags" placeholder="робота, важливе, особисте">
                     </div>
                     
+                    <div class="form-group">
+                        <label for="letterFolder">Папка</label>
+                        <select id="letterFolder" class="form-group input" style="width: 100%; padding: 12px 16px;">
+                            <option value="inbox">Вхідні</option>
+                            <option value="sent">Надіслані</option>
+                            <option value="drafts">Чернетки</option>
+                            <option value="spam">Спам</option>
+                        </select>
+                    </div>
+                    
                     <div class="modal-actions">
                         <button type="button" class="btn btn-secondary" id="cancelEditBtn">Скасувати</button>
                         <button type="submit" class="btn btn-primary">Зберегти</button>
@@ -1099,6 +1218,7 @@
                 contentLabel: "Зміст",
                 tagsLabel: "Теги (через кому)",
                 tagsPlaceholder: "робота, важливе, особисте",
+                folderLabel: "Папка",
                 save: "Зберегти",
                 cancel: "Скасувати",
                 delete: "Видалити",
@@ -1111,6 +1231,8 @@
                 composeFirst: "Написати перший лист",
                 newCount: "нових",
                 readMode: "Режим читання",
+                settings: "Налаштування",
+                settingsPanelTitle: "Налаштування",
                 language: "Мова",
                 theme: "Тема",
                 lightTheme: "Світла",
@@ -1120,7 +1242,8 @@
                 collapse: "Згорнути",
                 exportPDF: "Експорт PDF",
                 exportTXT: "Експорт TXT",
-                markRead: "Позначити як прочитане"
+                markRead: "Позначити як прочитане",
+                markUnread: "Позначити як непрочитане"
             },
             en: {
                 title: "Inbox Pro",
@@ -1146,6 +1269,7 @@
                 contentLabel: "Content",
                 tagsLabel: "Tags (comma separated)",
                 tagsPlaceholder: "work, important, personal",
+                folderLabel: "Folder",
                 save: "Save",
                 cancel: "Cancel",
                 delete: "Delete",
@@ -1158,6 +1282,8 @@
                 composeFirst: "Compose first letter",
                 newCount: "new",
                 readMode: "Reading mode",
+                settings: "Settings",
+                settingsPanelTitle: "Settings",
                 language: "Language",
                 theme: "Theme",
                 lightTheme: "Light",
@@ -1167,7 +1293,8 @@
                 collapse: "Collapse",
                 exportPDF: "Export PDF",
                 exportTXT: "Export TXT",
-                markRead: "Mark as read"
+                markRead: "Mark as read",
+                markUnread: "Mark as unread"
             },
             ru: {
                 title: "Inbox Pro",
@@ -1193,6 +1320,7 @@
                 contentLabel: "Содержание",
                 tagsLabel: "Теги (через запятую)",
                 tagsPlaceholder: "работа, важное, личное",
+                folderLabel: "Папка",
                 save: "Сохранить",
                 cancel: "Отмена",
                 delete: "Удалить",
@@ -1205,6 +1333,8 @@
                 composeFirst: "Написать первое письмо",
                 newCount: "новых",
                 readMode: "Режим чтения",
+                settings: "Настройки",
+                settingsPanelTitle: "Настройки",
                 language: "Язык",
                 theme: "Тема",
                 lightTheme: "Светлая",
@@ -1214,12 +1344,14 @@
                 collapse: "Свернуть",
                 exportPDF: "Экспорт PDF",
                 exportTXT: "Экспорт TXT",
-                markRead: "Пометить как прочитанное"
+                markRead: "Пометить как прочитанное",
+                markUnread: "Пометить как непрочитанное"
             }
         };
 
-        // Дані додатку
+        // Дані додатку з прикладами листів у різних папках
         let letters = JSON.parse(localStorage.getItem('letters')) || [
+            // ВХІДНІ (5 листів, 3 непрочитаних)
             {
                 id: 1,
                 title: "Ласкаво просимо до Inbox Pro!",
@@ -1240,21 +1372,90 @@
             },
             {
                 id: 3,
+                title: "Запрошення на зустріч команди",
+                content: "Запрошую вас на щотижневу зустріч команди, яка відбудеться у п'ятницю о 14:00. Теми для обговорення: 1) Прогрес по поточному проекту 2) Планування наступного тижня 3) Технічні питання.",
+                date: new Date(Date.now() - 172800000).toISOString(),
+                tags: ["робота", "зустріч"],
+                read: false,
+                folder: "inbox"
+            },
+            {
+                id: 4,
                 title: "Особистий щоденник: гарний день",
                 content: "Сьогодні чудовий день! Погода сонячна, настрій відмінний. Заплановано багато справ на день, але я впевнений, що впораюся з усіма завданнями.",
-                date: new Date(Date.now() - 172800000).toISOString(),
+                date: new Date(Date.now() - 259200000).toISOString(),
                 tags: ["особисте", "щоденник"],
                 read: true,
                 folder: "inbox"
             },
             {
-                id: 4,
+                id: 5,
+                title: "Нагадування про оплату рахунків",
+                content: "Нагадуємо про необхідність оплатити комунальні послуги до кінця місяця. Термін оплати: 30 число. Сума до оплати: 1250 грн.",
+                date: new Date(Date.now() - 345600000).toISOString(),
+                tags: ["нагадування", "фінанси"],
+                read: true,
+                folder: "inbox"
+            },
+            
+            // НАДІСЛАНІ (3 листи)
+            {
+                id: 6,
                 title: "План на наступний тиждень",
                 content: "1. Завершити проект до п'ятниці\n2. Зустріч з командою о 14:00\n3. Підготувати звіт\n4. Зробити покупки\n5. Заняття спортом",
-                date: new Date(Date.now() - 259200000).toISOString(),
+                date: new Date(Date.now() - 432000000).toISOString(),
                 tags: ["робота", "плани"],
                 read: true,
                 folder: "sent"
+            },
+            {
+                id: 7,
+                title: "Запит на відпустку",
+                content: "Прошу надати мені щорічну оплачувану відпустку з 15 по 30 липня включно. Під час моєї відсутності мої обов'язки буде виконувати колега Іван Петренко.",
+                date: new Date(Date.now() - 518400000).toISOString(),
+                tags: ["робота", "відпустка"],
+                read: true,
+                folder: "sent"
+            },
+            {
+                id: 8,
+                title: "Привітання з днем народження",
+                content: "Щиро вітаю з днем народження! Бажаю здоров'я, щастя, успіхів у роботі та особистому житті. Нехай усі мрії збуваються!",
+                date: new Date(Date.now() - 604800000).toISOString(),
+                tags: ["особисте", "привітання"],
+                read: true,
+                folder: "sent"
+            },
+            
+            // СПАМ (2 листи)
+            {
+                id: 9,
+                title: "ВИГРАЙТЕ 1 000 000$!!!",
+                content: "Вітаємо! Ви стали переможцем нашої лотереї! Для отримання виграшу надішліть свої банківські реквізити та паспортні дані на цю адресу. Ця пропозиція діє лише 24 години!",
+                date: new Date(Date.now() - 691200000).toISOString(),
+                tags: ["шахрайство", "лотерея"],
+                read: true,
+                folder: "spam"
+            },
+            {
+                id: 10,
+                title: "Чудова пропозиція для вас",
+                content: "Купуйте наші таблетки для схуднення! Гарантоване зниження ваги на 10 кг за тиждень без дієт та тренувань. Акція! Знижка 50% тільки сьогодні!",
+                date: new Date(Date.now() - 777600000).toISOString(),
+                tags: ["реклама", "схуднення"],
+                read: true,
+                folder: "spam"
+            },
+            
+            // ЧЕРНЕТКИ (1 лист)
+            {
+                id: 11,
+                title: "Проект нового дизайну",
+                content: "Запропоновані зміни до дизайну включають:\n- Нова палітра кольорів\n- Покращена навігація\n- Додаткові функції фільтрації\n- Мобільна оптимізація\n\nПотрібно обговорити з командою.",
+                date: new Date(Date.now() - 864000000).toISOString(),
+                tags: ["робота", "дизайн", "проект"],
+                read: true,
+                folder: "drafts"
             }
         ];
 
@@ -1315,10 +1516,11 @@
             document.querySelector('[data-filter="подорожі"] span').textContent = t.travel;
             
             // Оновлення модальних вікон
-            document.getElementById('editModalTitle').textContent = t.newLetter;
+            document.getElementById('editModalTitle').textContent = editingLetterId ? t.editLetter : t.newLetter;
             document.querySelector('label[for="letterTitle"]').textContent = t.titleLabel;
             document.querySelector('label[for="letterContent"]').textContent = t.contentLabel;
             document.querySelector('label[for="letterTags"]').textContent = t.tagsLabel;
+            document.querySelector('label[for="letterFolder"]').textContent = t.folderLabel;
             document.getElementById('letterTags').placeholder = t.tagsPlaceholder;
             document.querySelector('#letterForm button[type="submit"]').textContent = t.save;
             document.getElementById('cancelEditBtn').textContent = t.cancel;
@@ -1334,11 +1536,27 @@
             emptyState.querySelector('button').innerHTML = `<i class="fas fa-pen"></i> ${t.composeFirst}`;
             
             // Оновлення налаштувань
-            document.querySelectorAll('.settings-menu .nav-title')[0].textContent = t.language;
-            document.querySelectorAll('.settings-menu .nav-title')[1].textContent = t.theme;
-            document.querySelector('[data-theme="light"] span').textContent = t.lightTheme;
-            document.querySelector('[data-theme="dark"] span').textContent = t.darkTheme;
-            document.querySelector('[data-theme="blue"] span').textContent = t.blueTheme;
+            document.getElementById('settingsText').textContent = t.settings;
+            document.getElementById('settingsPanelTitle').textContent = t.settingsPanelTitle;
+            document.getElementById('languageTitle').textContent = t.language;
+            document.getElementById('themeTitle').textContent = t.theme;
+            
+            document.querySelectorAll('.lang-option')[0].querySelector('span').textContent = '🇺🇦 Українська';
+            document.querySelectorAll('.lang-option')[1].querySelector('span').textContent = '🇺🇸 English';
+            document.querySelectorAll('.lang-option')[2].querySelector('span').textContent = '🇷🇺 Русский';
+            
+            document.querySelectorAll('.theme-option')[0].querySelector('span').textContent = t.lightTheme;
+            document.querySelectorAll('.theme-option')[1].querySelector('span').textContent = t.darkTheme;
+            document.querySelectorAll('.theme-option')[2].querySelector('span').textContent = t.blueTheme;
+            
+            // Оновити активні опції
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.lang === currentLanguage);
+            });
+            
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === currentTheme);
+            });
             
             updateNewCount();
             renderLetters();
@@ -1373,6 +1591,7 @@
         function updateCounts() {
             const inboxCount = letters.filter(l => l.folder === 'inbox' && !l.read).length;
             const sentCount = letters.filter(l => l.folder === 'sent').length;
+            const draftsCount = letters.filter(l => l.folder === 'drafts').length;
             const spamCount = letters.filter(l => l.folder === 'spam').length;
             
             document.getElementById('inboxCount').textContent = inboxCount;
@@ -1383,9 +1602,9 @@
         }
 
         function updateNewCount() {
-            const newCount = letters.filter(l => l.folder === 'inbox' && !l.read).length;
+            const newCount = letters.filter(l => l.folder === currentFolder && !l.read).length;
             const t = translations[currentLanguage];
-            document.getElementById('newCount').textContent = `${newCount} ${t.newCount}`;
+            document.getElementById('newCount').textContent = newCount > 0 ? `${newCount} ${t.newCount}` : '';
         }
 
         // Рендер листів
@@ -1404,6 +1623,9 @@
             }
             
             emptyState.style.display = 'none';
+            
+            // Сортування за датою (новіші зверху)
+            lettersToShow.sort((a, b) => new Date(b.date) - new Date(a.date));
             
             container.innerHTML = lettersToShow.map(letter => {
                 const isLongContent = letter.content.length > 150;
@@ -1451,8 +1673,8 @@
                     </div>
                     
                     <div class="letter-actions">
-                        <button class="icon-btn" onclick="markAsRead(${letter.id})" title="${t.markRead}">
-                            <i class="fas fa-envelope-open"></i>
+                        <button class="icon-btn" onclick="toggleReadStatus(${letter.id})" title="${letter.read ? t.markUnread : t.markRead}">
+                            <i class="fas ${letter.read ? 'fa-envelope' : 'fa-envelope-open'}"></i>
                         </button>
                         <button class="icon-btn" onclick="editLetter(${letter.id})" title="${t.editLetter}">
                             <i class="fas fa-edit"></i>
@@ -1539,11 +1761,11 @@
             }
         }
 
-        // Позначити як прочитане
-        function markAsRead(id) {
+        // Змінити статус прочитання
+        function toggleReadStatus(id) {
             const letter = letters.find(l => l.id === id);
             if (letter) {
-                letter.read = true;
+                letter.read = !letter.read;
                 localStorage.setItem('letters', JSON.stringify(letters));
                 updateCounts();
                 renderLetters();
@@ -1602,6 +1824,7 @@
             document.getElementById('letterTitle').value = letter.title;
             document.getElementById('letterContent').value = letter.content;
             document.getElementById('letterTags').value = letter.tags.join(', ');
+            document.getElementById('letterFolder').value = letter.folder;
             document.getElementById('editModal').style.display = 'flex';
         }
 
@@ -1614,6 +1837,7 @@
                 .split(',')
                 .map(tag => tag.trim())
                 .filter(tag => tag.length > 0);
+            const folder = document.getElementById('letterFolder').value;
             
             if (!title || !content) {
                 alert('Заповніть обов\'язкові поля');
@@ -1629,6 +1853,7 @@
                         title,
                         content,
                         tags,
+                        folder,
                         date: new Date().toISOString()
                     };
                 }
@@ -1641,7 +1866,7 @@
                     tags,
                     date: new Date().toISOString(),
                     read: false,
-                    folder: currentFolder === 'sent' ? 'sent' : 'inbox'
+                    folder: folder
                 };
                 letters.unshift(newLetter);
             }
@@ -1657,6 +1882,7 @@
             document.getElementById('letterForm').reset();
             editingLetterId = null;
             document.getElementById('editModalTitle').textContent = translations[currentLanguage].newLetter;
+            document.getElementById('letterFolder').value = currentFolder === 'sent' ? 'sent' : 'inbox';
         }
 
         // Експорт
@@ -1742,7 +1968,8 @@
                         
                         // Змінити папку
                         currentFolder = item.id.replace('nav', '').toLowerCase();
-                        document.getElementById('pageTitle').textContent = translations[currentLanguage][currentFolder];
+                        const t = translations[currentLanguage];
+                        document.getElementById('pageTitle').textContent = t[currentFolder] || t.inbox;
                         updateNewCount();
                         renderLetters();
                     });
@@ -1781,27 +2008,46 @@
                 });
             });
             
-            // Налаштування
-            document.getElementById('settingsBtn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('settingsMenu').classList.toggle('show');
+            // Налаштування (клік по кнопці)
+            document.getElementById('settingsBtn').addEventListener('click', () => {
+                document.getElementById('settingsPanel').classList.toggle('show');
             });
             
+            document.getElementById('closeSettingsBtn').addEventListener('click', () => {
+                document.getElementById('settingsPanel').classList.remove('show');
+            });
+            
+            // Зміна мови
             document.querySelectorAll('.lang-option').forEach(option => {
                 option.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const lang = option.dataset.lang;
                     setLanguage(lang);
-                    document.getElementById('settingsMenu').classList.remove('show');
+                    
+                    // Оновити активну опцію
+                    document.querySelectorAll('.lang-option').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.lang === lang);
+                    });
+                    
+                    // Закрити панель
+                    document.getElementById('settingsPanel').classList.remove('show');
                 });
             });
             
+            // Зміна теми
             document.querySelectorAll('.theme-option').forEach(option => {
                 option.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const theme = option.dataset.theme;
                     setTheme(theme);
-                    document.getElementById('settingsMenu').classList.remove('show');
+                    
+                    // Оновити активну опцію
+                    document.querySelectorAll('.theme-option').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.theme === theme);
+                    });
+                    
+                    // Закрити панель
+                    document.getElementById('settingsPanel').classList.remove('show');
                 });
             });
             
@@ -1813,9 +2059,14 @@
                 localStorage.setItem('readMode', isReadMode);
             });
             
-            // Закриття дропдаунів при кліку поза ними
-            document.addEventListener('click', () => {
-                document.getElementById('settingsMenu').classList.remove('show');
+            // Закриття панелі налаштувань при кліку поза нею
+            document.addEventListener('click', (e) => {
+                const settingsPanel = document.getElementById('settingsPanel');
+                const settingsBtn = document.getElementById('settingsBtn');
+                
+                if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
+                    settingsPanel.classList.remove('show');
+                }
             });
         }
 
@@ -1824,7 +2075,7 @@
         window.editLetter = editLetter;
         window.exportAsPDF = exportAsPDF;
         window.showDeleteModal = showDeleteModal;
-        window.markAsRead = markAsRead;
+        window.toggleReadStatus = toggleReadStatus;
     </script>
 </body>
 </html>
