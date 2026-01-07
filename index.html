@@ -4,9 +4,1232 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мої Листи</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* ===== CSS СТИЛІ ===== */
+        /* Базові стилі та змінні */
+        :root {
+            /* Світла тема за замовчуванням */
+            --primary-color: #3498db;
+            --primary-light: #5dade2;
+            --primary-dark: #2980b9;
+            --secondary-color: #2ecc71;
+            --secondary-light: #58d68d;
+            --secondary-dark: #27ae60;
+            --danger-color: #e74c3c;
+            --danger-light: #ec7063;
+            --danger-dark: #c0392b;
+            --warning-color: #f39c12;
+            --warning-light: #f5b041;
+            --warning-dark: #d35400;
+            --info-color: #17a2b8;
+            --success-color: #28a745;
+            
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --text-light: #666666;
+            --text-lighter: #999999;
+            --card-bg: #f8f9fa;
+            --card-hover: #e9ecef;
+            --border-color: #dee2e6;
+            --border-light: #e9ecef;
+            --border-dark: #ced4da;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.15);
+            --overlay: rgba(0, 0, 0, 0.5);
+            
+            --header-bg: #ffffff;
+            --footer-bg: #f8f9fa;
+            
+            --font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            --font-family-reading: 'Georgia', 'Times New Roman', 'Merriweather', serif;
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+        }
+
+        /* Темна тема */
+        [data-theme="dark"] {
+            --primary-color: #3498db;
+            --primary-light: #5dade2;
+            --primary-dark: #2980b9;
+            --secondary-color: #2ecc71;
+            --secondary-light: #58d68d;
+            --secondary-dark: #27ae60;
+            --danger-color: #e74c3c;
+            --danger-light: #ec7063;
+            --danger-dark: #c0392b;
+            --warning-color: #f39c12;
+            --warning-light: #f5b041;
+            --warning-dark: #d35400;
+            --info-color: #17a2b8;
+            --success-color: #28a745;
+            
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --text-light: #cccccc;
+            --text-lighter: #999999;
+            --card-bg: #2d2d2d;
+            --card-hover: #3d3d3d;
+            --border-color: #404040;
+            --border-light: #505050;
+            --border-dark: #303030;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --shadow-dark: rgba(0, 0, 0, 0.4);
+            --overlay: rgba(0, 0, 0, 0.7);
+            
+            --header-bg: #2d2d2d;
+            --footer-bg: #252525;
+        }
+
+        /* Синя тема */
+        [data-theme="blue"] {
+            --primary-color: #1e90ff;
+            --primary-light: #4da6ff;
+            --primary-dark: #0066cc;
+            --secondary-color: #4169e1;
+            --secondary-light: #6d8aec;
+            --secondary-dark: #2a4bc9;
+            --danger-color: #ff4757;
+            --danger-light: #ff6b78;
+            --danger-dark: #ff2e43;
+            --warning-color: #ffa502;
+            --warning-light: #ffb732;
+            --warning-dark: #e69500;
+            --info-color: #00a8ff;
+            --success-color: #2ed573;
+            
+            --bg-color: #e6f2ff;
+            --text-color: #003366;
+            --text-light: #336699;
+            --text-lighter: #6699cc;
+            --card-bg: #cce5ff;
+            --card-hover: #b3d9ff;
+            --border-color: #99ccff;
+            --border-light: #cce5ff;
+            --border-dark: #66b3ff;
+            --shadow-color: rgba(30, 144, 255, 0.2);
+            --shadow-dark: rgba(30, 144, 255, 0.3);
+            --overlay: rgba(0, 51, 102, 0.5);
+            
+            --header-bg: #cce5ff;
+            --footer-bg: #b3d9ff;
+        }
+
+        /* Зелена тема */
+        [data-theme="green"] {
+            --primary-color: #27ae60;
+            --primary-light: #2ecc71;
+            --primary-dark: #229954;
+            --secondary-color: #2ecc71;
+            --secondary-light: #58d68d;
+            --secondary-dark: #27ae60;
+            --danger-color: #e74c3c;
+            --danger-light: #ec7063;
+            --danger-dark: #c0392b;
+            --warning-color: #f1c40f;
+            --warning-light: #f4d03f;
+            --warning-dark: #d4ac0d;
+            --info-color: #17a2b8;
+            --success-color: #28a745;
+            
+            --bg-color: #eafaf1;
+            --text-color: #1d4620;
+            --text-light: #2e7d32;
+            --text-lighter: #4caf50;
+            --card-bg: #d4efdf;
+            --card-hover: #c3e6d0;
+            --border-color: #a9dfbf;
+            --border-light: #d4efdf;
+            --border-dark: #82e0aa;
+            --shadow-color: rgba(39, 174, 96, 0.2);
+            --shadow-dark: rgba(39, 174, 96, 0.3);
+            --overlay: rgba(29, 70, 32, 0.5);
+            
+            --header-bg: #d4efdf;
+            --footer-bg: #c3e6d0;
+        }
+
+        /* Загальні стилі */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color var(--transition-speed) ease,
+                        color var(--transition-speed) ease;
+        }
+
+        /* Хедер */
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 30px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-top h1 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header-top h1 i {
+            font-size: 32px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Пошук та фільтри */
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 18px;
+            z-index: 1;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 16px;
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background-color: var(--bg-color);
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 14px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            min-width: 160px;
+            transition: all var(--transition-speed) ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            padding-right: 45px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .filter-select:hover {
+            border-color: var(--border-dark);
+        }
+
+        /* Кнопки */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px var(--shadow-color);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-dark);
+            border-color: var(--border-dark);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color), var(--danger-dark));
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, var(--danger-light), var(--danger-color));
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .icon-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 20px;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--border-color);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .icon-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            padding: 12px 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-width: 180px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .dropdown-btn:hover {
+            border-color: var(--border-dark);
+            background-color: var(--bg-color);
+        }
+
+        .dropdown-btn i {
+            font-size: 14px;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .dropdown:hover .dropdown-btn i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            min-width: 220px;
+            box-shadow: 0 10px 30px var(--shadow-dark);
+            z-index: 1000;
+            margin-top: 8px;
+            animation: fadeIn 0.2s ease;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-content div {
+            padding: 14px 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .dropdown-content div:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content div:hover {
+            background-color: var(--border-color);
+            padding-left: 25px;
+        }
+
+        .dropdown-content div.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .dropdown-content div.active:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Контейнер листів */
+        main {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .letters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .letter-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: 0 6px 20px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+        }
+
+        .letter-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px var(--shadow-dark);
+            border-color: var(--primary-color);
+        }
+
+        .letter-card.read-mode {
+            font-family: var(--font-family-reading);
+            font-size: 18px;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .letter-header-left {
+            flex: 1;
+        }
+
+        .letter-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .letter-date {
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .letter-date i {
+            font-size: 12px;
+        }
+
+        .letter-checkbox {
+            position: relative;
+        }
+
+        .letter-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-label {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .checkbox-label:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .checkbox-label::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 6px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: translate(-50%, -60%) rotate(-45deg) scale(0);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .letter-checkbox input[type="checkbox"]:checked + .checkbox-label {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .letter-checkbox input[type="checkbox"]:checked + .checkbox-label::after {
+            opacity: 1;
+            transform: translate(-50%, -60%) rotate(-45deg) scale(1);
+        }
+
+        .letter-content {
+            margin: 20px 0;
+            line-height: 1.7;
+            max-height: 200px;
+            overflow: hidden;
+            position: relative;
+            font-size: 16px;
+            color: var(--text-color);
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .letter-content.expanded {
+            max-height: none;
+        }
+
+        .read-more {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--card-bg) 70%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 15px;
+        }
+
+        .btn-expand {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-expand:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .letter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .letter-tags i {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .tag {
+            background-color: var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .letter-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .action-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 16px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--border-color);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px) scale(1.05);
+            z-index: 1;
+        }
+
+        .action-btn i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .delete-btn:hover {
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        /* Пустий стан */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .empty-state i {
+            font-size: 100px;
+            margin-bottom: 30px;
+            color: var(--border-color);
+            opacity: 0.7;
+        }
+
+        .empty-state h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* Модальні вікна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn var(--transition-speed) ease;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 500px;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px) scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .close-modal, .close-edit-modal {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-modal:hover, .close-edit-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-icon {
+            text-align: center;
+            font-size: 70px;
+            color: var(--warning-color);
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #deleteMessage {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        #deleteMessage span {
+            font-weight: 700;
+            color: var(--danger-color);
+        }
+
+        .modal-warning {
+            text-align: center;
+            color: var(--danger-color);
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 16px;
+            padding: 12px 20px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: var(--border-radius-sm);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Форма */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            font-family: var(--font-family);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+            line-height: 1.6;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
+            background-color: var(--card-bg);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-lighter);
+        }
+
+        /* Режим читання */
+        body.read-mode-active .letter-card {
+            max-width: 800px;
+            margin: 40px auto;
+            font-family: var(--font-family-reading);
+            font-size: 18px;
+            line-height: 1.8;
+            padding: 50px;
+            letter-spacing: 0.3px;
+        }
+
+        body.read-mode-active .letters-container {
+            display: block;
+        }
+
+        body.read-mode-active .letter-content {
+            max-height: none;
+            font-size: 18px;
+            line-height: 1.9;
+        }
+
+        body.read-mode-active .read-more {
+            display: none;
+        }
+
+        body.read-mode-active .letter-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        body.read-mode-active .letter-date {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Адаптивність */
+        @media (max-width: 1200px) {
+            .letters-container {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-top {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .header-controls {
+                justify-content: center;
+            }
+            
+            .search-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .filters {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .filter-select {
+                width: 100%;
+            }
+            
+            .letters-container {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 20px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-actions .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            main {
+                padding: 20px;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+            }
+            
+            .dropdown-btn {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .letters-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .letter-card {
+                padding: 25px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10px;
+            }
+            
+            body.read-mode-active .letter-card {
+                padding: 30px;
+                margin: 20px auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-top h1 {
+                font-size: 24px;
+            }
+            
+            .header-top h1 i {
+                font-size: 28px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+            
+            .letter-card {
+                padding: 20px;
+            }
+            
+            .letter-title {
+                font-size: 20px;
+            }
+            
+            .letter-content {
+                font-size: 15px;
+            }
+            
+            .action-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            .modal-header {
+                padding: 20px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-header h3 {
+                font-size: 20px;
+            }
+            
+            body.read-mode-active .letter-card {
+                padding: 25px;
+            }
+            
+            body.read-mode-active .letter-title {
+                font-size: 24px;
+            }
+        }
+
+        /* Спеціальні стилі для кращого UX */
+        .delete-selected-btn {
+            margin-left: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Анімація для нових листів */
+        @keyframes newLetter {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .letter-card:first-child {
+            animation: newLetter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Поліпшення скроллбара */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--border-light);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-dark);
+        }
+
+        /* Покращення фокусу для доступності */
+        :focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Стилі для вибраних листів */
+        .letter-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        /* Ефект наведення для тегів */
+        .tag:hover::after {
+            content: ' ×';
+            font-weight: bold;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -163,6 +1386,897 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // ===== JavaScript КОД =====
+        // Мови та переклади
+        const translations = {
+            uk: {
+                title: "Мої Листи",
+                addLetter: "Додати лист",
+                searchPlaceholder: "Пошук листів...",
+                allDates: "Усі дати",
+                today: "Сьогодні",
+                thisWeek: "Цього тижня",
+                thisMonth: "Цього місяця",
+                allTags: "Усі теги",
+                important: "Важливе",
+                personal: "Особисте",
+                work: "Робота",
+                reminder: "Нагадування",
+                clearFilters: "Очистити",
+                deleteConfirm: "Підтвердження видалення",
+                deleteMessage: "Ви впевнені, що хочете видалити",
+                letters: "лист(и)",
+                warning: "Цю дію неможливо скасувати!",
+                cancel: "Скасувати",
+                delete: "Видалити",
+                editLetter: "Редагувати лист",
+                addLetterModal: "Додати лист",
+                titleLabel: "Заголовок",
+                contentLabel: "Зміст",
+                tagsLabel: "Теги (через кому)",
+                tagsPlaceholder: "робота, важливе, особисте",
+                save: "Зберегти",
+                readMode: "Режим читання",
+                theme: "Тема",
+                lightTheme: "Світла",
+                darkTheme: "Темна",
+                blueTheme: "Синя",
+                greenTheme: "Зелена",
+                exportPDF: "Експорт PDF",
+                exportTXT: "Експорт TXT",
+                expand: "Розгорнути",
+                collapse: "Згорнути",
+                noLetters: "Немає листів",
+                addFirstLetter: "Додайте свій перший лист",
+                deleteSelected: "Видалити вибрані",
+                edit: "Редагувати",
+                view: "Переглянути",
+                date: "Дата",
+                tags: "Теги"
+            },
+            en: {
+                title: "My Letters",
+                addLetter: "Add Letter",
+                searchPlaceholder: "Search letters...",
+                allDates: "All dates",
+                today: "Today",
+                thisWeek: "This week",
+                thisMonth: "This month",
+                allTags: "All tags",
+                important: "Important",
+                personal: "Personal",
+                work: "Work",
+                reminder: "Reminder",
+                clearFilters: "Clear",
+                deleteConfirm: "Delete Confirmation",
+                deleteMessage: "Are you sure you want to delete",
+                letters: "letter(s)",
+                warning: "This action cannot be undone!",
+                cancel: "Cancel",
+                delete: "Delete",
+                editLetter: "Edit Letter",
+                addLetterModal: "Add Letter",
+                titleLabel: "Title",
+                contentLabel: "Content",
+                tagsLabel: "Tags (comma separated)",
+                tagsPlaceholder: "work, important, personal",
+                save: "Save",
+                readMode: "Reading Mode",
+                theme: "Theme",
+                lightTheme: "Light",
+                darkTheme: "Dark",
+                blueTheme: "Blue",
+                greenTheme: "Green",
+                exportPDF: "Export PDF",
+                exportTXT: "Export TXT",
+                expand: "Expand",
+                collapse: "Collapse",
+                noLetters: "No letters",
+                addFirstLetter: "Add your first letter",
+                deleteSelected: "Delete Selected",
+                edit: "Edit",
+                view: "View",
+                date: "Date",
+                tags: "Tags"
+            },
+            de: {
+                title: "Meine Briefe",
+                addLetter: "Brief hinzufügen",
+                searchPlaceholder: "Briefe suchen...",
+                allDates: "Alle Daten",
+                today: "Heute",
+                thisWeek: "Diese Woche",
+                thisMonth: "Diesen Monat",
+                allTags: "Alle Tags",
+                important: "Wichtig",
+                personal: "Persönlich",
+                work: "Arbeit",
+                reminder: "Erinnerung",
+                clearFilters: "Löschen",
+                deleteConfirm: "Löschbestätigung",
+                deleteMessage: "Sind Sie sicher, dass Sie löschen möchten",
+                letters: "Brief(e)",
+                warning: "Diese Aktion kann nicht rückgängig gemacht werden!",
+                cancel: "Abbrechen",
+                delete: "Löschen",
+                editLetter: "Brief bearbeiten",
+                addLetterModal: "Brief hinzufügen",
+                titleLabel: "Titel",
+                contentLabel: "Inhalt",
+                tagsLabel: "Tags (kommagetrennt)",
+                tagsPlaceholder: "Arbeit, wichtig, persönlich",
+                save: "Speichern",
+                readMode: "Lesemodus",
+                theme: "Thema",
+                lightTheme: "Hell",
+                darkTheme: "Dunkel",
+                blueTheme: "Blau",
+                greenTheme: "Grün",
+                exportPDF: "PDF exportieren",
+                exportTXT: "TXT exportieren",
+                expand: "Erweitern",
+                collapse: "Zusammenklappen",
+                noLetters: "Keine Briefe",
+                addFirstLetter: "Fügen Sie Ihren ersten Brief hinzu",
+                deleteSelected: "Ausgewählte löschen",
+                edit: "Bearbeiten",
+                view: "Ansehen",
+                date: "Datum",
+                tags: "Tags"
+            },
+            ru: {
+                title: "Мои Письма",
+                addLetter: "Добавить письмо",
+                searchPlaceholder: "Поиск писем...",
+                allDates: "Все даты",
+                today: "Сегодня",
+                thisWeek: "На этой неделе",
+                thisMonth: "В этом месяце",
+                allTags: "Все теги",
+                important: "Важное",
+                personal: "Личное",
+                work: "Работа",
+                reminder: "Напоминание",
+                clearFilters: "Очистить",
+                deleteConfirm: "Подтверждение удаления",
+                deleteMessage: "Вы уверены, что хотите удалить",
+                letters: "письмо(а)",
+                warning: "Это действие нельзя отменить!",
+                cancel: "Отмена",
+                delete: "Удалить",
+                editLetter: "Редактировать письмо",
+                addLetterModal: "Добавить письмо",
+                titleLabel: "Заголовок",
+                contentLabel: "Содержание",
+                tagsLabel: "Теги (через запятую)",
+                tagsPlaceholder: "работа, важное, личное",
+                save: "Сохранить",
+                readMode: "Режим чтения",
+                theme: "Тема",
+                lightTheme: "Светлая",
+                darkTheme: "Темная",
+                blueTheme: "Синяя",
+                greenTheme: "Зеленая",
+                exportPDF: "Экспорт PDF",
+                exportTXT: "Экспорт TXT",
+                expand: "Развернуть",
+                collapse: "Свернуть",
+                noLetters: "Нет писем",
+                addFirstLetter: "Добавьте свое первое письмо",
+                deleteSelected: "Удалить выбранные",
+                edit: "Редактировать",
+                view: "Просмотреть",
+                date: "Дата",
+                tags: "Теги"
+            },
+            pl: {
+                title: "Moje Listy",
+                addLetter: "Dodaj list",
+                searchPlaceholder: "Szukaj listów...",
+                allDates: "Wszystkie daty",
+                today: "Dziś",
+                thisWeek: "W tym tygodniu",
+                thisMonth: "W tym miesiącu",
+                allTags: "Wszystkie tagi",
+                important: "Ważne",
+                personal: "Osobiste",
+                work: "Praca",
+                reminder: "Przypomnienie",
+                clearFilters: "Wyczyść",
+                deleteConfirm: "Potwierdzenie usunięcia",
+                deleteMessage: "Czy na pewno chcesz usunąć",
+                letters: "list(y)",
+                warning: "Tej czynności nie można cofnąć!",
+                cancel: "Anuluj",
+                delete: "Usuń",
+                editLetter: "Edytuj list",
+                addLetterModal: "Dodaj list",
+                titleLabel: "Tytuł",
+                contentLabel: "Treść",
+                tagsLabel: "Tagi (oddzielone przecinkami)",
+                tagsPlaceholder: "praca, ważne, osobiste",
+                save: "Zapisz",
+                readMode: "Tryb czytania",
+                theme: "Motyw",
+                lightTheme: "Jasny",
+                darkTheme: "Ciemny",
+                blueTheme: "Niebieski",
+                greenTheme: "Zielony",
+                exportPDF: "Eksportuj PDF",
+                exportTXT: "Eksportuj TXT",
+                expand: "Rozwiń",
+                collapse: "Zwiń",
+                noLetters: "Brak listów",
+                addFirstLetter: "Dodaj swój pierwszy list",
+                deleteSelected: "Usuń wybrane",
+                edit: "Edytuj",
+                view: "Zobacz",
+                date: "Data",
+                tags: "Tagi"
+            }
+        };
+
+        // Стан додатку
+        let letters = JSON.parse(localStorage.getItem('letters')) || [
+            {
+                id: 1,
+                title: "Перший лист",
+                content: "Це приклад першого листа. Тут може бути ваш текст. Ви можете додавати листи, редагувати їх, експортувати у різних форматах та навіть видаляти, якщо вони більше не потрібні.",
+                date: new Date().toISOString(),
+                tags: ["приклад", "перший"]
+            },
+            {
+                id: 2,
+                title: "Важливе повідомлення",
+                content: "Це важливий лист з довгим текстом, який демонструє можливість розгортання та згортання контенту. Можна додати багато тексту тут. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                date: new Date(Date.now() - 86400000).toISOString(),
+                tags: ["важливе", "робота", "терміново"]
+            },
+            {
+                id: 3,
+                title: "Особистий щоденник",
+                content: "Сьогодні чудовий день! Погода сонячна, настрій відмінний. Заплановано багато справ на день, але я впевнений, що впораюся з усіма завданнями.",
+                date: new Date(Date.now() - 172800000).toISOString(),
+                tags: ["особисте", "щоденник", "настрій"]
+            }
+        ];
+
+        let currentLanguage = localStorage.getItem('language') || 'uk';
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        let isReadMode = localStorage.getItem('readMode') === 'true';
+        let lettersToDelete = [];
+        let editingLetterId = null;
+
+        // Ініціалізація
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+        });
+
+        function initApp() {
+            loadLanguage();
+            loadTheme();
+            loadReadMode();
+            renderLetters();
+            setupEventListeners();
+            updateSelectedCount();
+        }
+
+        // Завантаження мови
+        function loadLanguage() {
+            const lang = localStorage.getItem('language') || 'uk';
+            setLanguage(lang);
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            document.documentElement.lang = lang;
+            
+            const translation = translations[lang];
+            document.querySelector('title').textContent = translation.title;
+            document.getElementById('appTitle').textContent = translation.title;
+            
+            // Оновлення всіх текстов елементів
+            updateTextElements(translation);
+            
+            // Оновлення випадаючих списків
+            updateDropdowns(translation);
+            
+            // Оновити активну опцію мови
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.lang === lang);
+            });
+        }
+
+        function updateTextElements(t) {
+            // Основні елементи
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.querySelector('.btn-text').textContent = t.addLetter;
+            document.querySelector('.current-lang').textContent = getLanguageName(currentLanguage);
+            document.querySelector('.current-theme').textContent = t[currentTheme + 'Theme'] || t.lightTheme;
+            
+            // Фільтри
+            document.getElementById('dateFilter').innerHTML = `
+                <option value="all">${t.allDates}</option>
+                <option value="today">${t.today}</option>
+                <option value="week">${t.thisWeek}</option>
+                <option value="month">${t.thisMonth}</option>
+            `;
+            
+            document.getElementById('tagFilter').innerHTML = `
+                <option value="all">${t.allTags}</option>
+                <option value="важливе">${t.important}</option>
+                <option value="особисте">${t.personal}</option>
+                <option value="робота">${t.work}</option>
+                <option value="нагадування">${t.reminder}</option>
+            `;
+            
+            document.querySelector('#clearFilters span').textContent = t.clearFilters;
+            
+            // Модальні вікна
+            document.getElementById('modalTitle').textContent = t.deleteConfirm;
+            document.getElementById('editModalTitle').textContent = editingLetterId ? t.editLetter : t.addLetterModal;
+            
+            // Форма
+            const titleLabel = document.querySelector('label[for="letterTitle"]');
+            const contentLabel = document.querySelector('label[for="letterContent"]');
+            const tagsLabel = document.querySelector('label[for="letterTags"]');
+            
+            if (titleLabel) titleLabel.textContent = t.titleLabel;
+            if (contentLabel) contentLabel.textContent = t.contentLabel;
+            if (tagsLabel) tagsLabel.textContent = t.tagsLabel;
+            
+            document.getElementById('letterTags').placeholder = t.tagsPlaceholder;
+            
+            // Кнопки форми
+            const formButtons = document.querySelectorAll('#letterForm .btn');
+            if (formButtons[0]) formButtons[0].textContent = t.cancel;
+            if (formButtons[1]) formButtons[1].textContent = t.save;
+            
+            // Кнопки модального вікна видалення
+            const deleteButtons = document.querySelectorAll('#deleteModal .btn');
+            if (deleteButtons[0]) deleteButtons[0].textContent = t.cancel;
+            const deleteBtnSpan = deleteButtons[1]?.querySelector('span');
+            if (deleteBtnSpan) deleteBtnSpan.textContent = t.delete;
+            
+            // Оновити листи
+            renderLetters();
+            
+            // Оновити пустий стан
+            const emptyState = document.getElementById('emptyState');
+            if (emptyState) {
+                emptyState.querySelector('h3').textContent = t.noLetters;
+                emptyState.querySelector('p').textContent = t.addFirstLetter;
+            }
+            
+            // Оновити підказку режиму читання
+            document.getElementById('readModeToggle').title = t.readMode;
+        }
+
+        function getLanguageName(lang) {
+            const names = {
+                uk: '🇺🇦 Українська',
+                en: '🇺🇸 English',
+                de: '🇩🇪 Deutsch',
+                ru: '🇷🇺 Русский',
+                pl: '🇵🇱 Polski'
+            };
+            return names[lang] || names.uk;
+        }
+
+        function updateDropdowns(t) {
+            const themeOptions = document.querySelectorAll('.theme-option span');
+            if (themeOptions.length >= 4) {
+                themeOptions[0].textContent = t.lightTheme;
+                themeOptions[1].textContent = t.darkTheme;
+                themeOptions[2].textContent = t.blueTheme;
+                themeOptions[3].textContent = t.greenTheme;
+            }
+        }
+
+        // Завантаження теми
+        function loadTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            setTheme(theme);
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            // Оновити текст теми
+            const t = translations[currentLanguage];
+            const themeName = t[`${theme}Theme`] || t.lightTheme;
+            document.querySelector('.current-theme').textContent = themeName;
+            
+            // Оновити активну опцію теми
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === theme);
+            });
+        }
+
+        // Завантаження режиму читання
+        function loadReadMode() {
+            if (isReadMode) {
+                document.body.classList.add('read-mode-active');
+                document.getElementById('readModeToggle').classList.add('active');
+            }
+        }
+
+        // Рендер листів
+        function renderLetters(filteredLetters = letters) {
+            const container = document.getElementById('lettersContainer');
+            const emptyState = document.getElementById('emptyState');
+            const t = translations[currentLanguage];
+            
+            if (filteredLetters.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'flex';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            container.innerHTML = filteredLetters.map(letter => {
+                const isLongContent = letter.content.length > 200;
+                const isExpanded = localStorage.getItem(`letter_${letter.id}_expanded`) === 'true';
+                
+                return `
+                <div class="letter-card" data-id="${letter.id}">
+                    <div class="letter-header">
+                        <div class="letter-header-left">
+                            <h3 class="letter-title">${escapeHtml(letter.title)}</h3>
+                            <div class="letter-date">
+                                <i class="far fa-calendar"></i> ${formatDate(letter.date, currentLanguage)}
+                            </div>
+                        </div>
+                        <div class="letter-checkbox">
+                            <input type="checkbox" class="select-letter" data-id="${letter.id}" id="check_${letter.id}">
+                            <label for="check_${letter.id}" class="checkbox-label"></label>
+                        </div>
+                    </div>
+                    
+                    ${letter.tags.length > 0 ? `
+                    <div class="letter-tags">
+                        <i class="fas fa-tags"></i>
+                        ${letter.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+                    </div>
+                    ` : ''}
+                    
+                    <div class="letter-content ${isExpanded ? 'expanded' : ''}" id="content-${letter.id}">
+                        ${escapeHtml(letter.content)}
+                        ${isLongContent ? `
+                        <div class="read-more">
+                            <button class="btn-expand" onclick="toggleExpand(${letter.id})">
+                                <i class="fas ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}"></i>
+                                ${isExpanded ? t.collapse : t.expand}
+                            </button>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="letter-actions">
+                        <button class="action-btn" onclick="editLetter(${letter.id})" title="${t.edit}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn" onclick="exportAsPDF(${letter.id})" title="${t.exportPDF}">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                        <button class="action-btn" onclick="exportAsTXT(${letter.id})" title="${t.exportTXT}">
+                            <i class="fas fa-file-alt"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="showDeleteModal([${letter.id}])" title="${t.delete}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            
+            // Додати обробники для чекбоксів
+            document.querySelectorAll('.select-letter').forEach(checkbox => {
+                checkbox.addEventListener('change', updateSelectedCount);
+            });
+        }
+
+        // Форматування дати
+        function formatDate(dateString, lang = 'uk') {
+            const date = new Date(dateString);
+            const localeMap = {
+                'uk': 'uk-UA',
+                'ru': 'ru-RU',
+                'en': 'en-US',
+                'de': 'de-DE',
+                'pl': 'pl-PL'
+            };
+            
+            return date.toLocaleDateString(localeMap[lang] || 'uk-UA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Екранування HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Пошук та фільтри
+        function searchAndFilter() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const dateFilter = document.getElementById('dateFilter').value;
+            const tagFilter = document.getElementById('tagFilter').value;
+            
+            const now = new Date();
+            const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            
+            const filtered = letters.filter(letter => {
+                // Пошук
+                const matchesSearch = !searchTerm || 
+                    letter.title.toLowerCase().includes(searchTerm) ||
+                    letter.content.toLowerCase().includes(searchTerm) ||
+                    letter.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                
+                // Фільтр за датою
+                let matchesDate = true;
+                const letterDate = new Date(letter.date);
+                
+                if (dateFilter === 'today') {
+                    matchesDate = letterDate >= startOfDay;
+                } else if (dateFilter === 'week') {
+                    matchesDate = letterDate >= startOfWeek;
+                } else if (dateFilter === 'month') {
+                    matchesDate = letterDate >= startOfMonth;
+                }
+                
+                // Фільтр за тегом
+                let matchesTag = true;
+                if (tagFilter !== 'all') {
+                    matchesTag = letter.tags.map(t => t.toLowerCase()).includes(tagFilter.toLowerCase());
+                }
+                
+                return matchesSearch && matchesDate && matchesTag;
+            });
+            
+            renderLetters(filtered);
+        }
+
+        // Оновлення лічильника вибраних листів
+        function updateSelectedCount() {
+            const selected = document.querySelectorAll('.select-letter:checked');
+            const filtersDiv = document.querySelector('.filters');
+            let deleteSelectedBtn = document.querySelector('.delete-selected-btn');
+            
+            if (selected.length > 0) {
+                if (!deleteSelectedBtn) {
+                    deleteSelectedBtn = document.createElement('button');
+                    deleteSelectedBtn.className = 'btn btn-danger delete-selected-btn';
+                    deleteSelectedBtn.innerHTML = `<i class="fas fa-trash"></i> ${translations[currentLanguage].deleteSelected} (${selected.length})`;
+                    deleteSelectedBtn.onclick = () => showDeleteModal();
+                    filtersDiv.appendChild(deleteSelectedBtn);
+                } else {
+                    deleteSelectedBtn.innerHTML = `<i class="fas fa-trash"></i> ${translations[currentLanguage].deleteSelected} (${selected.length})`;
+                }
+            } else if (deleteSelectedBtn) {
+                deleteSelectedBtn.remove();
+            }
+        }
+
+        // Модальне вікно видалення
+        function showDeleteModal(letterIds = []) {
+            if (letterIds.length === 0) {
+                // Перевірити вибрані чекбокси
+                const selected = document.querySelectorAll('.select-letter:checked');
+                letterIds = Array.from(selected).map(cb => parseInt(cb.dataset.id));
+                
+                if (letterIds.length === 0) {
+                    alert(translations[currentLanguage].deleteMessage + ' ' + translations[currentLanguage].letters);
+                    return;
+                }
+            }
+            
+            lettersToDelete = letterIds;
+            const t = translations[currentLanguage];
+            
+            document.getElementById('itemCount').textContent = letterIds.length;
+            document.getElementById('deleteMessage').innerHTML = `
+                ${t.deleteMessage} <span id="itemCount">${letterIds.length}</span> ${t.letters}?
+            `;
+            document.getElementById('modalTitle').textContent = t.deleteConfirm;
+            const deleteBtnSpan = document.querySelector('#confirmDelete span');
+            if (deleteBtnSpan) deleteBtnSpan.textContent = t.delete;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        // Підтвердження видалення
+        function confirmDelete() {
+            letters = letters.filter(letter => !lettersToDelete.includes(letter.id));
+            localStorage.setItem('letters', JSON.stringify(letters));
+            renderLetters();
+            hideDeleteModal();
+            
+            // Видалити кнопку видалення вибраних
+            const deleteSelectedBtn = document.querySelector('.delete-selected-btn');
+            if (deleteSelectedBtn) {
+                deleteSelectedBtn.remove();
+            }
+        }
+
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            lettersToDelete = [];
+            
+            // Скинути всі чекбокси
+            document.querySelectorAll('.select-letter').forEach(cb => {
+                cb.checked = false;
+            });
+            
+            updateSelectedCount();
+        }
+
+        // Редагування листа
+        function editLetter(id) {
+            const letter = letters.find(l => l.id === id);
+            if (!letter) return;
+            
+            editingLetterId = id;
+            const t = translations[currentLanguage];
+            
+            document.getElementById('editModalTitle').textContent = t.editLetter;
+            document.getElementById('letterTitle').value = letter.title;
+            document.getElementById('letterContent').value = letter.content;
+            document.getElementById('letterTags').value = letter.tags.join(', ');
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function saveLetter(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('letterTitle').value.trim();
+            const content = document.getElementById('letterContent').value.trim();
+            const tags = document.getElementById('letterTags').value
+                .split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag.length > 0);
+            
+            if (!title || !content) {
+                alert('Заповніть обов\'язкові поля');
+                return;
+            }
+            
+            if (editingLetterId) {
+                // Оновити існуючий лист
+                const index = letters.findIndex(l => l.id === editingLetterId);
+                if (index !== -1) {
+                    letters[index] = {
+                        ...letters[index],
+                        title,
+                        content,
+                        tags,
+                        date: new Date().toISOString()
+                    };
+                }
+                editingLetterId = null;
+            } else {
+                // Додати новий лист
+                const newLetter = {
+                    id: Date.now(),
+                    title,
+                    content,
+                    tags,
+                    date: new Date().toISOString()
+                };
+                letters.unshift(newLetter);
+            }
+            
+            localStorage.setItem('letters', JSON.stringify(letters));
+            renderLetters();
+            hideEditModal();
+        }
+
+        function hideEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('letterForm').reset();
+            editingLetterId = null;
+            document.getElementById('editModalTitle').textContent = translations[currentLanguage].addLetterModal;
+        }
+
+        // Експорт
+        function exportAsPDF(id) {
+            const letter = letters.find(l => l.id === id);
+            if (!letter) return;
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(20);
+            doc.text(letter.title, 20, 20);
+            
+            doc.setFontSize(12);
+            doc.text(`${translations[currentLanguage].date}: ${formatDate(letter.date, currentLanguage)}`, 20, 35);
+            
+            if (letter.tags.length > 0) {
+                doc.text(`${translations[currentLanguage].tags}: ${letter.tags.join(', ')}`, 20, 45);
+            }
+            
+            doc.setFontSize(14);
+            const lines = doc.splitTextToSize(letter.content, 170);
+            doc.text(lines, 20, 60);
+            
+            doc.save(`${letter.title.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+        }
+
+        function exportAsTXT(id) {
+            const letter = letters.find(l => l.id === id);
+            if (!letter) return;
+            
+            const t = translations[currentLanguage];
+            const content = `
+${letter.title}
+${'='.repeat(letter.title.length)}
+
+${t.date}: ${formatDate(letter.date, currentLanguage)}
+${t.tags}: ${letter.tags.join(', ')}
+
+${letter.content}
+            `.trim();
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${letter.title.replace(/[^a-z0-9]/gi, '_')}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Розгортання/згортання контенту
+        function toggleExpand(id) {
+            const content = document.getElementById(`content-${id}`);
+            const button = content.querySelector('.btn-expand');
+            const icon = button.querySelector('i');
+            const t = translations[currentLanguage];
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.className = 'fas fa-chevron-down';
+                button.innerHTML = `<i class="fas fa-chevron-down"></i> ${t.expand}`;
+                localStorage.setItem(`letter_${id}_expanded`, 'false');
+            } else {
+                content.classList.add('expanded');
+                icon.className = 'fas fa-chevron-up';
+                button.innerHTML = `<i class="fas fa-chevron-up"></i> ${t.collapse}`;
+                localStorage.setItem(`letter_${id}_expanded`, 'true');
+            }
+        }
+
+        // Налаштування обробників подій
+        function setupEventListeners() {
+            // Пошук та фільтри
+            document.getElementById('searchInput').addEventListener('input', searchAndFilter);
+            document.getElementById('dateFilter').addEventListener('change', searchAndFilter);
+            document.getElementById('tagFilter').addEventListener('change', searchAndFilter);
+            document.getElementById('clearFilters').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('dateFilter').value = 'all';
+                document.getElementById('tagFilter').value = 'all';
+                searchAndFilter();
+                
+                // Видалити кнопку видалення вибраних
+                const deleteSelectedBtn = document.querySelector('.delete-selected-btn');
+                if (deleteSelectedBtn) {
+                    deleteSelectedBtn.remove();
+                }
+            });
+            
+            // Додати лист
+            document.getElementById('addLetterBtn').addEventListener('click', () => {
+                editingLetterId = null;
+                const t = translations[currentLanguage];
+                document.getElementById('editModalTitle').textContent = t.addLetterModal;
+                document.getElementById('letterForm').reset();
+                document.getElementById('editModal').style.display = 'flex';
+            });
+            
+            // Форма листа
+            document.getElementById('letterForm').addEventListener('submit', saveLetter);
+            
+            // Модальні вікна
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', hideDeleteModal);
+            });
+            
+            document.querySelectorAll('.close-edit-modal').forEach(btn => {
+                btn.addEventListener('click', hideEditModal);
+            });
+            
+            document.getElementById('confirmDelete').addEventListener('click', confirmDelete);
+            
+            // Вибір мови
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const lang = option.dataset.lang;
+                    setLanguage(lang);
+                    document.querySelector('.current-lang').textContent = getLanguageName(lang);
+                });
+            });
+            
+            // Вибір теми
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const theme = option.dataset.theme;
+                    setTheme(theme);
+                });
+            });
+            
+            // Режим читання
+            document.getElementById('readModeToggle').addEventListener('click', () => {
+                isReadMode = !isReadMode;
+                document.body.classList.toggle('read-mode-active', isReadMode);
+                document.getElementById('readModeToggle').classList.toggle('active', isReadMode);
+                localStorage.setItem('readMode', isReadMode);
+                
+                // Оновити підказку
+                const title = translations[currentLanguage].readMode;
+                document.getElementById('readModeToggle').title = title;
+            });
+            
+            // Закриття модальних вікон по кліку на тло
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        if (modal.id === 'editModal') {
+                            hideEditModal();
+                        } else if (modal.id === 'deleteModal') {
+                            hideDeleteModal();
+                        }
+                    }
+                });
+            });
+            
+            // Обробка клавіші Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    hideDeleteModal();
+                    hideEditModal();
+                }
+            });
+            
+            // Закриття дропдаунів при кліку поза ними
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.dropdown-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+            });
+            
+            // Перемикання дропдаунів
+            document.querySelectorAll('.dropdown-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const content = btn.nextElementSibling;
+                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+        }
+
+        // Глобальні функції для HTML атрибутів onclick
+        window.toggleExpand = toggleExpand;
+        window.editLetter = editLetter;
+        window.exportAsPDF = exportAsPDF;
+        window.exportAsTXT = exportAsTXT;
+        window.showDeleteModal = showDeleteModal;
+    </script>
 </body>
 </html>
