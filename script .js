@@ -12,6 +12,7 @@ const translations = {
         important: "Важливе",
         personal: "Особисте",
         work: "Робота",
+        reminder: "Нагадування",
         clearFilters: "Очистити",
         deleteConfirm: "Підтвердження видалення",
         deleteMessage: "Ви впевнені, що хочете видалити",
@@ -37,7 +38,12 @@ const translations = {
         expand: "Розгорнути",
         collapse: "Згорнути",
         noLetters: "Немає листів",
-        addFirstLetter: "Додайте свій перший лист"
+        addFirstLetter: "Додайте свій перший лист",
+        deleteSelected: "Видалити вибрані",
+        edit: "Редагувати",
+        view: "Переглянути",
+        date: "Дата",
+        tags: "Теги"
     },
     en: {
         title: "My Letters",
@@ -51,6 +57,7 @@ const translations = {
         important: "Important",
         personal: "Personal",
         work: "Work",
+        reminder: "Reminder",
         clearFilters: "Clear",
         deleteConfirm: "Delete Confirmation",
         deleteMessage: "Are you sure you want to delete",
@@ -76,46 +83,12 @@ const translations = {
         expand: "Expand",
         collapse: "Collapse",
         noLetters: "No letters",
-        addFirstLetter: "Add your first letter"
-    },
-    pl: {
-        title: "Moje Listy",
-        addLetter: "Dodaj list",
-        searchPlaceholder: "Szukaj listów...",
-        allDates: "Wszystkie daty",
-        today: "Dziś",
-        thisWeek: "W tym tygodniu",
-        thisMonth: "W tym miesiącu",
-        allTags: "Wszystkie tagi",
-        important: "Ważne",
-        personal: "Osobiste",
-        work: "Praca",
-        clearFilters: "Wyczyść",
-        deleteConfirm: "Potwierdzenie usunięcia",
-        deleteMessage: "Czy na pewno chcesz usunąć",
-        letters: "list(y)",
-        warning: "Tej czynności nie można cofnąć!",
-        cancel: "Anuluj",
-        delete: "Usuń",
-        editLetter: "Edytuj list",
-        addLetterModal: "Dodaj list",
-        titleLabel: "Tytuł",
-        contentLabel: "Treść",
-        tagsLabel: "Tagi (oddzielone przecinkami)",
-        tagsPlaceholder: "praca, ważne, osobiste",
-        save: "Zapisz",
-        readMode: "Tryb czytania",
-        theme: "Motyw",
-        lightTheme: "Jasny",
-        darkTheme: "Ciemny",
-        blueTheme: "Niebieski",
-        greenTheme: "Zielony",
-        exportPDF: "Eksportuj PDF",
-        exportTXT: "Eksportuj TXT",
-        expand: "Rozwiń",
-        collapse: "Zwiń",
-        noLetters: "Brak listów",
-        addFirstLetter: "Dodaj swój pierwszy list"
+        addFirstLetter: "Add your first letter",
+        deleteSelected: "Delete Selected",
+        edit: "Edit",
+        view: "View",
+        date: "Date",
+        tags: "Tags"
     },
     de: {
         title: "Meine Briefe",
@@ -129,6 +102,7 @@ const translations = {
         important: "Wichtig",
         personal: "Persönlich",
         work: "Arbeit",
+        reminder: "Erinnerung",
         clearFilters: "Löschen",
         deleteConfirm: "Löschbestätigung",
         deleteMessage: "Sind Sie sicher, dass Sie löschen möchten",
@@ -154,7 +128,102 @@ const translations = {
         expand: "Erweitern",
         collapse: "Zusammenklappen",
         noLetters: "Keine Briefe",
-        addFirstLetter: "Fügen Sie Ihren ersten Brief hinzu"
+        addFirstLetter: "Fügen Sie Ihren ersten Brief hinzu",
+        deleteSelected: "Ausgewählte löschen",
+        edit: "Bearbeiten",
+        view: "Ansehen",
+        date: "Datum",
+        tags: "Tags"
+    },
+    ru: {
+        title: "Мои Письма",
+        addLetter: "Добавить письмо",
+        searchPlaceholder: "Поиск писем...",
+        allDates: "Все даты",
+        today: "Сегодня",
+        thisWeek: "На этой неделе",
+        thisMonth: "В этом месяце",
+        allTags: "Все теги",
+        important: "Важное",
+        personal: "Личное",
+        work: "Работа",
+        reminder: "Напоминание",
+        clearFilters: "Очистить",
+        deleteConfirm: "Подтверждение удаления",
+        deleteMessage: "Вы уверены, что хотите удалить",
+        letters: "письмо(а)",
+        warning: "Это действие нельзя отменить!",
+        cancel: "Отмена",
+        delete: "Удалить",
+        editLetter: "Редактировать письмо",
+        addLetterModal: "Добавить письмо",
+        titleLabel: "Заголовок",
+        contentLabel: "Содержание",
+        tagsLabel: "Теги (через запятую)",
+        tagsPlaceholder: "работа, важное, личное",
+        save: "Сохранить",
+        readMode: "Режим чтения",
+        theme: "Тема",
+        lightTheme: "Светлая",
+        darkTheme: "Темная",
+        blueTheme: "Синяя",
+        greenTheme: "Зеленая",
+        exportPDF: "Экспорт PDF",
+        exportTXT: "Экспорт TXT",
+        expand: "Развернуть",
+        collapse: "Свернуть",
+        noLetters: "Нет писем",
+        addFirstLetter: "Добавьте свое первое письмо",
+        deleteSelected: "Удалить выбранные",
+        edit: "Редактировать",
+        view: "Просмотреть",
+        date: "Дата",
+        tags: "Теги"
+    },
+    pl: {
+        title: "Moje Listy",
+        addLetter: "Dodaj list",
+        searchPlaceholder: "Szukaj listów...",
+        allDates: "Wszystkie daty",
+        today: "Dziś",
+        thisWeek: "W tym tygodniu",
+        thisMonth: "W tym miesiącu",
+        allTags: "Wszystkie tagi",
+        important: "Ważne",
+        personal: "Osobiste",
+        work: "Praca",
+        reminder: "Przypomnienie",
+        clearFilters: "Wyczyść",
+        deleteConfirm: "Potwierdzenie usunięcia",
+        deleteMessage: "Czy na pewno chcesz usunąć",
+        letters: "list(y)",
+        warning: "Tej czynności nie można cofnąć!",
+        cancel: "Anuluj",
+        delete: "Usuń",
+        editLetter: "Edytuj list",
+        addLetterModal: "Dodaj list",
+        titleLabel: "Tytuł",
+        contentLabel: "Treść",
+        tagsLabel: "Tagi (oddzielone przecinkami)",
+        tagsPlaceholder: "praca, ważne, osobiste",
+        save: "Zapisz",
+        readMode: "Tryb czytania",
+        theme: "Motyw",
+        lightTheme: "Jasny",
+        darkTheme: "Ciemny",
+        blueTheme: "Niebieski",
+        greenTheme: "Zielony",
+        exportPDF: "Eksportuj PDF",
+        exportTXT: "Eksportuj TXT",
+        expand: "Rozwiń",
+        collapse: "Zwiń",
+        noLetters: "Brak listów",
+        addFirstLetter: "Dodaj swój pierwszy list",
+        deleteSelected: "Usuń wybrane",
+        edit: "Edytuj",
+        view: "Zobacz",
+        date: "Data",
+        tags: "Tagi"
     }
 };
 
@@ -163,16 +232,23 @@ let letters = JSON.parse(localStorage.getItem('letters')) || [
     {
         id: 1,
         title: "Перший лист",
-        content: "Це приклад першого листа. Тут може бути ваш текст.",
+        content: "Це приклад першого листа. Тут може бути ваш текст. Ви можете додавати листи, редагувати їх, експортувати у різних форматах та навіть видаляти, якщо вони більше не потрібні.",
         date: new Date().toISOString(),
         tags: ["приклад", "перший"]
     },
     {
         id: 2,
         title: "Важливе повідомлення",
-        content: "Це важливий лист з довгим текстом, який демонструє можливість розгортання та згортання контенту. Можна додати багато тексту тут.",
+        content: "Це важливий лист з довгим текстом, який демонструє можливість розгортання та згортання контенту. Можна додати багато тексту тут. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         date: new Date(Date.now() - 86400000).toISOString(),
-        tags: ["важливе", "робота"]
+        tags: ["важливе", "робота", "терміново"]
+    },
+    {
+        id: 3,
+        title: "Особистий щоденник",
+        content: "Сьогодні чудовий день! Погода сонячна, настрій відмінний. Заплановано багато справ на день, але я впевнений, що впораюся з усіма завданнями.",
+        date: new Date(Date.now() - 172800000).toISOString(),
+        tags: ["особисте", "щоденник", "настрій"]
     }
 ];
 
@@ -193,6 +269,7 @@ function initApp() {
     loadReadMode();
     renderLetters();
     setupEventListeners();
+    updateSelectedCount();
 }
 
 // Завантаження мови
@@ -208,19 +285,24 @@ function setLanguage(lang) {
     
     const translation = translations[lang];
     document.querySelector('title').textContent = translation.title;
-    document.querySelector('h1').innerHTML = `<i class="fas fa-envelope"></i> ${translation.title}`;
+    document.getElementById('appTitle').textContent = translation.title;
     
     // Оновлення всіх текстов елементів
     updateTextElements(translation);
     
     // Оновлення випадаючих списків
     updateDropdowns(translation);
+    
+    // Оновити активну опцію мови
+    document.querySelectorAll('.lang-option').forEach(option => {
+        option.classList.toggle('active', option.dataset.lang === lang);
+    });
 }
 
 function updateTextElements(t) {
     // Основні елементи
     document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-    document.querySelector('#addLetterBtn').innerHTML = `<i class="fas fa-plus"></i> ${t.addLetter}`;
+    document.querySelector('.btn-text').textContent = t.addLetter;
     document.querySelector('.current-lang').textContent = getLanguageName(currentLanguage);
     document.querySelector('.current-theme').textContent = t.theme;
     
@@ -234,12 +316,13 @@ function updateTextElements(t) {
     
     document.getElementById('tagFilter').innerHTML = `
         <option value="all">${t.allTags}</option>
-        <option value="important">${t.important}</option>
-        <option value="personal">${t.personal}</option>
-        <option value="work">${t.work}</option>
+        <option value="важливе">${t.important}</option>
+        <option value="особисте">${t.personal}</option>
+        <option value="робота">${t.work}</option>
+        <option value="нагадування">${t.reminder}</option>
     `;
     
-    document.querySelector('#clearFilters').innerHTML = `<i class="fas fa-times"></i> ${t.clearFilters}`;
+    document.querySelector('#clearFilters span').textContent = t.clearFilters;
     
     // Модальні вікна
     document.getElementById('modalTitle').textContent = t.deleteConfirm;
@@ -259,7 +342,7 @@ function updateTextElements(t) {
     // Кнопки модального вікна видалення
     const deleteButtons = document.querySelectorAll('#deleteModal .btn');
     deleteButtons[0].textContent = t.cancel;
-    deleteButtons[1].innerHTML = `<i class="fas fa-trash"></i> ${t.delete}`;
+    deleteButtons[1].querySelector('span').textContent = t.delete;
     
     // Оновити заголовок редагування якщо потрібно
     if (editingLetterId) {
@@ -268,24 +351,34 @@ function updateTextElements(t) {
     
     // Оновити листи
     renderLetters();
+    
+    // Оновити пустий стан
+    const emptyState = document.getElementById('emptyState');
+    if (emptyState) {
+        emptyState.querySelector('h3').textContent = t.noLetters;
+        emptyState.querySelector('p').textContent = t.addFirstLetter;
+    }
 }
 
 function getLanguageName(lang) {
     const names = {
         uk: '🇺🇦 Українська',
         en: '🇺🇸 English',
-        pl: '🇵🇱 Polski',
-        de: '🇩🇪 Deutsch'
+        de: '🇩🇪 Deutsch',
+        ru: '🇷🇺 Русский',
+        pl: '🇵🇱 Polski'
     };
     return names[lang] || names.uk;
 }
 
 function updateDropdowns(t) {
-    const themeOptions = document.querySelectorAll('.theme-option');
-    themeOptions[0].innerHTML = `<i class="fas fa-sun"></i> ${t.lightTheme}`;
-    themeOptions[1].innerHTML = `<i class="fas fa-moon"></i> ${t.darkTheme}`;
-    themeOptions[2].innerHTML = `<i class="fas fa-droplet" style="color: #1e90ff;"></i> ${t.blueTheme}`;
-    themeOptions[3].innerHTML = `<i class="fas fa-leaf" style="color: #27ae60;"></i> ${t.greenTheme}`;
+    const themeOptions = document.querySelectorAll('.theme-option span');
+    if (themeOptions.length >= 4) {
+        themeOptions[0].textContent = t.lightTheme;
+        themeOptions[1].textContent = t.darkTheme;
+        themeOptions[2].textContent = t.blueTheme;
+        themeOptions[3].textContent = t.greenTheme;
+    }
 }
 
 // Завантаження теми
@@ -299,6 +392,10 @@ function setTheme(theme) {
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
     
+    // Оновити текст теми
+    const themeName = translations[currentLanguage][`${theme}Theme`];
+    document.querySelector('.current-theme').textContent = themeName;
+    
     // Оновити активну опцію теми
     document.querySelectorAll('.theme-option').forEach(option => {
         option.classList.toggle('active', option.dataset.theme === theme);
@@ -310,6 +407,7 @@ function loadReadMode() {
     if (isReadMode) {
         document.body.classList.add('read-mode-active');
         document.getElementById('readModeToggle').classList.add('active');
+        document.getElementById('readModeToggle').title = translations[currentLanguage].readMode;
     }
 }
 
@@ -321,37 +419,52 @@ function renderLetters(filteredLetters = letters) {
     
     if (filteredLetters.length === 0) {
         container.innerHTML = '';
-        emptyState.style.display = 'block';
-        emptyState.querySelector('h3').textContent = t.noLetters;
-        emptyState.querySelector('p').textContent = t.addFirstLetter;
+        emptyState.style.display = 'flex';
         return;
     }
     
     emptyState.style.display = 'none';
     
-    container.innerHTML = filteredLetters.map(letter => `
+    container.innerHTML = filteredLetters.map(letter => {
+        const isLongContent = letter.content.length > 200;
+        const isExpanded = localStorage.getItem(`letter_${letter.id}_expanded`) === 'true';
+        
+        return `
         <div class="letter-card" data-id="${letter.id}">
             <div class="letter-header">
-                <div>
+                <div class="letter-header-left">
                     <h3 class="letter-title">${escapeHtml(letter.title)}</h3>
-                    <div class="letter-date">${formatDate(letter.date)}</div>
+                    <div class="letter-date">
+                        <i class="far fa-calendar"></i> ${formatDate(letter.date, currentLanguage)}
+                    </div>
                 </div>
                 <div class="letter-checkbox">
-                    <input type="checkbox" class="select-letter" data-id="${letter.id}">
+                    <input type="checkbox" class="select-letter" data-id="${letter.id}" id="check_${letter.id}">
+                    <label for="check_${letter.id}" class="checkbox-label"></label>
                 </div>
             </div>
             
+            ${letter.tags.length > 0 ? `
             <div class="letter-tags">
+                <i class="fas fa-tags"></i>
                 ${letter.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
             </div>
+            ` : ''}
             
-            <div class="letter-content" id="content-${letter.id}">
+            <div class="letter-content ${isExpanded ? 'expanded' : ''}" id="content-${letter.id}">
                 ${escapeHtml(letter.content)}
-                ${letter.content.length > 200 ? `<div class="read-more"><button class="btn-expand" onclick="toggleExpand(${letter.id})">${t.expand}</button></div>` : ''}
+                ${isLongContent ? `
+                <div class="read-more">
+                    <button class="btn-expand" onclick="toggleExpand(${letter.id})">
+                        <i class="fas ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}"></i>
+                        ${isExpanded ? t.collapse : t.expand}
+                    </button>
+                </div>
+                ` : ''}
             </div>
             
             <div class="letter-actions">
-                <button class="action-btn" onclick="editLetter(${letter.id})" title="${t.editLetter}">
+                <button class="action-btn" onclick="editLetter(${letter.id})" title="${t.edit}">
                     <i class="fas fa-edit"></i>
                 </button>
                 <button class="action-btn" onclick="exportAsPDF(${letter.id})" title="${t.exportPDF}">
@@ -360,18 +473,32 @@ function renderLetters(filteredLetters = letters) {
                 <button class="action-btn" onclick="exportAsTXT(${letter.id})" title="${t.exportTXT}">
                     <i class="fas fa-file-alt"></i>
                 </button>
-                <button class="action-btn" onclick="showDeleteModal([${letter.id}])" title="${t.delete}">
+                <button class="action-btn delete-btn" onclick="showDeleteModal([${letter.id}])" title="${t.delete}">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
+    
+    // Додати обробники для чекбоксів
+    document.querySelectorAll('.select-letter').forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedCount);
+    });
 }
 
 // Форматування дати
-function formatDate(dateString) {
+function formatDate(dateString, lang = 'uk') {
     const date = new Date(dateString);
-    return date.toLocaleDateString(currentLanguage === 'uk' ? 'uk-UA' : currentLanguage, {
+    const localeMap = {
+        'uk': 'uk-UA',
+        'ru': 'ru-RU',
+        'en': 'en-US',
+        'de': 'de-DE',
+        'pl': 'pl-PL'
+    };
+    
+    return date.toLocaleDateString(localeMap[lang] || 'uk-UA', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -420,7 +547,7 @@ function searchAndFilter() {
         // Фільтр за тегом
         let matchesTag = true;
         if (tagFilter !== 'all') {
-            matchesTag = letter.tags.map(t => t.toLowerCase()).includes(tagFilter);
+            matchesTag = letter.tags.map(t => t.toLowerCase()).includes(tagFilter.toLowerCase());
         }
         
         return matchesSearch && matchesDate && matchesTag;
@@ -429,11 +556,28 @@ function searchAndFilter() {
     renderLetters(filtered);
 }
 
+// Оновлення лічильника вибраних листів
+function updateSelectedCount() {
+    const selected = document.querySelectorAll('.select-letter:checked');
+    const deleteBtn = document.querySelector('.delete-selected-btn');
+    
+    if (selected.length > 0) {
+        if (!deleteBtn) {
+            const deleteSelectedBtn = document.createElement('button');
+            deleteSelectedBtn.className = 'btn btn-danger delete-selected-btn';
+            deleteSelectedBtn.innerHTML = `<i class="fas fa-trash"></i> ${translations[currentLanguage].deleteSelected} (${selected.length})`;
+            deleteSelectedBtn.onclick = () => showDeleteModal();
+            document.querySelector('.filters').appendChild(deleteSelectedBtn);
+        } else {
+            deleteSelectedBtn.innerHTML = `<i class="fas fa-trash"></i> ${translations[currentLanguage].deleteSelected} (${selected.length})`;
+        }
+    } else if (deleteBtn) {
+        deleteBtn.remove();
+    }
+}
+
 // Модальне вікно видалення
 function showDeleteModal(letterIds = []) {
-    lettersToDelete = letterIds;
-    const t = translations[currentLanguage];
-    
     if (letterIds.length === 0) {
         // Перевірити вибрані чекбокси
         const selected = document.querySelectorAll('.select-letter:checked');
@@ -446,10 +590,14 @@ function showDeleteModal(letterIds = []) {
     }
     
     lettersToDelete = letterIds;
+    const t = translations[currentLanguage];
+    
     document.getElementById('itemCount').textContent = letterIds.length;
     document.getElementById('deleteMessage').innerHTML = `
         ${t.deleteMessage} <span id="itemCount">${letterIds.length}</span> ${t.letters}?
     `;
+    document.getElementById('modalTitle').textContent = t.deleteConfirm;
+    document.querySelector('#confirmDelete span').textContent = t.delete;
     document.getElementById('deleteModal').style.display = 'flex';
 }
 
@@ -459,6 +607,12 @@ function confirmDelete() {
     localStorage.setItem('letters', JSON.stringify(letters));
     renderLetters();
     hideDeleteModal();
+    
+    // Видалити кнопку видалення вибраних
+    const deleteSelectedBtn = document.querySelector('.delete-selected-btn');
+    if (deleteSelectedBtn) {
+        deleteSelectedBtn.remove();
+    }
 }
 
 function hideDeleteModal() {
@@ -466,7 +620,11 @@ function hideDeleteModal() {
     lettersToDelete = [];
     
     // Скинути всі чекбокси
-    document.querySelectorAll('.select-letter').forEach(cb => cb.checked = false);
+    document.querySelectorAll('.select-letter').forEach(cb => {
+        cb.checked = false;
+    });
+    
+    updateSelectedCount();
 }
 
 // Редагування листа
@@ -533,6 +691,7 @@ function hideEditModal() {
     document.getElementById('editModal').style.display = 'none';
     document.getElementById('letterForm').reset();
     editingLetterId = null;
+    document.getElementById('editModalTitle').textContent = translations[currentLanguage].addLetterModal;
 }
 
 // Експорт
@@ -547,29 +706,30 @@ function exportAsPDF(id) {
     doc.text(letter.title, 20, 20);
     
     doc.setFontSize(12);
-    doc.text(`Дата: ${formatDate(letter.date)}`, 20, 35);
+    doc.text(`${translations[currentLanguage].date}: ${formatDate(letter.date, currentLanguage)}`, 20, 35);
     
     if (letter.tags.length > 0) {
-        doc.text(`Теги: ${letter.tags.join(', ')}`, 20, 45);
+        doc.text(`${translations[currentLanguage].tags}: ${letter.tags.join(', ')}`, 20, 45);
     }
     
     doc.setFontSize(14);
     const lines = doc.splitTextToSize(letter.content, 170);
     doc.text(lines, 20, 60);
     
-    doc.save(`лист_${letter.id}.pdf`);
+    doc.save(`${letter.title.replace(/[^a-z0-9]/gi, '_')}.pdf`);
 }
 
 function exportAsTXT(id) {
     const letter = letters.find(l => l.id === id);
     if (!letter) return;
     
+    const t = translations[currentLanguage];
     const content = `
 ${letter.title}
 ${'='.repeat(letter.title.length)}
 
-Дата: ${formatDate(letter.date)}
-Теги: ${letter.tags.join(', ')}
+${t.date}: ${formatDate(letter.date, currentLanguage)}
+${t.tags}: ${letter.tags.join(', ')}
 
 ${letter.content}
     `.trim();
@@ -578,7 +738,7 @@ ${letter.content}
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `лист_${letter.id}.txt`;
+    a.download = `${letter.title.replace(/[^a-z0-9]/gi, '_')}.txt`;
     a.click();
     URL.revokeObjectURL(url);
 }
@@ -587,14 +747,19 @@ ${letter.content}
 function toggleExpand(id) {
     const content = document.getElementById(`content-${id}`);
     const button = content.querySelector('.btn-expand');
+    const icon = button.querySelector('i');
     const t = translations[currentLanguage];
     
     if (content.classList.contains('expanded')) {
         content.classList.remove('expanded');
-        button.textContent = t.expand;
+        icon.className = 'fas fa-chevron-down';
+        button.innerHTML = `<i class="fas fa-chevron-down"></i> ${t.expand}`;
+        localStorage.setItem(`letter_${id}_expanded`, 'false');
     } else {
         content.classList.add('expanded');
-        button.textContent = t.collapse;
+        icon.className = 'fas fa-chevron-up';
+        button.innerHTML = `<i class="fas fa-chevron-up"></i> ${t.collapse}`;
+        localStorage.setItem(`letter_${id}_expanded`, 'true');
     }
 }
 
@@ -636,19 +801,18 @@ function setupEventListeners() {
     
     // Вибір мови
     document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
             const lang = option.dataset.lang;
             setLanguage(lang);
-            document.querySelectorAll('.lang-option').forEach(opt => {
-                opt.classList.toggle('active', opt.dataset.lang === lang);
-            });
             document.querySelector('.current-lang').textContent = getLanguageName(lang);
         });
     });
     
     // Вибір теми
     document.querySelectorAll('.theme-option').forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
             const theme = option.dataset.theme;
             setTheme(theme);
         });
@@ -660,6 +824,10 @@ function setupEventListeners() {
         document.body.classList.toggle('read-mode-active', isReadMode);
         document.getElementById('readModeToggle').classList.toggle('active', isReadMode);
         localStorage.setItem('readMode', isReadMode);
+        
+        // Оновити підказку
+        const title = translations[currentLanguage].readMode;
+        document.getElementById('readModeToggle').title = title;
     });
     
     // Закриття модальних вікон по кліку на тло
@@ -683,10 +851,25 @@ function setupEventListeners() {
             hideEditModal();
         }
     });
+    
+    // Закриття дропдаунів при кліку поза ними
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-content').forEach(content => {
+                content.style.display = 'none';
+            });
+        }
+    });
+    
+    // Перемикання дропдаунів
+    document.querySelectorAll('.dropdown-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const content = btn.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        });
+    });
 }
-
-// Ініціалізація при завантаженні
-window.onload = initApp;
 
 // Глобальні функції для HTML атрибутів onclick
 window.toggleExpand = toggleExpand;
